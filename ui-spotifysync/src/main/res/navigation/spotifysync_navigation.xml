@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/spotifysync_navigation"
+    app:startDestination="@id/introSpotifySyncFragment">
+
+    <fragment
+        android:id="@+id/introSpotifySyncFragment"
+        android:name="cz.maderajan.ui.spotifysync.IntroSpotifySyncFragment"
+        android:label="fragment_intro_spotify_sync"
+        tools:layout="@layout/fragment_intro_spotify_sync" />
+
+</navigation>

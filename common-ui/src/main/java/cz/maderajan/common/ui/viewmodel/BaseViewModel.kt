@@ -1,0 +1,1 @@
+package cz.maderajan.common.ui.viewmodel
