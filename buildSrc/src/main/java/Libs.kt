@@ -33,6 +33,7 @@ object Libs : Plugin<Project> {
     object Ui {
         const val appCompat = "androidx.appcompat:appcompat:1.2.0"
         const val material = "com.google.android.material:material:1.2.1"
+        const val constraint = "androidx.constraintlayout:constraintlayout:2.0.4"
     }
 
     object NavigationComponent {

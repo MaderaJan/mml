@@ -21,6 +21,7 @@ dependencies {
 
     api(Libs.Ui.appCompat)
     api(Libs.Ui.material)
+    api(Libs.Ui.constraint)
     api(Libs.LifeCycle.runTime)
     api(Libs.LifeCycle.runTime)
     implementation("androidx.lifecycle:lifecycle-common-java8:2.2.0")

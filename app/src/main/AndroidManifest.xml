@@ -11,7 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MML">
 
-        <activity android:name="cz.maderajan.ui.spotifysync.SpotifySyncActivity">
+        <activity
+            android:name="cz.maderajan.ui.spotifysync.SpotifySyncActivity"
+            android:theme="@style/Theme.MML.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
