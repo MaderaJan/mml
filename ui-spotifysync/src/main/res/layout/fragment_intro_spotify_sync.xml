@@ -53,30 +53,24 @@
         app:layout_constraintStart_toStartOf="@id/title_text_view"
         app:layout_constraintTop_toBottomOf="@id/title_text_view" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/synchronizeButton"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/Button.Round.Secondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/secondary_color_900"
-        android:fontFamily="@font/poppins_medium"
+        android:layout_marginBottom="8dp"
         android:text="@string/spotify_synchronization_synchronization"
-        android:textColor="@color/text_color_dark"
-        app:cornerRadius="24dp"
         app:layout_constraintBottom_toTopOf="@id/skipButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/skipButton"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
+        style="@style/Button.Text.White"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:fontFamily="@font/poppins_medium"
         android:text="@string/spotify_synchronization_skip"
-        android:textColor="@color/text_color_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
