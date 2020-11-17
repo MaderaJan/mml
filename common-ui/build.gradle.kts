@@ -17,6 +17,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":common-util"))
+
     implementation(Libs.Kotlin.stdlib)
 
     api(Libs.Ui.appCompat)
@@ -24,6 +26,7 @@ dependencies {
     api(Libs.Ui.constraint)
     api(Libs.LifeCycle.runTime)
     api(Libs.LifeCycle.runTime)
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1")
     implementation("androidx.lifecycle:lifecycle-common-java8:2.2.0")
     implementation("androidx.activity:activity-ktx:1.1.0")
 

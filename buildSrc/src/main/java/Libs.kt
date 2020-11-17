@@ -3,6 +3,9 @@ import org.gradle.api.Project
 
 object Libs : Plugin<Project> {
 
+    const val timber = "com.jakewharton.timber:timber:4.7.1"
+    const val dataStorePreferences = "androidx.datastore:datastore-preferences:1.0.0-alpha02"
+
     object Kotlin {
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib:1.4.10"
     }

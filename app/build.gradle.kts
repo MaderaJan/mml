@@ -40,7 +40,15 @@ android {
 
 dependencies {
     implementation(project(":ui-spotifysync"))
+
+    implementation(project(":data"))
+
     implementation(project(":common-resources"))
+    implementation(project(":common-util"))
+
+    implementation(Libs.Koin.koinCore)
+    implementation(Libs.Koin.koinExt)
+    implementation(Libs.Koin.koinAndroid)
 
     implementation(Libs.Kotlin.stdlib)
 }

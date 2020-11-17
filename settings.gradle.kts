@@ -1,3 +1,4 @@
+include(":common-util")
 include(":ui-spotifysync")
 include(":common-ui")
 include(":common-resources")

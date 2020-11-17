@@ -7,5 +7,6 @@ class MmlApplication: Application() {
     override fun onCreate() {
         super.onCreate()
 
+        KoinModuleCompositor.loadKoinModules(applicationContext)
     }
 }
