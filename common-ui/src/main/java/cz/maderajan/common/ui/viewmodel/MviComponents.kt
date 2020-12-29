@@ -31,6 +31,7 @@ abstract class BaseMviViewModel<S : BaseViewModelState, A : IAction>(initState: 
     }
 
     protected abstract suspend fun handleActions()
+    protected open fun onActionError(error: Throwable) {}
 
     fun send(action: A) {
         viewModelScope.launch {

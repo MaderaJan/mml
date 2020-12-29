@@ -24,11 +24,12 @@ dependencies {
     api(Libs.Ui.appCompat)
     api(Libs.Ui.material)
     api(Libs.Ui.constraint)
+    implementation(Libs.Ui.activityX)
+
     api(Libs.LifeCycle.runTime)
-    api(Libs.LifeCycle.runTime)
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1")
-    implementation("androidx.lifecycle:lifecycle-common-java8:2.2.0")
-    implementation("androidx.activity:activity-ktx:1.1.0")
+    api(Libs.LifeCycle.common)
+
+    api(Libs.Coroutines.core)
 
     api(Libs.Koin.koinCore)
     api(Libs.Koin.koinExt)

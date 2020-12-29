@@ -19,3 +19,7 @@ class PreferencesDataStore(private val dataStore: DataStore<Preferences>) {
             this[SPOTIFY_ACCESS_TOKEN] = token
         }
 }
+
+// TODO udělat handle errory
+// TODO udělat pořád ve state
+// TODO přejít na další obrozkvu

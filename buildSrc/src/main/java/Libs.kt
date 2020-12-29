@@ -37,6 +37,7 @@ object Libs : Plugin<Project> {
         const val appCompat = "androidx.appcompat:appcompat:1.2.0"
         const val material = "com.google.android.material:material:1.2.1"
         const val constraint = "androidx.constraintlayout:constraintlayout:2.0.4"
+        const val activityX = "androidx.activity:activity-ktx:1.1.0"
     }
 
     object NavigationComponent {
@@ -50,6 +51,11 @@ object Libs : Plugin<Project> {
 
     object LifeCycle {
         const val runTime = "androidx.lifecycle:lifecycle-runtime:2.2.0"
+        const val common = "androidx.lifecycle:lifecycle-common-java8:2.2.0"
+    }
+
+    object Coroutines {
+        const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1"
     }
 
     override fun apply(target: Project) {}

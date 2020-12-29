@@ -32,7 +32,7 @@ class IntroSpotifySyncFragment : Fragment(R.layout.fragment_intro_spotify_sync) 
             viewModel.uiEffect.consumeAsFlow()
                 .collect { effect ->
                     when (effect) {
-                        is SuccessEffect -> toast(R.string.bottom_sheet_behavior)
+                        is SuccessEffect -> toast(R.string.general_error)
                         is ErrorEffect -> toast(R.string.com_spotify_sdk_login_progress)
                     }
                 }

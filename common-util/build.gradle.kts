@@ -14,4 +14,5 @@ android {
 
 dependencies {
     api(Libs.timber)
+    implementation(Libs.Coroutines.core)
 }

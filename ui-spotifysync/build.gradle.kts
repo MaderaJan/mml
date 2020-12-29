@@ -18,9 +18,9 @@ android {
 
 dependencies {
     implementation(project(":common-ui"))
-    implementation(project(":data"))
     implementation(project(":common-resources"))
     implementation(project(":common-util"))
+    implementation(project(":data"))
 
     api(Libs.Spotify.auth)
 
