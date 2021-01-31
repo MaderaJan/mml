@@ -30,7 +30,7 @@ object Libs : Plugin<Project> {
         const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:4.7.2"
         const val retrofitConverter = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
         const val retrofitCoroutinesAdapter = "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
-        const val kotlinxSerialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
+        const val moshiConverter = "com.squareup.retrofit2:converter-moshi:2.9.0"
     }
 
     object Ui {

@@ -1,8 +1,7 @@
 buildscript {
-    val kotlin_version by extra("1.4.10")
     repositories {
-        google()
         jcenter()
+        google()
         mavenCentral()
 
         flatDir {
@@ -12,9 +11,9 @@ buildscript {
     dependencies {
         classpath(Classpath.gradle)
         classpath(Classpath.gradleKotlin)
+        classpath(Classpath.navigationComponent)
 
         classpath(kotlin("gradle-plugin", version = Versions.kotlin))
-        classpath(kotlin("serialization", version = Versions.kotlin))
     }
 }
 

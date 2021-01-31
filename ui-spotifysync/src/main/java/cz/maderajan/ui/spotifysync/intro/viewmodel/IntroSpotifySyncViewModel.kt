@@ -1,8 +1,10 @@
-package cz.maderajan.ui.spotifysync.intro
+package cz.maderajan.ui.spotifysync.intro.viewmodel
 
 import cz.maderajan.common.ui.viewmodel.BaseMviViewModel
 import cz.maderajan.mml.commonutil.ErrorEffect
 import cz.maderajan.mml.commonutil.SuccessEffect
+import cz.maderajan.ui.spotifysync.intro.IntroSpotifyAction
+import cz.maderajan.ui.spotifysync.intro.PersistSpotifyLoginToken
 import cz.maderajan.ui.spotifysync.usecase.IntroSpotifyUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect

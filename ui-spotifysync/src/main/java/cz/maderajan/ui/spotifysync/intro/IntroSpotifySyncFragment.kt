@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.spotify.sdk.android.authentication.AuthenticationClient
 import com.spotify.sdk.android.authentication.AuthenticationRequest
 import com.spotify.sdk.android.authentication.AuthenticationResponse
@@ -13,6 +14,7 @@ import cz.maderajan.mml.commonutil.ErrorEffect
 import cz.maderajan.mml.commonutil.SuccessEffect
 import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.databinding.FragmentIntroSpotifySyncBinding
+import cz.maderajan.ui.spotifysync.intro.viewmodel.IntroSpotifySyncViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
@@ -32,8 +34,11 @@ class IntroSpotifySyncFragment : Fragment(R.layout.fragment_intro_spotify_sync) 
             viewModel.uiEffect.consumeAsFlow()
                 .collect { effect ->
                     when (effect) {
-                        is SuccessEffect -> toast(R.string.general_error)
                         is ErrorEffect -> toast(R.string.com_spotify_sdk_login_progress)
+                        is SuccessEffect -> {
+                            val action = IntroSpotifySyncFragmentDirections.actionIntroSpotifySyncFragmentToSelectSpotifyAlbumsFragment()
+                            findNavController().navigate(action)
+                        }
                     }
                 }
         }

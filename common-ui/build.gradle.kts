@@ -35,4 +35,7 @@ dependencies {
     api(Libs.Koin.koinExt)
     api(Libs.Koin.koinAndroid)
     api(Libs.Koin.viewModel)
+
+    api(Libs.NavigationComponent.fragment)
+    api(Libs.NavigationComponent.uiKtx)
 }

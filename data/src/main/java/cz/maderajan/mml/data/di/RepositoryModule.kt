@@ -6,6 +6,6 @@ import org.koin.dsl.module
 object RepositoryModule {
 
     internal val module = module {
-        single { SpotifyRepository(get()) }
+        single { SpotifyRepository(get(), get(), get()) }
     }
 }

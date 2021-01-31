@@ -1,6 +1,7 @@
 plugins {
     id(Plugins.androidLibrary)
     id(Plugins.kotlinAndroid)
+    id(Plugins.navigationSafeArgs)
 }
 
 android {
@@ -29,7 +30,4 @@ dependencies {
     implementation(Libs.Koin.koinCore)
     implementation(Libs.Koin.koinExt)
     implementation(Libs.Koin.koinAndroid)
-
-    implementation(Libs.NavigationComponent.fragment)
-    implementation(Libs.NavigationComponent.uiKtx)
 }

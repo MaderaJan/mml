@@ -9,13 +9,16 @@ android {
     defaultConfig {
         minSdkVersion(Config.minSdkVersion)
         targetSdkVersion(Config.targetSdkVersion)
+
+        buildConfigField("String", "SPOTIFY_API_URL", "\"https://api.spotify.com/v1/\"")
     }
 }
 
 dependencies {
     implementation(Libs.Kotlin.stdlib)
 
-    implementation(Libs.Retrofit.kotlinxSerialization)
+
+    implementation(Libs.Retrofit.moshiConverter)
     implementation(Libs.Retrofit.retrofit)
     implementation(Libs.Retrofit.retrofitConverter)
     implementation(Libs.Retrofit.retrofitCoroutinesAdapter)

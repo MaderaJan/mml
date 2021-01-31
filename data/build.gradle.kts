@@ -23,6 +23,7 @@ android {
 
 dependencies {
     implementation(project(":common-util"))
+    implementation(project(":webservice"))
 
     implementation(Libs.Kotlin.stdlib)
 
