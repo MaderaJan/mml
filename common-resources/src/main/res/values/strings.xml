@@ -2,8 +2,13 @@
 <resources>
     <string name="general_error">Unexpected error</string>
 
+    <string name="general_done">Done</string>
+
     <string name="spotify_synchronization_title">Synchronize\nwith\nspotify</string>
     <string name="spotify_synchronization_subtitle">Download your albums directly from spotify</string>
     <string name="spotify_synchronization_synchronization">Synchronization</string>
     <string name="spotify_synchronization_skip">Skip</string>
+
+    <string name="spotify_select_albums_toolbar_title">Your saved albums</string>
+
 </resources>
