@@ -11,6 +11,7 @@ import cz.maderajan.mml.commonutil.LoadingEffect
 import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.databinding.FragmentSelectSpotifyAlbumsBinding
 import cz.maderajan.ui.spotifysync.select.adapter.SelectableAlbumAdapter
+import cz.maderajan.ui.spotifysync.select.viewmodel.AlbumClicked
 import cz.maderajan.ui.spotifysync.select.viewmodel.SelectSpotifyAlbumsViewModel
 import cz.maderajan.ui.spotifysync.select.viewmodel.SyncSpotifyAlbums
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -32,7 +33,9 @@ class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_al
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = SelectableAlbumAdapter()
+        val adapter = SelectableAlbumAdapter { album ->
+            viewModel.send(AlbumClicked(album))
+        }
         binding.recyclerView.adapter = adapter
 
         lifecycleScope.launchWhenCreated {

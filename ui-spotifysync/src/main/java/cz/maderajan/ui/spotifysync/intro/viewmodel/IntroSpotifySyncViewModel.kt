@@ -12,15 +12,6 @@ import kotlinx.coroutines.flow.consumeAsFlow
 class IntroSpotifySyncViewModel(private val introSpotifyUseCase: IntroSpotifyUseCase) :
     BaseMviViewModel<IntroSpotifyViewState, IntroSpotifyAction>(IntroSpotifyViewState()) {
 
-    // TODO -> dočasné řešení -> nefunguje na více devices
-    init {
-//        viewModelScope.launch {
-//            if (introSpotifyUseCase.getSpotifyAccessToken()) {
-//                sendEffect(SuccessEffect())
-//            }
-//        }
-    }
-
     override suspend fun handleActions() {
         actions.consumeAsFlow()
             .collect { action ->

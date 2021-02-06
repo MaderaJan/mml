@@ -23,6 +23,17 @@ class SelectSpotifyAlbumsViewModel(private val syncSpotifyAlbumsUseCase: SyncSpo
                         setState { copy(albums = albums) }
                         sendEffect(ReadyEffect)
                     }
+                    is AlbumClicked -> {
+                        val selectedAlbum = action.album
+                        val updatedAlbums = state.value.albums.toMutableList()
+                        val index = updatedAlbums.indexOf(selectedAlbum)
+                        if (index != -1) {
+                            updatedAlbums[index] = selectedAlbum.copy(isSelected = !selectedAlbum.isSelected)
+                        }
+                        setState {
+                            copy(albums = updatedAlbums)
+                        }
+                    }
                 }
             }
     }
