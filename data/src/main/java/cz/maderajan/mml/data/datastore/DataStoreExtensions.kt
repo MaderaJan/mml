@@ -16,7 +16,7 @@ suspend fun DataStore<Preferences>.addToLocalStorage(mutableFunc: MutablePrefere
     }
 }
 
-suspend inline fun <reified T> DataStore<Preferences>.getFromLocalStorage(PreferencesKey: Preferences.Key<T>): Flow<T> {
+suspend inline fun <reified T> DataStore<Preferences>.getFromLocalStorage(PreferencesKey: Preferences.Key<T>): Flow<T?> {
     return data.catch {
         if (it is IOException) {
             emit(emptyPreferences())
@@ -24,6 +24,6 @@ suspend inline fun <reified T> DataStore<Preferences>.getFromLocalStorage(Prefer
             throw it
         }
     }.map {
-        it[PreferencesKey]!!
+        it[PreferencesKey]
     }
 }

@@ -1,4 +1,4 @@
-package cz.maderajan.ui.spotifysync.intro
+package cz.maderajan.ui.spotifysync.intro.viewmodel
 
 import cz.maderajan.common.ui.viewmodel.IAction
 

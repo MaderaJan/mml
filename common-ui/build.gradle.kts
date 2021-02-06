@@ -24,6 +24,7 @@ dependencies {
     api(Libs.Ui.appCompat)
     api(Libs.Ui.material)
     api(Libs.Ui.constraint)
+    api(Libs.Ui.coil)
     implementation(Libs.Ui.activityX)
 
     api(Libs.LifeCycle.runTime)

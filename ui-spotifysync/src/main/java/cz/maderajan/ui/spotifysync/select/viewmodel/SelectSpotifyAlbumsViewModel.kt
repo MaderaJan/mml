@@ -5,21 +5,20 @@ import cz.maderajan.ui.spotifysync.usecase.SyncSpotifyAlbumsUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
-import timber.log.Timber
 
 @ExperimentalCoroutinesApi
 class SelectSpotifyAlbumsViewModel(private val syncSpotifyAlbumsUseCase: SyncSpotifyAlbumsUseCase) :
-    BaseMviViewModel<SelectSpotifyAlbumsViewState, SelectSpotifyAlbumsActions>(SelectSpotifyAlbumsViewState()) {
+    BaseMviViewModel<SelectSpotifyAlbumsViewState, SelectSpotifyAlbumsActions>(SelectSpotifyAlbumsViewState(emptyList())) {
 
     override suspend fun handleActions() {
         actions.consumeAsFlow()
             .collect { action ->
                 when (action) {
                     SyncSpotifyAlbums -> {
-                        Timber.d("START")
                         val albums = syncSpotifyAlbumsUseCase.fetchAllUserAlbums()
-                        Timber.d("STOP")
-                        Timber.d("albumsSize: ${albums.size}")
+                        setState {
+                            copy(albums = albums)
+                        }
                     }
                 }
             }

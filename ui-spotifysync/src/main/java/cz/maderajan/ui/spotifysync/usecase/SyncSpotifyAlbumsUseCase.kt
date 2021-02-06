@@ -1,16 +1,17 @@
 package cz.maderajan.ui.spotifysync.usecase
 
+import cz.maderajan.mml.data.TokenRepository
 import cz.maderajan.mml.data.data.Album
-import cz.maderajan.mml.data.datastore.PreferencesDataStore
 import cz.maderajan.mml.data.spotify.SpotifyRepository
+import cz.maderajan.ui.spotifysync.SelectableAlbum
 
 class SyncSpotifyAlbumsUseCase(
     private val spotifyRepository: SpotifyRepository,
-    private val preferencesDataStore: PreferencesDataStore
+    private val tokenRepository: TokenRepository
 ) {
 
-    suspend fun fetchAllUserAlbums(): List<Album> {
-        val token = preferencesDataStore.getSpotifyBearerAccessToken()
+    suspend fun fetchAllUserAlbums(): List<SelectableAlbum> {
+        val token = tokenRepository.getSpotifyAccessToken()
         val (firstBatchAlbums, allAlbumsCount) = spotifyRepository.fetchAlbumBatch(token, offset = 0)
 
         var allAlbums = listOf<Album>()
@@ -22,6 +23,13 @@ class SyncSpotifyAlbumsUseCase(
 //            allAlbums = allAlbums + albumsBatch
 //        }
 
-        return allAlbums
+        // TODO nebude lepší kompozice
+        val selectableAlbums = allAlbums.map {
+            SelectableAlbum(
+                it.id, it.name, it.image, it.artists, it.genres, false
+            )
+        }
+
+        return selectableAlbums
     }
 }

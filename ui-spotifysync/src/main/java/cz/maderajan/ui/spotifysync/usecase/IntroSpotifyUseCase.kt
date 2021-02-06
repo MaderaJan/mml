@@ -1,10 +1,13 @@
 package cz.maderajan.ui.spotifysync.usecase
 
-import cz.maderajan.mml.data.spotify.SpotifyRepository
+import cz.maderajan.mml.data.TokenRepository
 
-class IntroSpotifyUseCase(private val spotifyRepository: SpotifyRepository) {
+class IntroSpotifyUseCase(private val tokenRepository: TokenRepository) {
 
     suspend fun persistSpotifyAccessToken(token: String) {
-        spotifyRepository.persistAccessToken(token)
+        tokenRepository.persistSpotifyAccessToken(token)
     }
+
+    suspend fun getSpotifyAccessToken(): Boolean =
+        tokenRepository.isUserLoggedInSpotifyAccount()
 }

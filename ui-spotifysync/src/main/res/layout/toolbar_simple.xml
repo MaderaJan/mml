@@ -11,6 +11,7 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
             android:theme="@style/Theme.MML.ToolbarStyle"
+            app:titleTextColor="@color/text_color_light"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:menu="@menu/menu_done"

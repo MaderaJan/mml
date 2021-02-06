@@ -38,6 +38,7 @@ object Libs : Plugin<Project> {
         const val material = "com.google.android.material:material:1.2.1"
         const val constraint = "androidx.constraintlayout:constraintlayout:2.0.4"
         const val activityX = "androidx.activity:activity-ktx:1.1.0"
+        const val coil = "io.coil-kt:coil:1.1.1"
     }
 
     object NavigationComponent {
