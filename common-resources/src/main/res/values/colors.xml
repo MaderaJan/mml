@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--    OVERRIDE -->
+    <color name="ripple_material_light" description="color selectableItemBackground">#20F8F8FF</color>`
+    <!--    OVERRIDE -->
+
     <color name="primary_color_900">#160C28</color>
     <color name="primary_color_800">#2D243E</color>
     <color name="primary_color_700">#453D53</color>

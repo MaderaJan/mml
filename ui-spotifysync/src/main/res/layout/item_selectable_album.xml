@@ -5,6 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="12dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?attr/selectableItemBackground"
     tools:background="@color/primary_color_900">
 
     <ImageView
@@ -55,6 +58,8 @@
         android:textColor="@color/text_color_light"
         app:layout_constraintBottom_toBottomOf="@id/album_cover_image_view"
         app:layout_constraintStart_toEndOf="@id/album_cover_image_view"
-        android:text="Artist, Artist" />
+        tools:text="Artist, Artist" />
+
+    <!--    TODO ADD TO STYLES -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

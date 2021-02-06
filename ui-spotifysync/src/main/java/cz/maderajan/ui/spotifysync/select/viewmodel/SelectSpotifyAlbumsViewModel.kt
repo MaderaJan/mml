@@ -1,6 +1,8 @@
 package cz.maderajan.ui.spotifysync.select.viewmodel
 
 import cz.maderajan.common.ui.viewmodel.BaseMviViewModel
+import cz.maderajan.mml.commonutil.LoadingEffect
+import cz.maderajan.mml.commonutil.ReadyEffect
 import cz.maderajan.ui.spotifysync.usecase.SyncSpotifyAlbumsUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -15,10 +17,11 @@ class SelectSpotifyAlbumsViewModel(private val syncSpotifyAlbumsUseCase: SyncSpo
             .collect { action ->
                 when (action) {
                     SyncSpotifyAlbums -> {
+                        uiEffect.send(LoadingEffect)
+
                         val albums = syncSpotifyAlbumsUseCase.fetchAllUserAlbums()
-                        setState {
-                            copy(albums = albums)
-                        }
+                        setState { copy(albums = albums) }
+                        sendEffect(ReadyEffect)
                     }
                 }
             }
