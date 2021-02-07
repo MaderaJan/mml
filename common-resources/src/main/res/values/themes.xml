@@ -47,7 +47,8 @@
     <style name="Theme.MML.ToolbarStyle" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
         <item name="android:background">@color/primary_color_800</item>
         <item name="colorOnPrimary">@color/secondary_color_900</item>
-        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="textAllCaps">true</item>
     </style>
 
     <style name="Theme.MML.TextAppearance" parent="@android:style/TextAppearance">
@@ -72,6 +73,11 @@
         <item name="android:textColor">@color/text_color_light</item>
         <item name="android:textSize">14sp</item>
         <item name="rippleColor">@color/text_color_light</item>
+    </style>
+
+    <style name="Button.Text.Secondary" parent="Button.Text.White">
+        <item name="android:textColor">@color/secondary_color_800</item>
+        <item name="textAllCaps">true</item>
     </style>
 
     <style name="Button.Round.Secondary" parent="Widget.MaterialComponents.Button">

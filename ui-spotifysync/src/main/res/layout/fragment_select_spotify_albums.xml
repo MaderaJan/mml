@@ -4,18 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:orientation="vertical">
 
     <include
         layout="@layout/view_toolbar"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <cz.maderajan.common.ui.view.BannerView
+        android:id="@+id/select_all_banner_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:description="@string/spotify_select_banner_description"
+
+        app:layout_constraintTop_toBottomOf="@+id/app_bar"
+        app:negativeButton="@string/spotify_select_banner_negative"
+        app:positiveButton="@string/spotify_select_banner_positive"
+        app:startIcon="@drawable/ic_select_album"
+        tools:background="@color/primary_color_900"
+        tools:visibility="visible" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_bar"
+        app:layout_constraintTop_toBottomOf="@+id/select_all_banner_view"
         tools:listitem="@layout/item_selectable_album" />
 
     <ProgressBar
@@ -32,19 +49,20 @@
     <com.reddit.indicatorfastscroll.FastScrollerView
         android:id="@+id/fast_scroller"
         android:layout_width="24dp"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:textColor="@color/text_color_light"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/select_all_banner_view" />
 
     <com.reddit.indicatorfastscroll.FastScrollerThumbView
         android:id="@+id/fastscroller_thumb"
         android:layout_width="40dp"
-        android:layout_marginEnd="16dp"
         android:layout_height="match_parent"
-        app:thumbColor="@color/primary_color_500"
+        android:layout_marginEnd="16dp"
         android:textColor="@color/text_color_light"
-        app:layout_constraintEnd_toStartOf="@id/fast_scroller" />
+        app:layout_constraintEnd_toStartOf="@id/fast_scroller"
+        app:thumbColor="@color/primary_color_500" />
 
     <!--    TODO STYLES-->
 

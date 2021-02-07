@@ -17,6 +17,7 @@ class SelectableAlbumViewHolder(private val binding: ItemSelectableAlbumBinding)
         binding.checkImageView.setImageResource(selectedDrawable)
 
         binding.albumCoverImageView.load(album.image) {
+            crossfade(true)
             placeholder(R.drawable.ic_music)
             transformations(CircleCropTransformation())
         }

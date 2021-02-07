@@ -10,5 +10,8 @@
     <string name="spotify_synchronization_skip">Skip</string>
 
     <string name="spotify_select_albums_toolbar_title">Your saved albums</string>
+    <string name="spotify_select_banner_positive">Select all</string>
+    <string name="spotify_select_banner_negative">Dismiss</string>
+    <string name="spotify_select_banner_description">Do you want to select all albums at once?</string>
 
 </resources>

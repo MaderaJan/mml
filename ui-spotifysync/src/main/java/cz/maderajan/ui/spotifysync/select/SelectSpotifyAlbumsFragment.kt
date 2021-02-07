@@ -1,6 +1,8 @@
 package cz.maderajan.ui.spotifysync.select
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -9,12 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import cz.maderajan.common.ui.fragment.viewBinding
 import cz.maderajan.mml.commonutil.LoadingEffect
+import cz.maderajan.mml.commonutil.ReadyEffect
 import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.data.select.AlphabetLetter
 import cz.maderajan.ui.spotifysync.data.select.SelectableAlbum
 import cz.maderajan.ui.spotifysync.databinding.FragmentSelectSpotifyAlbumsBinding
 import cz.maderajan.ui.spotifysync.select.adapter.SelectableAlbumAdapter
 import cz.maderajan.ui.spotifysync.select.viewmodel.AlbumClicked
+import cz.maderajan.ui.spotifysync.select.viewmodel.SelectAllAlbums
 import cz.maderajan.ui.spotifysync.select.viewmodel.SelectSpotifyAlbumsViewModel
 import cz.maderajan.ui.spotifysync.select.viewmodel.SyncSpotifyAlbums
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -42,8 +46,6 @@ class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_al
         }
         binding.recyclerView.adapter = adapter
 
-        setupFastScrollerWithAlphabet(adapter)
-
         lifecycleScope.launchWhenCreated {
             viewModel.state.collect {
                 adapter.submitList(it.albums)
@@ -54,10 +56,28 @@ class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_al
             viewModel.uiEffect.consumeAsFlow()
                 .collect { effect ->
                     binding.progressBar.isVisible = effect is LoadingEffect
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        binding.selectAllBannerView.isVisible = effect is ReadyEffect
+                    }, 500)
                 }
         }
 
+        setupFastScrollerWithAlphabet(adapter)
+        setupBanner()
+
         viewModel.send(SyncSpotifyAlbums)
+    }
+
+    private fun setupBanner() {
+        binding.selectAllBannerView.setNegativeButtonClick {
+            binding.selectAllBannerView.isVisible = false
+        }
+
+        binding.selectAllBannerView.setPositiveButtonClick {
+            viewModel.send(SelectAllAlbums)
+            binding.selectAllBannerView.isVisible = false
+        }
     }
 
     private fun setupFastScrollerWithAlphabet(adapter: SelectableAlbumAdapter) {

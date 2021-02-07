@@ -38,6 +38,12 @@ class SelectSpotifyAlbumsViewModel(private val syncSpotifyAlbumsUseCase: SyncSpo
                             copy(albums = updatedAlbums)
                         }
                     }
+                    SelectAllAlbums -> {
+                        val updatedAlbums = state.value.albums.map {
+                            if (it is SelectableAlbum) it.copy(isSelected = true) else it
+                        }
+                        setState { copy(albums = updatedAlbums) }
+                    }
                 }
             }
     }
