@@ -1,4 +1,4 @@
-package cz.maderajan.ui.spotifysync
+package cz.maderajan.ui.spotifysync.data.select
 
 import cz.maderajan.mml.data.data.Album
 import cz.maderajan.mml.data.data.Artist
@@ -10,7 +10,7 @@ data class SelectableAlbum(
     override val artists: List<Artist>,
     override val genres: List<String>,
     val isSelected: Boolean
-) : Album(id, name, image, artists, genres) {
+) : Album(id, name, image, artists, genres), ISelectableAlbum {
 
     val presentableArtist: String = artists.joinToString(", ") { it.name }
 }

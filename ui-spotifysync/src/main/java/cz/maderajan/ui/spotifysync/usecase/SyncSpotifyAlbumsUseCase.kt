@@ -3,7 +3,8 @@ package cz.maderajan.ui.spotifysync.usecase
 import cz.maderajan.mml.data.TokenRepository
 import cz.maderajan.mml.data.data.Album
 import cz.maderajan.mml.data.spotify.SpotifyRepository
-import cz.maderajan.ui.spotifysync.SelectableAlbum
+import cz.maderajan.ui.spotifysync.data.select.SelectableAlbum
+import java.util.*
 
 class SyncSpotifyAlbumsUseCase(
     private val spotifyRepository: SpotifyRepository,
@@ -30,6 +31,6 @@ class SyncSpotifyAlbumsUseCase(
             )
         }
 
-        return selectableAlbums
+        return selectableAlbums.sortedBy { it.name.toLowerCase(Locale.getDefault()) }
     }
 }
