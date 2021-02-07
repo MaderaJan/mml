@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/select_all_albums"
+        app:layout_constraintTop_toBottomOf="@+id/app_bar"
         tools:listitem="@layout/item_selectable_album" />
 
     <ProgressBar
@@ -31,9 +31,9 @@
 
     <com.reddit.indicatorfastscroll.FastScrollerView
         android:id="@+id/fast_scroller"
-        android:layout_width="32dp"
+        android:layout_width="24dp"
         android:layout_height="match_parent"
-        android:textColor="@color/secondary_color_800"
+        android:textColor="@color/text_color_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,5 +45,7 @@
         app:thumbColor="@color/primary_color_500"
         android:textColor="@color/text_color_light"
         app:layout_constraintEnd_toStartOf="@id/fast_scroller" />
+
+    <!--    TODO STYLES-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
