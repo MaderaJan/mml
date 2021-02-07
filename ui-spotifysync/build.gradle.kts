@@ -34,4 +34,5 @@ dependencies {
     implementation(Libs.Koin.koinCore)
     implementation(Libs.Koin.koinExt)
     implementation(Libs.Koin.koinAndroid)
+    implementation("com.reddit:indicator-fast-scroll:1.3.0")
 }

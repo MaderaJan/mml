@@ -44,4 +44,6 @@ class SelectableAlbumAdapter(private val onAlbumClicked: (SelectableAlbum) -> Un
             else -> throw IllegalArgumentException("Unknown item type or ViewHolder")
         }
     }
+
+    fun getItemPosition(position: Int): ISelectableAlbum = getItem(position)
 }
