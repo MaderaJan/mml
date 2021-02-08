@@ -17,7 +17,6 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         app:description="@string/spotify_select_banner_description"
-
         app:layout_constraintTop_toBottomOf="@+id/app_bar"
         app:negativeButton="@string/spotify_select_banner_negative"
         app:positiveButton="@string/spotify_select_banner_positive"
@@ -50,7 +49,7 @@
         android:id="@+id/fast_scroller"
         android:layout_width="24dp"
         android:layout_height="0dp"
-        android:textColor="@color/text_color_light"
+        style="@style/Text.Regular.Small.White"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/select_all_banner_view" />
@@ -60,10 +59,8 @@
         android:layout_width="40dp"
         android:layout_height="match_parent"
         android:layout_marginEnd="16dp"
-        android:textColor="@color/text_color_light"
+        style="@style/Text.Medium.Medium.White"
         app:layout_constraintEnd_toStartOf="@id/fast_scroller"
         app:thumbColor="@color/primary_color_500" />
-
-    <!--    TODO STYLES-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

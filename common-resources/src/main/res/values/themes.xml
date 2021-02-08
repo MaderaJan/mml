@@ -1,5 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+<!-- GLOBAL -->
     <style name="Theme.MML" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary_color_900</item>
@@ -39,7 +40,7 @@
     </style>
 
     <style name="Theme.MML.ToolbarMenuItem" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="fontFamily">@font/poppins_medium</item>
         <item name="textAllCaps">true</item>
     </style>
@@ -48,7 +49,7 @@
         <item name="android:background">@color/primary_color_800</item>
         <item name="colorOnPrimary">@color/secondary_color_900</item>
         <item name="android:fontFamily">@font/poppins_medium</item>
-        <item name="textAllCaps">true</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="Theme.MML.TextAppearance" parent="@android:style/TextAppearance">
@@ -56,17 +57,14 @@
         <item name="android:textColor">@color/text_color_light</item>
     </style>
 
-    <style name="PoppinsTextStyle" parent="android:Widget.TextView">
-        <item name="android:fontFamily">@font/poppins_regular</item>
-        <item name="android:textColor">@color/text_color_light</item>
+    <style name="View.ClickAble" parent="">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
     </style>
+    <!-- GLOBAL -->
 
-    <style name="PoppinsButtonStyle" parent="android:Widget.Holo.Button">
-        <item name="android:fontFamily">@font/poppins_bold</item>
-        <item name="android:textColor">@color/text_color_light</item>
-        <item name="android:textSize">16sp</item>
-    </style>
-
+    <!-- BUTTON -->
     <style name="Button.Text.White" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:fontFamily">@font/poppins_medium</item>
         <item name="android:textAppearance">@style/Theme.MML.TextAppearance</item>
@@ -89,5 +87,30 @@
         <item name="android:textSize">14sp</item>
         <item name="cornerRadius">24dp</item>
     </style>
+    <!-- BUTTON -->
+
+    <!-- TEXT -->
+    <style name="Text.Regular.Small.White" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/text_color_light</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Text.Regular.Normal.White" parent="Text.Regular.Small.White">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Text.Medium.Medium.White" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/text_color_light</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Text.Bold.Large.White" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/text_color_light</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="android:textSize">36sp</item>
+    </style>
+    <!-- TEXT -->
 
 </resources>

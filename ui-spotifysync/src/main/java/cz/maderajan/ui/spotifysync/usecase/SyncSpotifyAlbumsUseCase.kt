@@ -24,11 +24,8 @@ class SyncSpotifyAlbumsUseCase(
 //            allAlbums = allAlbums + albumsBatch
 //        }
 
-        // TODO nebude lepší kompozice
         val selectableAlbums = allAlbums.map {
-            SelectableAlbum(
-                it.id, it.name, it.image, it.artists, it.genres, false
-            )
+            SelectableAlbum(it.id, it.name, it.image, it.artists, it.genres, false)
         }
 
         return selectableAlbums.sortedBy { it.name.toLowerCase(Locale.getDefault()) }
