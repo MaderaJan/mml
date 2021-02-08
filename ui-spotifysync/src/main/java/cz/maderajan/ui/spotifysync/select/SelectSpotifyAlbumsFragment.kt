@@ -10,6 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import cz.maderajan.common.ui.fragment.viewBinding
+import cz.maderajan.common.ui.toast
+import cz.maderajan.mml.commonutil.ErrorEffect
 import cz.maderajan.mml.commonutil.LoadingEffect
 import cz.maderajan.mml.commonutil.ReadyEffect
 import cz.maderajan.ui.spotifysync.R
@@ -55,6 +57,10 @@ class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_al
         lifecycleScope.launchWhenCreated {
             viewModel.uiEffect.consumeAsFlow()
                 .collect { effect ->
+                    when (effect) {
+                        is ErrorEffect -> toast(effect.message)
+                    }
+
                     binding.progressBar.isVisible = effect is LoadingEffect
 
                     Handler(Looper.getMainLooper()).postDelayed({

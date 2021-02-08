@@ -1,15 +1,17 @@
 package cz.maderajan.ui.spotifysync.select.viewmodel
 
 import cz.maderajan.common.ui.viewmodel.BaseMviViewModel
+import cz.maderajan.mml.commonutil.ErrorEffect
 import cz.maderajan.mml.commonutil.LoadingEffect
 import cz.maderajan.mml.commonutil.ReadyEffect
+import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.data.select.AlphabetLetter
 import cz.maderajan.ui.spotifysync.data.select.ISelectableAlbum
 import cz.maderajan.ui.spotifysync.data.select.SelectableAlbum
 import cz.maderajan.ui.spotifysync.usecase.SyncSpotifyAlbumsUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.consumeAsFlow
+import kotlinx.coroutines.flow.*
 
 @ExperimentalCoroutinesApi
 class SelectSpotifyAlbumsViewModel(private val syncSpotifyAlbumsUseCase: SyncSpotifyAlbumsUseCase) :
@@ -22,10 +24,17 @@ class SelectSpotifyAlbumsViewModel(private val syncSpotifyAlbumsUseCase: SyncSpo
                     SyncSpotifyAlbums -> {
                         uiEffect.send(LoadingEffect)
 
-                        val albums = syncSpotifyAlbumsUseCase.fetchAllUserAlbums()
-                        val decoratedAlbums = decorateAlbumsWithAlphaLetter(albums)
-                        setState { copy(albums = decoratedAlbums) }
-                        sendEffect(ReadyEffect)
+                        syncSpotifyAlbumsUseCase.fetchAllUserAlbums()
+                            .flowOn(Dispatchers.IO)
+                            .map(::decorateAlbumsWithAlphaLetter)
+                            .catch {
+                                flowOf(emptyList<SelectableAlbum>())
+                                sendEffect(ErrorEffect(R.string.general_error))
+                            }
+                            .collect { decoratedAlbums ->
+                                setState { copy(albums = decoratedAlbums) }
+                                sendEffect(ReadyEffect)
+                            }
                     }
                     is AlbumClicked -> {
                         val selectedAlbum = action.album

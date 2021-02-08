@@ -17,11 +17,8 @@ android {
 dependencies {
     implementation(Libs.Kotlin.stdlib)
 
-
     implementation(Libs.Retrofit.moshiConverter)
     implementation(Libs.Retrofit.retrofit)
-    implementation(Libs.Retrofit.retrofitConverter)
-    implementation(Libs.Retrofit.retrofitCoroutinesAdapter)
     implementation(Libs.Retrofit.loggingInterceptor)
 
     implementation(Libs.Koin.koinCore)

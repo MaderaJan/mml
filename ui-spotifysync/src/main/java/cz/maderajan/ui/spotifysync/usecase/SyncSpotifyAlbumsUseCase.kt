@@ -4,6 +4,8 @@ import cz.maderajan.mml.data.TokenRepository
 import cz.maderajan.mml.data.data.Album
 import cz.maderajan.mml.data.spotify.SpotifyRepository
 import cz.maderajan.ui.spotifysync.data.select.SelectableAlbum
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import java.util.*
 
 class SyncSpotifyAlbumsUseCase(
@@ -11,23 +13,27 @@ class SyncSpotifyAlbumsUseCase(
     private val tokenRepository: TokenRepository
 ) {
 
-    suspend fun fetchAllUserAlbums(): List<SelectableAlbum> {
+    suspend fun fetchAllUserAlbums(): Flow<List<SelectableAlbum>> {
         val token = tokenRepository.getSpotifyAccessToken()
-        val (firstBatchAlbums, allAlbumsCount) = spotifyRepository.fetchAlbumBatch(token, offset = 0)
 
-        var allAlbums = listOf<Album>()
-        allAlbums = allAlbums + firstBatchAlbums
+        return spotifyRepository.fetchAlbumBatch(token, offset = 0)
+            .map { (firstBatchAlbums, allAlbumsCount) ->
+                var allAlbums = listOf<Album>()
+                allAlbums = allAlbums + firstBatchAlbums
 
-        // TODO fetch only first batch
-//        while (allAlbumsCount > allAlbums.size) {
-//            val (albumsBatch, _) = spotifyRepository.fetchAlbumBatch(token, offset = allAlbums.size)
-//            allAlbums = allAlbums + albumsBatch
-//        }
+                // TODO fetch only first batch
+//                while (allAlbumsCount > allAlbums.size) {
+//                    allAlbums = spotifyRepository.fetchAlbumBatch(token, offset = allAlbums.size)
+//                        .map { (albumsBatch, _) ->
+//                             allAlbums + albumsBatch
+//                        }.singleOrNull() ?: emptyList()
+//                }
 
-        val selectableAlbums = allAlbums.map {
-            SelectableAlbum(it.id, it.name, it.image, it.artists, it.genres, false)
-        }
-
-        return selectableAlbums.sortedBy { it.name.toLowerCase(Locale.getDefault()) }
+                allAlbums.sortedBy { it.name.toLowerCase(Locale.getDefault()) }
+            }.map { albums ->
+                albums.map {
+                    SelectableAlbum(it.id, it.name, it.image, it.artists, it.genres, false)
+                }
+            }
     }
 }

@@ -35,7 +35,7 @@ class IntroSpotifySyncFragment : Fragment(R.layout.fragment_intro_spotify_sync) 
             viewModel.uiEffect.consumeAsFlow()
                 .collect { effect ->
                     when (effect) {
-                        is ErrorEffect -> toast(R.string.com_spotify_sdk_login_progress)
+                        is ErrorEffect -> toast(effect.message)
                         is SuccessEffect -> {
                             val action = IntroSpotifySyncFragmentDirections.actionIntroSpotifySyncFragmentToSelectSpotifyAlbumsFragment()
                             findNavController().navigate(action)

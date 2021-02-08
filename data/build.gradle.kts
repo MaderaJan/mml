@@ -26,6 +26,7 @@ dependencies {
     implementation(project(":webservice"))
 
     implementation(Libs.Kotlin.stdlib)
+    implementation(Libs.Retrofit.retrofit)
 
     api(Libs.dataStorePreferences)
 
