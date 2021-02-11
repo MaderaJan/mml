@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <declare-styleable name="BannerView">
         <attr name="description" format="string" />
         <attr name="positiveButton" format="string" />
         <attr name="negativeButton" format="string" />
         <attr name="startIcon" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="InfoScreen">
+        <attr name="titleText" format="string" />
+        <attr name="descriptionText" format="string" />
+        <attr name="buttonText" format="string" />
+        <attr name="topIcon" format="reference" />
+
     </declare-styleable>
 </resources>

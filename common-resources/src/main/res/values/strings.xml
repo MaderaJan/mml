@@ -3,6 +3,10 @@
     <string name="general_error">Unexpected error</string>
 
     <string name="general_done">Done</string>
+    <string name="general_try_again">Try again</string>
+
+    <string name="error_unexpected">Something went wrong</string>
+    <string name="error_please_check_internet">"Please check your internet connection and try again"</string>
 
     <string name="spotify_synchronization_title">Synchronize\nwith\nspotify</string>
     <string name="spotify_synchronization_subtitle">Download your albums directly from spotify</string>
