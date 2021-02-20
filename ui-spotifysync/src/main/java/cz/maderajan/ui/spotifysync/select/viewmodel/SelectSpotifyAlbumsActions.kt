@@ -8,3 +8,4 @@ sealed class SelectSpotifyAlbumsActions : IAction
 object SyncSpotifyAlbums : SelectSpotifyAlbumsActions()
 class AlbumClicked(val album: SelectableAlbum) : SelectSpotifyAlbumsActions()
 object SelectAllAlbums : SelectSpotifyAlbumsActions()
+object SaveSelectedAlbums : SelectSpotifyAlbumsActions()

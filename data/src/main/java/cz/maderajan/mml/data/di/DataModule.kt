@@ -3,6 +3,7 @@ package cz.maderajan.mml.data.di
 import androidx.datastore.preferences.createDataStore
 import cz.maderajan.mml.commonutil.KoinModule
 import cz.maderajan.mml.data.datastore.PreferencesDataStore
+import cz.maderajan.mml.database.di.DatabaseModule
 import cz.maderajan.mml.webservice.di.WebServiceModule
 import org.koin.android.ext.koin.androidApplication
 import org.koin.core.context.loadKoinModules
@@ -15,6 +16,6 @@ object DataModule : KoinModule {
     }
 
     override fun startModule() {
-        loadKoinModules(listOf(module, RepositoryModule.module, MapperModule.module, WebServiceModule.module))
+        loadKoinModules(listOf(module, RepositoryModule.module, MapperModule.module, WebServiceModule.module, DatabaseModule.module))
     }
 }

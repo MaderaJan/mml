@@ -10,18 +10,17 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import cz.maderajan.common.ui.fragment.viewBinding
+import cz.maderajan.common.ui.toast
 import cz.maderajan.mml.commonutil.ErrorEffect
 import cz.maderajan.mml.commonutil.LoadingEffect
 import cz.maderajan.mml.commonutil.ReadyEffect
+import cz.maderajan.mml.commonutil.SuccessEffect
 import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.data.select.AlphabetLetter
 import cz.maderajan.ui.spotifysync.data.select.SelectableAlbum
 import cz.maderajan.ui.spotifysync.databinding.FragmentSelectSpotifyAlbumsBinding
 import cz.maderajan.ui.spotifysync.select.adapter.SelectableAlbumAdapter
-import cz.maderajan.ui.spotifysync.select.viewmodel.AlbumClicked
-import cz.maderajan.ui.spotifysync.select.viewmodel.SelectAllAlbums
-import cz.maderajan.ui.spotifysync.select.viewmodel.SelectSpotifyAlbumsViewModel
-import cz.maderajan.ui.spotifysync.select.viewmodel.SyncSpotifyAlbums
+import cz.maderajan.ui.spotifysync.select.viewmodel.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
@@ -36,6 +35,20 @@ class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_al
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+
+        setHasOptionsMenu(true)
+        binding.topAppBar.inflateMenu(R.menu.menu_done)
+        binding.topAppBar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.action_done -> {
+                    viewModel.send(SaveSelectedAlbums)
+                    true
+                }
+                else -> false
+            }
+        }
+
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
@@ -62,6 +75,10 @@ class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_al
                     Handler(Looper.getMainLooper()).postDelayed({
                         binding.selectAllBannerView.isVisible = effect is ReadyEffect
                     }, 500)
+
+                    if (effect is SuccessEffect) {
+                        toast(R.string.general_done)
+                    }
                 }
         }
 

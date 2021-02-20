@@ -24,6 +24,7 @@ android {
 dependencies {
     implementation(project(":common-util"))
     implementation(project(":webservice"))
+    implementation(project(":database"))
 
     implementation(Libs.Kotlin.stdlib)
     implementation(Libs.Retrofit.retrofit)
