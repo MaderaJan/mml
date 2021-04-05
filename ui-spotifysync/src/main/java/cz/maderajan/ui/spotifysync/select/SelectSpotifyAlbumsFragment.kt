@@ -7,10 +7,10 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import cz.maderajan.common.ui.fragment.viewBinding
-import cz.maderajan.common.ui.toast
 import cz.maderajan.mml.commonutil.ErrorEffect
 import cz.maderajan.mml.commonutil.LoadingEffect
 import cz.maderajan.mml.commonutil.ReadyEffect
@@ -72,12 +72,15 @@ class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_al
                     binding.errorScreen.isVisible = effect is ErrorEffect
                     binding.progressBar.isVisible = effect is LoadingEffect
 
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        binding.selectAllBannerView.isVisible = effect is ReadyEffect
-                    }, 500)
+                    if (effect is ReadyEffect) {
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            binding.selectAllBannerView.isVisible = true
+                        }, 500)
+                    }
 
                     if (effect is SuccessEffect) {
-                        toast(R.string.general_done)
+                        val action = SelectSpotifyAlbumsFragmentDirections.selectSpotifyAlbumsFragmentToActionRateAlbumsFragment()
+                        findNavController().navigate(action)
                     }
                 }
         }

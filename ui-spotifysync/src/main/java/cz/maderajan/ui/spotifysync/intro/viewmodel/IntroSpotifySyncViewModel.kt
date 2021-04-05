@@ -24,8 +24,6 @@ class IntroSpotifySyncViewModel(private val introSpotifyUseCase: IntroSpotifyUse
             }
     }
 
-
-    // TODO toho není dořešné co se týče error message
     private suspend fun storeToken(action: PersistSpotifyLoginToken) {
         if (action.token.isNullOrEmpty()) {
             sendEffect(ErrorEffect(R.string.spotify_synchronization_subtitle))

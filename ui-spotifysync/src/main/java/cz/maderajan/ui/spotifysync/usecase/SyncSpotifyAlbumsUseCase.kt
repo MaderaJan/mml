@@ -40,7 +40,7 @@ class SyncSpotifyAlbumsUseCase(
 
     suspend fun saveSelectedAlbums(selectableAlbums: List<ISelectableAlbum>): Flow<Unit> {
         val albums = selectableAlbums
-            .filter { it is Album }
+            .filter { it is SelectableAlbum && it.isSelected }
             .map { it as Album }
 
         return spotifyRepository.saveAlbums(albums)
