@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation_albums">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_albums"
+    app:startDestination="@id/albumListFragment">
 
     <fragment
         android:id="@+id/albumListFragment"

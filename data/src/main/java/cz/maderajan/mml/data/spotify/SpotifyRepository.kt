@@ -5,6 +5,7 @@ import cz.maderajan.mml.data.data.exceptions.apiCall
 import cz.maderajan.mml.data.data.exceptions.mapSuccess
 import cz.maderajan.mml.data.data.mapper.DataMapperFacade
 import cz.maderajan.mml.data.data.mapper.forLists
+import cz.maderajan.mml.data.datastore.PreferencesDataStore
 import cz.maderajan.mml.database.dao.AlbumDao
 import cz.maderajan.mml.database.entity.AlbumArtistCrossRef
 import cz.maderajan.mml.database.entity.AlbumEntity
@@ -17,7 +18,8 @@ import kotlinx.coroutines.flow.onCompletion
 class SpotifyRepository(
     private val spotifyApi: SpotifyApi,
     private val dataMapperFacade: DataMapperFacade,
-    private val albumDao: AlbumDao
+    private val albumDao: AlbumDao,
+    private val preferencesDataStore: PreferencesDataStore
 ) {
 
     suspend fun fetchAlbumBatch(token: String, offset: Int, limit: Int = 50): Flow<Pair<List<Album>, Int>> =
@@ -57,5 +59,9 @@ class SpotifyRepository(
         }.onCompletion {
             albumDao.saveAlbumArtistCrossRef(allAlbumArtistCrossRefEntities)
         }
+    }
+
+    suspend fun firstSyncComplete() {
+        preferencesDataStore.setFirstSyncComplete()
     }
 }

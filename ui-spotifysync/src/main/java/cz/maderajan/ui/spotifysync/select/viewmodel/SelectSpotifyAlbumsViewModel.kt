@@ -1,10 +1,10 @@
 package cz.maderajan.ui.spotifysync.select.viewmodel
 
+import cz.maderajan.common.ui.ErrorEffect
+import cz.maderajan.common.ui.LoadingEffect
+import cz.maderajan.common.ui.ReadyEffect
+import cz.maderajan.common.ui.SuccessEffect
 import cz.maderajan.common.ui.viewmodel.BaseMviViewModel
-import cz.maderajan.mml.commonutil.ErrorEffect
-import cz.maderajan.mml.commonutil.LoadingEffect
-import cz.maderajan.mml.commonutil.ReadyEffect
-import cz.maderajan.mml.commonutil.SuccessEffect
 import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.data.select.AlphabetLetter
 import cz.maderajan.ui.spotifysync.data.select.ISelectableAlbum
@@ -62,7 +62,7 @@ class SelectSpotifyAlbumsViewModel(private val syncSpotifyAlbumsUseCase: SyncSpo
                                 sendEffect(ErrorEffect(R.string.general_error))
                             }
                             .collect {
-                                sendEffect(SuccessEffect())
+                                sendEffect(SuccessEffect.empty())
                             }
                     }
                 }

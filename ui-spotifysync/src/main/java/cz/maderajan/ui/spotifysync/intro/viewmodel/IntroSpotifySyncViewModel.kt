@@ -1,9 +1,10 @@
 package cz.maderajan.ui.spotifysync.intro.viewmodel
 
+import cz.maderajan.common.ui.ErrorEffect
+import cz.maderajan.common.ui.NavDirectionEffect
 import cz.maderajan.common.ui.viewmodel.BaseMviViewModel
-import cz.maderajan.mml.commonutil.ErrorEffect
-import cz.maderajan.mml.commonutil.SuccessEffect
 import cz.maderajan.ui.spotifysync.R
+import cz.maderajan.ui.spotifysync.intro.IntroSpotifySyncFragmentDirections
 import cz.maderajan.ui.spotifysync.usecase.IntroSpotifyUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -20,6 +21,10 @@ class IntroSpotifySyncViewModel(private val introSpotifyUseCase: IntroSpotifyUse
                     is PersistSpotifyLoginToken -> {
                         storeToken(action)
                     }
+                    is Skip -> {
+                        introSpotifyUseCase.synchronizationSkipped()
+                        TODO("Multi-module navigation down-up")
+                    }
                 }
             }
     }
@@ -29,7 +34,7 @@ class IntroSpotifySyncViewModel(private val introSpotifyUseCase: IntroSpotifyUse
             sendEffect(ErrorEffect(R.string.general_error_something_went_wrong))
         } else {
             introSpotifyUseCase.persistSpotifyAccessToken(action.token)
-            sendEffect(SuccessEffect())
+            sendEffect(NavDirectionEffect(IntroSpotifySyncFragmentDirections.actionIntroSpotifySyncFragmentToSelectSpotifyAlbumsFragment()))
         }
     }
 }

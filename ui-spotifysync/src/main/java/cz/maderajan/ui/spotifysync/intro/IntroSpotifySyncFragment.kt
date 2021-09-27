@@ -8,14 +8,15 @@ import androidx.navigation.fragment.findNavController
 import com.spotify.sdk.android.authentication.AuthenticationClient
 import com.spotify.sdk.android.authentication.AuthenticationRequest
 import com.spotify.sdk.android.authentication.AuthenticationResponse
+import cz.maderajan.common.ui.ErrorEffect
+import cz.maderajan.common.ui.NavDirectionEffect
 import cz.maderajan.common.ui.fragment.viewBinding
 import cz.maderajan.common.ui.toast
-import cz.maderajan.mml.commonutil.ErrorEffect
-import cz.maderajan.mml.commonutil.SuccessEffect
 import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.databinding.FragmentIntroSpotifySyncBinding
 import cz.maderajan.ui.spotifysync.intro.viewmodel.IntroSpotifySyncViewModel
 import cz.maderajan.ui.spotifysync.intro.viewmodel.PersistSpotifyLoginToken
+import cz.maderajan.ui.spotifysync.intro.viewmodel.Skip
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
@@ -36,9 +37,8 @@ class IntroSpotifySyncFragment : Fragment(R.layout.fragment_intro_spotify_sync) 
                 .collect { effect ->
                     when (effect) {
                         is ErrorEffect -> toast(effect.message)
-                        is SuccessEffect -> {
-                            val action = IntroSpotifySyncFragmentDirections.actionIntroSpotifySyncFragmentToSelectSpotifyAlbumsFragment()
-                            findNavController().navigate(action)
+                        is NavDirectionEffect -> {
+                            findNavController().navigate(effect.navDirection)
                         }
                     }
                 }
@@ -52,6 +52,10 @@ class IntroSpotifySyncFragment : Fragment(R.layout.fragment_intro_spotify_sync) 
             val request: AuthenticationRequest = builder.build()
 
             AuthenticationClient.openLoginActivity(requireActivity(), REQ_SPOTIFY_LOGIN, request)
+        }
+
+        binding.skipButton.setOnClickListener {
+            viewModel.send(Skip)
         }
     }
 

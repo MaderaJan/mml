@@ -2,7 +2,7 @@ package cz.maderajan.common.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cz.maderajan.mml.commonutil.IEffect
+import cz.maderajan.common.ui.IEffect
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow

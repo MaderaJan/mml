@@ -7,6 +7,7 @@ import cz.maderajan.ui.spotifysync.data.select.ISelectableAlbum
 import cz.maderajan.ui.spotifysync.data.select.SelectableAlbum
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.singleOrNull
 import java.util.*
 
@@ -44,5 +45,8 @@ class SyncSpotifyAlbumsUseCase(
             .map { it as Album }
 
         return spotifyRepository.saveAlbums(albums)
+            .onCompletion {
+                spotifyRepository.firstSyncComplete()
+            }
     }
 }

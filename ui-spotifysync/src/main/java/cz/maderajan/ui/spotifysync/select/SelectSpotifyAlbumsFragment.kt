@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.reddit.indicatorfastscroll.FastScrollItemIndicator
+import cz.maderajan.common.ui.ErrorEffect
+import cz.maderajan.common.ui.LoadingEffect
+import cz.maderajan.common.ui.ReadyEffect
+import cz.maderajan.common.ui.SuccessEffect
 import cz.maderajan.common.ui.fragment.viewBinding
-import cz.maderajan.mml.commonutil.ErrorEffect
-import cz.maderajan.mml.commonutil.LoadingEffect
-import cz.maderajan.mml.commonutil.ReadyEffect
-import cz.maderajan.mml.commonutil.SuccessEffect
 import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.data.select.AlphabetLetter
 import cz.maderajan.ui.spotifysync.data.select.SelectableAlbum
