@@ -7,7 +7,6 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import cz.maderajan.common.ui.fragment.viewBinding
@@ -35,7 +34,6 @@ class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_al
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
 
         setHasOptionsMenu(true)
         binding.topAppBar.inflateMenu(R.menu.menu_done)
@@ -79,8 +77,7 @@ class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_al
                     }
 
                     if (effect is SuccessEffect) {
-                        val action = SelectSpotifyAlbumsFragmentDirections.selectSpotifyAlbumsFragmentToActionRateAlbumsFragment()
-                        findNavController().navigate(action)
+                        // TODO ALBUM SELECTION
                     }
                 }
         }

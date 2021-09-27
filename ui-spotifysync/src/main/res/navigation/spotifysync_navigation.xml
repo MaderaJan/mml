@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/spotifysync_navigation"
-    app:startDestination="@id/rate_albums_fragment">
+    app:startDestination="@id/intro_spotify_sync_fragment">
 
     <fragment
         android:id="@+id/intro_spotify_sync_fragment"
@@ -23,16 +23,6 @@
         android:label="fragment_select_spotify_albums"
         tools:layout="@layout/fragment_select_spotify_albums">
 
-        <action
-            android:id="@+id/select_spotify_albums_fragment_to_action_rate_albums_fragment"
-            app:destination="@id/rate_albums_fragment" />
-
     </fragment>
-
-    <fragment
-        android:id="@+id/rate_albums_fragment"
-        android:name="cz.maderajan.ui.spotifysync.rate.RateAlbumsFragment"
-        android:label="fragment_rate_albums"
-        tools:layout="@layout/fragment_rate_albums" />
 
 </navigation>

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import cz.maderajan.common.ui.fragment.currentNavigationFragment
 import cz.maderajan.ui.spotifysync.databinding.ActivitySpotifySyncBinding
 
 class SpotifySyncActivity : AppCompatActivity(R.layout.activity_spotify_sync) {
@@ -14,7 +15,6 @@ class SpotifySyncActivity : AppCompatActivity(R.layout.activity_spotify_sync) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivitySpotifySyncBinding.inflate(layoutInflater)
-
         binding.navHostFragment
     }
 

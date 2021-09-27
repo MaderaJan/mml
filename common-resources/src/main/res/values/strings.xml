@@ -4,6 +4,7 @@
 
     <string name="general_done">Done</string>
     <string name="general_try_again">Try again</string>
+    <string name="general_error_something_went_wrong">Something went wrong</string>
 
     <string name="error_unexpected">Something went wrong</string>
     <string name="error_please_check_internet">"Please check your internet connection and try again"</string>
@@ -17,5 +18,7 @@
     <string name="spotify_select_banner_positive">Select all</string>
     <string name="spotify_select_banner_negative">Dismiss</string>
     <string name="spotify_select_banner_description">Do you want to select all albums at once?</string>
+
+    <string name="home_item_albums">Albums</string>
 
 </resources>

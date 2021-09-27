@@ -26,7 +26,7 @@ class IntroSpotifySyncViewModel(private val introSpotifyUseCase: IntroSpotifyUse
 
     private suspend fun storeToken(action: PersistSpotifyLoginToken) {
         if (action.token.isNullOrEmpty()) {
-            sendEffect(ErrorEffect(R.string.spotify_synchronization_subtitle))
+            sendEffect(ErrorEffect(R.string.general_error_something_went_wrong))
         } else {
             introSpotifyUseCase.persistSpotifyAccessToken(action.token)
             sendEffect(SuccessEffect())
