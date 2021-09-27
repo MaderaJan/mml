@@ -40,9 +40,11 @@ android {
 
 dependencies {
     implementation(project(":ui-spotifysync"))
+    implementation(project(":ui-albums"))
 
     implementation(project(":data"))
 
+    implementation(project(":common-ui"))
     implementation(project(":common-resources"))
     implementation(project(":common-util"))
 

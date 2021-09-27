@@ -1,6 +1,7 @@
 include(":app")
 
 include(":ui-spotifysync")
+include(":ui-albums")
 
 include(":common-util")
 include(":common-ui")

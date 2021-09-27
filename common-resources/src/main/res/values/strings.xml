@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">MML</string>
+
     <string name="general_error">Unexpected error</string>
 
     <string name="general_done">Done</string>
