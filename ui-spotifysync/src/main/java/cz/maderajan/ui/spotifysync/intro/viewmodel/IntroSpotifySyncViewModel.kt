@@ -2,6 +2,7 @@ package cz.maderajan.ui.spotifysync.intro.viewmodel
 
 import cz.maderajan.common.ui.ErrorEffect
 import cz.maderajan.common.ui.NavDirectionEffect
+import cz.maderajan.common.ui.SuccessEffect
 import cz.maderajan.common.ui.viewmodel.BaseMviViewModel
 import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.intro.IntroSpotifySyncFragmentDirections
@@ -23,7 +24,7 @@ class IntroSpotifySyncViewModel(private val introSpotifyUseCase: IntroSpotifyUse
                     }
                     is Skip -> {
                         introSpotifyUseCase.synchronizationSkipped()
-                        TODO("Multi-module navigation down-up")
+                        sendEffect(SuccessEffect.empty())
                     }
                 }
             }
