@@ -25,8 +25,7 @@ class MainActivityViewModel(
                                 flowOf(Unit)
                             }.collect { isFirstSyncComplete ->
                                 if (isFirstSyncComplete) {
-//                                    R.id.navigation_albums
-                                    R.id.navigation_spotifysync
+                                    R.id.navigation_albums
                                 } else {
                                     R.id.navigation_spotifysync
                                 }.also { nav ->

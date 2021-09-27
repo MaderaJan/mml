@@ -77,7 +77,7 @@ class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_al
                     }
 
                     if (effect is SuccessEffect) {
-                        // TODO ALBUM SELECTION
+                        // TODO ALBUM LIST
                     }
                 }
         }

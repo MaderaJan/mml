@@ -10,6 +10,7 @@ import com.spotify.sdk.android.authentication.AuthenticationRequest
 import com.spotify.sdk.android.authentication.AuthenticationResponse
 import cz.maderajan.common.ui.ErrorEffect
 import cz.maderajan.common.ui.NavDirectionEffect
+import cz.maderajan.common.ui.SuccessEffect
 import cz.maderajan.common.ui.fragment.viewBinding
 import cz.maderajan.common.ui.toast
 import cz.maderajan.ui.spotifysync.R
@@ -39,6 +40,9 @@ class IntroSpotifySyncFragment : Fragment(R.layout.fragment_intro_spotify_sync) 
                         is ErrorEffect -> toast(effect.message)
                         is NavDirectionEffect -> {
                             findNavController().navigate(effect.navDirection)
+                        }
+                        is SuccessEffect -> {
+                            // TODO ALBUM LIST
                         }
                     }
                 }
