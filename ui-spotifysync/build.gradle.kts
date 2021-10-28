@@ -26,6 +26,7 @@ dependencies {
     implementation(project(":common-resources"))
     implementation(project(":common-util"))
     implementation(project(":data"))
+    implementation(project(":navigation"))
 
     api(Libs.Spotify.auth)
 

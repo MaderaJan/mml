@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="navigation_base" type="id" />
+    <item name="navigation_spotifysync" type="id" />
+    <item name="navigation_albums" type="id" />
+</resources>

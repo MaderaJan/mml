@@ -41,6 +41,7 @@ android {
 dependencies {
     implementation(project(":ui-spotifysync"))
     implementation(project(":ui-albums"))
+    implementation(project(":navigation"))
 
     implementation(project(":data"))
 

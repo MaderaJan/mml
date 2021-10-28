@@ -13,7 +13,7 @@ buildscript {
         classpath(Classpath.gradleKotlin)
         classpath(Classpath.navigationComponent)
 
-        classpath(kotlin("gradle-plugin", version = Versions.kotlin))
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31")
     }
 }
 
