@@ -39,7 +39,7 @@ abstract class BaseMviViewModel<S : BaseViewModelState, A : IAction>(initState: 
         }
     }
 
-    suspend fun sendEffect(effect: IEffect) {
+    protected suspend fun sendEffect(effect: IEffect) {
         uiEffect.send(effect)
     }
 

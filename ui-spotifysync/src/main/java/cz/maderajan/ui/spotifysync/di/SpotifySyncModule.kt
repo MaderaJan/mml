@@ -14,8 +14,8 @@ import org.koin.dsl.module
 object SpotifySyncModule : KoinModule {
 
     private val module = module {
-        viewModel { IntroSpotifySyncViewModel(get()) }
-        viewModel { SelectSpotifyAlbumsViewModel(get()) }
+        viewModel { IntroSpotifySyncViewModel(get(), get()) }
+        viewModel { SelectSpotifyAlbumsViewModel(get(), get()) }
 
         factory { IntroSpotifyUseCase(get(), get()) }
         factory { SyncSpotifyAlbumsUseCase(get(), get()) }

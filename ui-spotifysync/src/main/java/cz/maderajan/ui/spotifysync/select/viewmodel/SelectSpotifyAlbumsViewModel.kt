@@ -1,9 +1,6 @@
 package cz.maderajan.ui.spotifysync.select.viewmodel
 
-import cz.maderajan.common.ui.ErrorEffect
-import cz.maderajan.common.ui.LoadingEffect
-import cz.maderajan.common.ui.ReadyEffect
-import cz.maderajan.common.ui.SuccessEffect
+import cz.maderajan.common.ui.*
 import cz.maderajan.common.ui.viewmodel.BaseMviViewModel
 import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.data.select.AlphabetLetter
@@ -15,8 +12,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 
 @ExperimentalCoroutinesApi
-class SelectSpotifyAlbumsViewModel(private val syncSpotifyAlbumsUseCase: SyncSpotifyAlbumsUseCase) :
-    BaseMviViewModel<SelectSpotifyAlbumsViewState, SelectSpotifyAlbumsActions>(SelectSpotifyAlbumsViewState(emptyList())) {
+class SelectSpotifyAlbumsViewModel(
+    val navigationFlowBus: NavigationFlowBus,
+    private val syncSpotifyAlbumsUseCase: SyncSpotifyAlbumsUseCase
+) : BaseMviViewModel<SelectSpotifyAlbumsViewState, SelectSpotifyAlbumsActions>(SelectSpotifyAlbumsViewState(emptyList())) {
 
     override suspend fun handleActions() {
         actions.consumeAsFlow()

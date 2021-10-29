@@ -29,6 +29,7 @@ dependencies {
     implementation(project(":navigation"))
 
     api(Libs.Spotify.auth)
+    api("androidx.browser:browser:1.3.0")
 
     implementation(Libs.Kotlin.stdlib)
 

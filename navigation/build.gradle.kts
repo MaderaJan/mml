@@ -24,6 +24,7 @@ android {
 dependencies {
     implementation(project(":common-util"))
     implementation(project(":common-resources"))
+    implementation(project(":data"))
 
     implementation(Libs.Kotlin.stdlib)
 

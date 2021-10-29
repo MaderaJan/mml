@@ -15,7 +15,6 @@ import cz.maderajan.common.ui.ReadyEffect
 import cz.maderajan.common.ui.SuccessEffect
 import cz.maderajan.common.ui.fragment.viewBinding
 import cz.maderajan.navigation.NavigationFlow
-import cz.maderajan.navigation.ToFlowNavigatable
 import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.data.select.AlphabetLetter
 import cz.maderajan.ui.spotifysync.data.select.SelectableAlbum
@@ -79,7 +78,7 @@ class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_al
                     }
 
                     if (effect is SuccessEffect) {
-                        (requireActivity() as ToFlowNavigatable).navigateToFlow(NavigationFlow.Albums)
+                        viewModel.navigationFlowBus.send(NavigationFlow.Albums)
                     }
                 }
         }

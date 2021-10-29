@@ -14,7 +14,6 @@ import cz.maderajan.common.ui.SuccessEffect
 import cz.maderajan.common.ui.fragment.viewBinding
 import cz.maderajan.common.ui.toast
 import cz.maderajan.navigation.NavigationFlow
-import cz.maderajan.navigation.ToFlowNavigatable
 import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.databinding.FragmentIntroSpotifySyncBinding
 import cz.maderajan.ui.spotifysync.intro.viewmodel.IntroSpotifySyncViewModel
@@ -44,7 +43,7 @@ class IntroSpotifySyncFragment : Fragment(R.layout.fragment_intro_spotify_sync) 
                             findNavController().navigate(effect.navDirection)
                         }
                         is SuccessEffect -> {
-                            (requireActivity() as ToFlowNavigatable).navigateToFlow(NavigationFlow.Albums)
+                            viewModel.navigationFlowBus.send(NavigationFlow.Albums)
                         }
                     }
                 }

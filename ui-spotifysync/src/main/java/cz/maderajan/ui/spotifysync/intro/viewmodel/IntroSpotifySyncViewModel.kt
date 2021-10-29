@@ -2,6 +2,7 @@ package cz.maderajan.ui.spotifysync.intro.viewmodel
 
 import cz.maderajan.common.ui.ErrorEffect
 import cz.maderajan.common.ui.NavDirectionEffect
+import cz.maderajan.common.ui.NavigationFlowBus
 import cz.maderajan.common.ui.SuccessEffect
 import cz.maderajan.common.ui.viewmodel.BaseMviViewModel
 import cz.maderajan.ui.spotifysync.R
@@ -12,8 +13,10 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
 
 @ExperimentalCoroutinesApi
-class IntroSpotifySyncViewModel(private val introSpotifyUseCase: IntroSpotifyUseCase) :
-    BaseMviViewModel<IntroSpotifyViewState, IntroSpotifyAction>(IntroSpotifyViewState()) {
+class IntroSpotifySyncViewModel(
+    val navigationFlowBus: NavigationFlowBus,
+    private val introSpotifyUseCase: IntroSpotifyUseCase
+) : BaseMviViewModel<IntroSpotifyViewState, IntroSpotifyAction>(IntroSpotifyViewState()) {
 
     override suspend fun handleActions() {
         actions.consumeAsFlow()

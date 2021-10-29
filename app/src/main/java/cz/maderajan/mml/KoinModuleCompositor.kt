@@ -1,9 +1,9 @@
 package cz.maderajan.mml
 
 import android.content.Context
+import cz.maderajan.common.ui.di.CommonUiModule
 import cz.maderajan.mml.commonutil.KoinModule
 import cz.maderajan.mml.data.di.DataModule
-import cz.maderajan.mml.di.MainModule
 import cz.maderajan.ui.spotifysync.di.SpotifySyncModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -14,9 +14,9 @@ object KoinModuleCompositor {
 
     private val koinModules: List<KoinModule>
         get() = listOf(
-            MainModule,
             SpotifySyncModule,
-            DataModule
+            DataModule,
+            CommonUiModule
         )
 
     fun loadKoinModules(context: Context) {

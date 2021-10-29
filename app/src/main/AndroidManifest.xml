@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cz.maderajan.mml">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MmlApplication"
         android:allowBackup="true"
@@ -12,7 +14,7 @@
         android:theme="@style/Theme.MML">
 
         <activity
-            android:name="cz.maderajan.common.ui.MainActivity"
+            android:name=".MainActivity"
             android:theme="@style/Theme.MML.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

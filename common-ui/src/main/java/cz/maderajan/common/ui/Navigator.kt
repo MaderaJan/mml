@@ -1,8 +1,11 @@
-package cz.maderajan.navigation
+package cz.maderajan.common.ui
 
 import androidx.navigation.NavController
+import cz.maderajan.navigation.MainNavGraphDirections
+import cz.maderajan.navigation.NavigationFlow
 
-class Navigator {
+class Navigator() {
+
     lateinit var navController: NavController
 
     fun navigateToFlow(navigationFlow: NavigationFlow) {
