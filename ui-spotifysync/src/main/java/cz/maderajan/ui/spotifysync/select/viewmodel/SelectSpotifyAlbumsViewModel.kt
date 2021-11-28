@@ -1,8 +1,8 @@
 package cz.maderajan.ui.spotifysync.select.viewmodel
 
-import cz.maderajan.common.ui.NavigationFlowBus
 import cz.maderajan.common.ui.UiEffect
 import cz.maderajan.common.ui.viewmodel.BaseMviViewModel
+import cz.maderajan.navigation.NavigationFlowBus
 import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.data.select.AlphabetLetter
 import cz.maderajan.ui.spotifysync.data.select.ISelectableAlbum

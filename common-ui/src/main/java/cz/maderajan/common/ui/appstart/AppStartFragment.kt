@@ -1,4 +1,4 @@
-package cz.maderajan.common.ui.start
+package cz.maderajan.common.ui.appstart
 
 import android.os.Bundle
 import android.view.View

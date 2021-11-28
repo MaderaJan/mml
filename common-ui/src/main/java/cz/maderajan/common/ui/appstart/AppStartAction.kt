@@ -1,4 +1,4 @@
-package cz.maderajan.common.ui.start
+package cz.maderajan.common.ui.appstart
 
 import cz.maderajan.common.ui.viewmodel.IAction
 

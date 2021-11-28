@@ -1,6 +1,5 @@
-package cz.maderajan.common.ui
+package cz.maderajan.navigation
 
-import cz.maderajan.navigation.NavigationFlow
 import kotlinx.coroutines.channels.Channel
 
 class NavigationFlowBus {

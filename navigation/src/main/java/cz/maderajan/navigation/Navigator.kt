@@ -1,10 +1,8 @@
-package cz.maderajan.common.ui
+package cz.maderajan.navigation
 
 import androidx.navigation.NavController
-import cz.maderajan.navigation.MainNavGraphDirections
-import cz.maderajan.navigation.NavigationFlow
 
-class Navigator() {
+class Navigator {
 
     lateinit var navController: NavController
 

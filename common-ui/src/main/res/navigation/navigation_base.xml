@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/fragment_app_start"
-        android:name="cz.maderajan.common.ui.start.AppStartFragment" />
+        android:name="cz.maderajan.common.ui.appstart.AppStartFragment" />
 
 </navigation>

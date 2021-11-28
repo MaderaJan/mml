@@ -1,10 +1,10 @@
-package cz.maderajan.common.ui.start
+package cz.maderajan.common.ui.appstart
 
-import cz.maderajan.common.ui.NavigationFlowBus
 import cz.maderajan.common.ui.UiEffect
 import cz.maderajan.common.ui.usecase.AppStartUseCase
 import cz.maderajan.common.ui.viewmodel.BaseMviViewModel
 import cz.maderajan.navigation.NavigationFlow
+import cz.maderajan.navigation.NavigationFlowBus
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect

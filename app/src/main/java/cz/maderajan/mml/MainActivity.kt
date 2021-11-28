@@ -6,8 +6,8 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import cz.maderajan.common.ui.NavigationFlowBus
-import cz.maderajan.common.ui.Navigator
+import cz.maderajan.navigation.NavigationFlowBus
+import cz.maderajan.navigation.Navigator
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
 import org.koin.android.ext.android.inject
