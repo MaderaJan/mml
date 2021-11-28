@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Config.compileSdkVersion)
+    compileSdk = Config.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion(Config.minSdkVersion)
-        targetSdkVersion(Config.targetSdkVersion)
+        minSdk = Config.minSdkVersion
+        targetSdk = Config.targetSdkVersion
 
         buildConfigField("String", "SPOTIFY_API_URL", "\"https://api.spotify.com/v1/\"")
     }
