@@ -27,11 +27,7 @@ dependencies {
     implementation(project(":webservice"))
     implementation(project(":database"))
 
-    implementation(Libs.Kotlin.stdlib)
     implementation(Libs.Retrofit.retrofit)
 
     api(Libs.dataStorePreferences)
-
-    implementation(Libs.Koin.koinCore)
-    implementation(Libs.Koin.koinAndroid)
 }

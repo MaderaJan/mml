@@ -23,26 +23,17 @@ android {
 }
 
 dependencies {
-    implementation(project(":common-util"))
-    implementation(project(":common-resources"))
-    implementation(project(":data"))
-    implementation(project(":navigation"))
+    api(project(":common-util"))
+    api(project(":common-resources"))
+    api(project(":data"))
+    api(project(":navigation"))
 
-    implementation(Libs.Kotlin.stdlib)
-
-    api(Libs.Ui.appCompat)
-    api(Libs.Ui.material)
     api(Libs.Ui.constraint)
     api(Libs.Ui.coil)
     implementation(Libs.Ui.activityX)
 
     api(Libs.LifeCycle.runTime)
     api(Libs.LifeCycle.common)
-
-    api(Libs.Coroutines.core)
-
-    api(Libs.Koin.koinCore)
-    api(Libs.Koin.koinAndroid)
 
     api(Libs.NavigationComponent.fragment)
     api(Libs.NavigationComponent.uiKtx)

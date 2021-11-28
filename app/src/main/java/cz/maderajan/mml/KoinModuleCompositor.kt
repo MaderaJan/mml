@@ -21,7 +21,7 @@ object KoinModuleCompositor {
 
     fun loadKoinModules(context: Context) {
         startKoin {
-            androidLogger(Level.DEBUG)
+            androidLogger(Level.ERROR)
             androidContext(context)
         }
 

@@ -14,6 +14,6 @@ android {
 }
 
 dependencies {
-    implementation(Libs.Ui.appCompat)
-    implementation(Libs.Ui.material)
+    api(Libs.Ui.appCompat)
+    api(Libs.Ui.material)
 }

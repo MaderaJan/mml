@@ -14,6 +14,16 @@ android {
 }
 
 dependencies {
+    // COROUTINES
+    api(Libs.Coroutines.core)
+
+    // KOTLIN
+    api(Libs.Kotlin.stdlib)
+
+    // KOIN
+    api(Libs.Koin.koinCore)
+    api(Libs.Koin.koinAndroid)
+
+    // OTHERS
     api(Libs.timber)
-    implementation(Libs.Coroutines.core)
 }

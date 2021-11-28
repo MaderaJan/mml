@@ -15,13 +15,12 @@ android {
 }
 
 dependencies {
-    implementation(Libs.Kotlin.stdlib)
+    implementation(project(":common-util"))
 
     implementation(Libs.Room.roomRunTime)
-    kapt(Libs.Room.roomCompiler)
     implementation(Libs.Room.roomKtx)
-    testImplementation(Libs.Room.roomTesting)
 
-    implementation(Libs.Koin.koinCore)
-    implementation(Libs.Koin.koinAndroid)
+    kapt(Libs.Room.roomCompiler)
+
+    testImplementation(Libs.Room.roomTesting)
 }

@@ -42,16 +42,10 @@ android {
 dependencies {
     implementation(project(":ui-spotifysync"))
     implementation(project(":ui-albums"))
-    implementation(project(":navigation"))
+
+    implementation(project(":common-util"))
+    implementation(project(":common-ui"))
 
     implementation(project(":data"))
-
-    implementation(project(":common-ui"))
-    implementation(project(":common-resources"))
-    implementation(project(":common-util"))
-
-    implementation(Libs.Koin.koinCore)
-    implementation(Libs.Koin.koinAndroid)
-
-    implementation(Libs.Kotlin.stdlib)
+    implementation(project(":navigation"))
 }

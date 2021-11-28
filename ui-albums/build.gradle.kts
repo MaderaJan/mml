@@ -24,13 +24,4 @@ android {
 
 dependencies {
     implementation(project(":common-ui"))
-    implementation(project(":common-resources"))
-    implementation(project(":common-util"))
-    implementation(project(":data"))
-    implementation(project(":navigation"))
-
-    implementation(Libs.Kotlin.stdlib)
-
-    implementation(Libs.Koin.koinCore)
-    implementation(Libs.Koin.koinAndroid)
 }
