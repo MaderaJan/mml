@@ -1,5 +1,5 @@
 package cz.maderajan.common.ui.start
 
-import cz.maderajan.common.ui.viewmodel.BaseViewModelState
+import cz.maderajan.common.ui.viewmodel.BaseViewState
 
-object AppStartViewState : BaseViewModelState
+object AppStartViewState : BaseViewState

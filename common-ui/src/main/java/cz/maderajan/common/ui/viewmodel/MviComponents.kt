@@ -9,12 +9,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-interface BaseViewModelState
+interface BaseViewState
 
 interface IAction
 
 @ExperimentalCoroutinesApi
-abstract class BaseMviViewModel<S : BaseViewModelState, A : IAction>(initState: S) : ViewModel() {
+abstract class BaseMviViewModel<S : BaseViewState, A : IAction>(initState: S) : ViewModel() {
 
     private val _state = MutableStateFlow(initState)
     val state: StateFlow<S>
