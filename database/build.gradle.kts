@@ -2,6 +2,7 @@ plugins {
     id(Plugins.androidLibrary)
     id(Plugins.kotlinAndroid)
     kotlin(Plugins.kapt)
+    id(Plugins.gradleVersions) version Plugins.gradleVersionsVersion
 }
 
 android {

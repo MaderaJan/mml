@@ -5,4 +5,6 @@ object Plugins {
     const val kapt = "kapt"
     const val navigationSafeArgs = "androidx.navigation.safeargs.kotlin"
 
+    const val gradleVersions = "com.github.ben-manes.versions"
+    const val gradleVersionsVersion = "0.39.0"
 }

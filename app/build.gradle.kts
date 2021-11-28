@@ -1,6 +1,7 @@
 plugins {
     id(Plugins.androidApplication)
     id(Plugins.kotlinAndroid)
+    id(Plugins.gradleVersions) version Plugins.gradleVersionsVersion
 }
 
 android {
