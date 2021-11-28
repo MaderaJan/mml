@@ -1,7 +1,7 @@
 package cz.maderajan.common.ui.start
 
-import cz.maderajan.common.ui.NavFlowEffect
 import cz.maderajan.common.ui.NavigationFlowBus
+import cz.maderajan.common.ui.UiEffect
 import cz.maderajan.common.ui.usecase.AppStartUseCase
 import cz.maderajan.common.ui.viewmodel.BaseMviViewModel
 import cz.maderajan.navigation.NavigationFlow
@@ -31,7 +31,7 @@ class AppStartViewModel(
                                 } else {
                                     NavigationFlow.SpotifySync
                                 }.also { nav ->
-                                    sendEffect(NavFlowEffect(nav))
+                                    sendEffect(UiEffect.NavFlowUiEffect(nav))
                                 }
                             }
                     }

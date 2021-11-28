@@ -2,7 +2,7 @@ package cz.maderajan.common.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cz.maderajan.common.ui.IEffect
+import cz.maderajan.common.ui.UiEffect
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +20,7 @@ abstract class BaseMviViewModel<S : BaseViewModelState, A : IAction>(initState: 
     val state: StateFlow<S>
         get() = _state
 
-    val uiEffect = Channel<IEffect>(Channel.UNLIMITED)
+    val uiEffect = Channel<UiEffect>(Channel.UNLIMITED)
 
     protected val actions = Channel<A>(Channel.UNLIMITED)
 
@@ -39,7 +39,7 @@ abstract class BaseMviViewModel<S : BaseViewModelState, A : IAction>(initState: 
         }
     }
 
-    protected suspend fun sendEffect(effect: IEffect) {
+    protected suspend fun sendEffect(effect: UiEffect) {
         uiEffect.send(effect)
     }
 

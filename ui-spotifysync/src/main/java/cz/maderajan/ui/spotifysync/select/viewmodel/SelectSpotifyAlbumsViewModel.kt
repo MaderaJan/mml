@@ -1,6 +1,7 @@
 package cz.maderajan.ui.spotifysync.select.viewmodel
 
-import cz.maderajan.common.ui.*
+import cz.maderajan.common.ui.NavigationFlowBus
+import cz.maderajan.common.ui.UiEffect
 import cz.maderajan.common.ui.viewmodel.BaseMviViewModel
 import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.data.select.AlphabetLetter
@@ -22,18 +23,18 @@ class SelectSpotifyAlbumsViewModel(
             .collect { action ->
                 when (action) {
                     SelectSpotifyAlbumsActions.SyncSpotifyAlbums -> {
-                        uiEffect.send(LoadingEffect)
+                        uiEffect.send(UiEffect.LoadingUiEffect)
 
                         syncSpotifyAlbumsUseCase.fetchAllUserAlbums()
                             .flowOn(Dispatchers.IO)
                             .map(::decorateAlbumsWithAlphaLetter)
                             .catch {
                                 flowOf(emptyList<SelectableAlbum>())
-                                sendEffect(ErrorEffect(R.string.general_error))
+                                sendEffect(UiEffect.ErrorUiEffect(R.string.general_error))
                             }
                             .collect { decoratedAlbums ->
                                 setState { copy(albums = decoratedAlbums) }
-                                sendEffect(ReadyEffect)
+                                sendEffect(UiEffect.ReadyUiEffect)
                             }
                     }
                     is SelectSpotifyAlbumsActions.AlbumClicked -> {
@@ -58,10 +59,10 @@ class SelectSpotifyAlbumsViewModel(
                             .flowOn(Dispatchers.IO)
                             .catch {
                                 flowOf(Unit)
-                                sendEffect(ErrorEffect(R.string.general_error))
+                                sendEffect(UiEffect.ErrorUiEffect(R.string.general_error))
                             }
                             .collect {
-                                sendEffect(SuccessEffect.empty())
+                                sendEffect(UiEffect.SuccessUiEffect.empty())
                             }
                     }
                 }

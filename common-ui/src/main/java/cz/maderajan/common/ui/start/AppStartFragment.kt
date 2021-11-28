@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import cz.maderajan.common.ui.NavFlowEffect
 import cz.maderajan.common.ui.R
+import cz.maderajan.common.ui.UiEffect
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
@@ -23,7 +23,7 @@ class AppStartFragment : Fragment(R.layout.fragment_start) {
             viewModel.uiEffect.consumeAsFlow()
                 .collect { effect ->
                     when (effect) {
-                        is NavFlowEffect -> {
+                        is UiEffect.NavFlowUiEffect -> {
                             viewModel.navigator.send(effect.navFlow)
                         }
                     }

@@ -1,9 +1,7 @@
 package cz.maderajan.ui.spotifysync.intro.viewmodel
 
-import cz.maderajan.common.ui.ErrorEffect
-import cz.maderajan.common.ui.NavDirectionEffect
 import cz.maderajan.common.ui.NavigationFlowBus
-import cz.maderajan.common.ui.SuccessEffect
+import cz.maderajan.common.ui.UiEffect
 import cz.maderajan.common.ui.viewmodel.BaseMviViewModel
 import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.intro.IntroSpotifySyncFragmentDirections
@@ -27,7 +25,7 @@ class IntroSpotifySyncViewModel(
                     }
                     is IntroSpotifyAction.Skip -> {
                         introSpotifyUseCase.synchronizationSkipped()
-                        sendEffect(SuccessEffect.empty())
+                        sendEffect(UiEffect.SuccessUiEffect.empty())
                     }
                 }
             }
@@ -35,10 +33,10 @@ class IntroSpotifySyncViewModel(
 
     private suspend fun storeToken(action: IntroSpotifyAction.PersistSpotifyLoginToken) {
         if (action.token.isNullOrEmpty()) {
-            sendEffect(ErrorEffect(R.string.general_error_something_went_wrong))
+            sendEffect(UiEffect.ErrorUiEffect(R.string.general_error_something_went_wrong))
         } else {
             introSpotifyUseCase.persistSpotifyAccessToken(action.token)
-            sendEffect(NavDirectionEffect(IntroSpotifySyncFragmentDirections.actionIntroSpotifySyncFragmentToSelectSpotifyAlbumsFragment()))
+            sendEffect(UiEffect.NavDirectionUiEffect(IntroSpotifySyncFragmentDirections.actionIntroSpotifySyncFragmentToSelectSpotifyAlbumsFragment()))
         }
     }
 }

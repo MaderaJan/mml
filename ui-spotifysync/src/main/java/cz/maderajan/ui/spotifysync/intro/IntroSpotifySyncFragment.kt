@@ -8,9 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.spotify.sdk.android.authentication.AuthenticationClient
 import com.spotify.sdk.android.authentication.AuthenticationRequest
 import com.spotify.sdk.android.authentication.AuthenticationResponse
-import cz.maderajan.common.ui.ErrorEffect
-import cz.maderajan.common.ui.NavDirectionEffect
-import cz.maderajan.common.ui.SuccessEffect
+import cz.maderajan.common.ui.UiEffect
 import cz.maderajan.common.ui.fragment.viewBinding
 import cz.maderajan.common.ui.toast
 import cz.maderajan.navigation.NavigationFlow
@@ -37,11 +35,11 @@ class IntroSpotifySyncFragment : Fragment(R.layout.fragment_intro_spotify_sync) 
             viewModel.uiEffect.consumeAsFlow()
                 .collect { effect ->
                     when (effect) {
-                        is ErrorEffect -> toast(effect.message)
-                        is NavDirectionEffect -> {
+                        is UiEffect.ErrorUiEffect -> toast(effect.message)
+                        is UiEffect.NavDirectionUiEffect -> {
                             findNavController().navigate(effect.navDirection)
                         }
-                        is SuccessEffect -> {
+                        is UiEffect.SuccessUiEffect -> {
                             viewModel.navigationFlowBus.send(NavigationFlow.Albums)
                         }
                     }
