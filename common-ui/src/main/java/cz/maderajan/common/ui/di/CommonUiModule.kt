@@ -5,12 +5,10 @@ import cz.maderajan.common.ui.usecase.AppStartUseCase
 import cz.maderajan.mml.commonutil.KoinModule
 import cz.maderajan.navigation.NavigationFlowBus
 import cz.maderajan.navigation.Navigator
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 
-@ExperimentalCoroutinesApi
 object CommonUiModule : KoinModule {
 
     private val module = module {

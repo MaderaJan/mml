@@ -3,7 +3,6 @@ package cz.maderajan.common.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cz.maderajan.common.ui.UiEffect
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +12,6 @@ interface BaseViewState
 
 interface IAction
 
-@ExperimentalCoroutinesApi
 abstract class BaseMviViewModel<S : BaseViewState, A : IAction>(initState: S) : ViewModel() {
 
     private val _state = MutableStateFlow(initState)

@@ -6,11 +6,9 @@ import cz.maderajan.navigation.NavigationFlowBus
 import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.intro.IntroSpotifySyncFragmentDirections
 import cz.maderajan.ui.spotifysync.usecase.IntroSpotifyUseCase
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
 
-@ExperimentalCoroutinesApi
 class IntroSpotifySyncViewModel(
     val navigationFlowBus: NavigationFlowBus,
     private val introSpotifyUseCase: IntroSpotifyUseCase

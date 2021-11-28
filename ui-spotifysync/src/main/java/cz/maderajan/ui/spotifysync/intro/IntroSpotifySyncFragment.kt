@@ -16,13 +16,11 @@ import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.databinding.FragmentIntroSpotifySyncBinding
 import cz.maderajan.ui.spotifysync.intro.viewmodel.IntroSpotifyAction
 import cz.maderajan.ui.spotifysync.intro.viewmodel.IntroSpotifySyncViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-@ExperimentalCoroutinesApi
 class IntroSpotifySyncFragment : Fragment(R.layout.fragment_intro_spotify_sync) {
 
     private val binding by viewBinding(FragmentIntroSpotifySyncBinding::bind)

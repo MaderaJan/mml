@@ -54,7 +54,7 @@ object Libs : Plugin<Project> {
     }
 
     object Coroutines {
-        const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1"
+        const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-RC"
     }
 
     override fun apply(target: Project) {}

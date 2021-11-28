@@ -16,12 +16,10 @@ import cz.maderajan.ui.spotifysync.databinding.FragmentSelectSpotifyAlbumsBindin
 import cz.maderajan.ui.spotifysync.select.adapter.SelectableAlbumAdapter
 import cz.maderajan.ui.spotifysync.select.viewmodel.SelectSpotifyAlbumsActions
 import cz.maderajan.ui.spotifysync.select.viewmodel.SelectSpotifyAlbumsViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@ExperimentalCoroutinesApi
 class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_albums) {
 
     private val binding by viewBinding(FragmentSelectSpotifyAlbumsBinding::bind)

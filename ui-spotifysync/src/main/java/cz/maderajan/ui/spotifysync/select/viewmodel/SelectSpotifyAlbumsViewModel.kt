@@ -9,10 +9,8 @@ import cz.maderajan.ui.spotifysync.data.select.ISelectableAlbum
 import cz.maderajan.ui.spotifysync.data.select.SelectableAlbum
 import cz.maderajan.ui.spotifysync.usecase.SyncSpotifyAlbumsUseCase
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 
-@ExperimentalCoroutinesApi
 class SelectSpotifyAlbumsViewModel(
     val navigationFlowBus: NavigationFlowBus,
     private val syncSpotifyAlbumsUseCase: SyncSpotifyAlbumsUseCase
