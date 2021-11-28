@@ -41,11 +41,9 @@ dependencies {
     api(Libs.Coroutines.core)
 
     api(Libs.Koin.koinCore)
-    api(Libs.Koin.koinExt)
     api(Libs.Koin.koinAndroid)
-    api(Libs.Koin.viewModel)
 
     api(Libs.NavigationComponent.fragment)
     api(Libs.NavigationComponent.uiKtx)
-    api("androidx.navigation:navigation-dynamic-features-fragment:${Versions.navigationComponent}")
+    api(Libs.NavigationComponent.dynamicFeatures)
 }

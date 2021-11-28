@@ -31,6 +31,5 @@ dependencies {
     implementation(Libs.Kotlin.stdlib)
 
     implementation(Libs.Koin.koinCore)
-    implementation(Libs.Koin.koinExt)
     implementation(Libs.Koin.koinAndroid)
 }

@@ -1,8 +1,7 @@
 buildscript {
     repositories {
-        jcenter()
-        google()
         mavenCentral()
+        google()
 
         flatDir {
             dirs("libs")
@@ -12,15 +11,13 @@ buildscript {
         classpath(Classpath.gradle)
         classpath(Classpath.gradleKotlin)
         classpath(Classpath.navigationComponent)
-
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31")
     }
 }
 
 allprojects {
     repositories {
+        mavenCentral()
         google()
-        jcenter()
     }
 }
 

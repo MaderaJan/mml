@@ -30,5 +30,7 @@ dependencies {
 
     api(Libs.NavigationComponent.fragment)
     api(Libs.NavigationComponent.uiKtx)
-    api("androidx.navigation:navigation-dynamic-features-fragment:${Versions.navigationComponent}")
+    api(Libs.NavigationComponent.dynamicFeatures)
+
+    api(Libs.Koin.navigation)
 }

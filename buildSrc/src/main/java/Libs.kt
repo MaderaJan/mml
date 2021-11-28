@@ -18,11 +18,9 @@ object Libs : Plugin<Project> {
     }
 
     object Koin {
-        const val koinCore = "org.koin:koin-core:${Versions.koin}"
-        const val koinExt= "org.koin:koin-core-ext:${Versions.koin}"
-        const val koinTesting =  "org.koin:koin-test:${Versions.koin}"
-        const val koinAndroid = "org.koin:koin-android:${Versions.koin}"
-        const val viewModel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
+        const val koinCore = "io.insert-koin:koin-core:${Versions.koin}"
+        const val koinAndroid = "io.insert-koin:koin-android:${Versions.koin}"
+        const val navigation = "io.insert-koin:koin-androidx-navigation:${Versions.koin}"
     }
 
     object Retrofit {
@@ -42,10 +40,12 @@ object Libs : Plugin<Project> {
     object NavigationComponent {
         const val fragment = "androidx.navigation:navigation-fragment-ktx:${Versions.navigationComponent}"
         const val uiKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navigationComponent}"
+        const val dynamicFeatures = "androidx.navigation:navigation-dynamic-features-fragment:${Versions.navigationComponent}"
     }
 
     object Spotify {
-        const val auth = "com.spotify.android:auth:1.1.0"
+        const val auth = "com.spotify.android:auth:1.2.6"
+        const val browser = "androidx.browser:browser:1.4.0"
     }
 
     object LifeCycle {

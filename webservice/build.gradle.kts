@@ -22,6 +22,5 @@ dependencies {
     implementation(Libs.Retrofit.loggingInterceptor)
 
     implementation(Libs.Koin.koinCore)
-    implementation(Libs.Koin.koinExt)
     implementation(Libs.Koin.koinAndroid)
 }

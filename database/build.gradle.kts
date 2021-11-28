@@ -22,6 +22,5 @@ dependencies {
     testImplementation(Libs.Room.roomTesting)
 
     implementation(Libs.Koin.koinCore)
-    implementation(Libs.Koin.koinExt)
     implementation(Libs.Koin.koinAndroid)
 }

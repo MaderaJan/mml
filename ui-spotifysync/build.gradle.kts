@@ -29,12 +29,10 @@ dependencies {
     implementation(project(":navigation"))
 
     api(Libs.Spotify.auth)
-    api("androidx.browser:browser:1.3.0")
+    api(Libs.Spotify.browser)
 
     implementation(Libs.Kotlin.stdlib)
 
     implementation(Libs.Koin.koinCore)
-    implementation(Libs.Koin.koinExt)
     implementation(Libs.Koin.koinAndroid)
-    implementation("com.reddit:indicator-fast-scroll:1.3.0")
 }

@@ -5,9 +5,9 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.spotify.sdk.android.authentication.AuthenticationClient
-import com.spotify.sdk.android.authentication.AuthenticationRequest
-import com.spotify.sdk.android.authentication.AuthenticationResponse
+import com.spotify.sdk.android.auth.AuthorizationClient
+import com.spotify.sdk.android.auth.AuthorizationRequest
+import com.spotify.sdk.android.auth.AuthorizationResponse
 import cz.maderajan.common.ui.UiEffect
 import cz.maderajan.common.ui.fragment.viewBinding
 import cz.maderajan.common.ui.toast
@@ -47,13 +47,12 @@ class IntroSpotifySyncFragment : Fragment(R.layout.fragment_intro_spotify_sync) 
         }
 
         binding.synchronizeButton.setOnClickListener {
-            val builder: AuthenticationRequest.Builder =
-                AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI)
+            val builder: AuthorizationRequest.Builder =
+                AuthorizationRequest.Builder(CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI)
 
             builder.setScopes(arrayOf("user-library-read"))
-            val request: AuthenticationRequest = builder.build()
-
-            AuthenticationClient.openLoginActivity(requireActivity(), REQ_SPOTIFY_LOGIN, request)
+            val request: AuthorizationRequest = builder.build()
+            AuthorizationClient.openLoginActivity(requireActivity(), REQ_SPOTIFY_LOGIN, request)
         }
 
         binding.skipButton.setOnClickListener {
@@ -65,10 +64,10 @@ class IntroSpotifySyncFragment : Fragment(R.layout.fragment_intro_spotify_sync) 
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == REQ_SPOTIFY_LOGIN) {
-            val response = AuthenticationClient.getResponse(resultCode, data)
+            val response = AuthorizationClient.getResponse(resultCode, data)
             when (response.type) {
-                AuthenticationResponse.Type.TOKEN -> viewModel.send(IntroSpotifyAction.PersistSpotifyLoginToken(response.accessToken))
-                AuthenticationResponse.Type.ERROR -> Timber.e(response.error)
+                AuthorizationResponse.Type.TOKEN -> viewModel.send(IntroSpotifyAction.PersistSpotifyLoginToken(response.accessToken))
+                AuthorizationResponse.Type.ERROR -> Timber.e(response.error)
                 else -> Timber.e(response.state)
             }
         }

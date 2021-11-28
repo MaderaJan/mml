@@ -8,13 +8,10 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.reddit.indicatorfastscroll.FastScrollItemIndicator
 import cz.maderajan.common.ui.UiEffect
 import cz.maderajan.common.ui.fragment.viewBinding
 import cz.maderajan.navigation.NavigationFlow
 import cz.maderajan.ui.spotifysync.R
-import cz.maderajan.ui.spotifysync.data.select.AlphabetLetter
-import cz.maderajan.ui.spotifysync.data.select.SelectableAlbum
 import cz.maderajan.ui.spotifysync.databinding.FragmentSelectSpotifyAlbumsBinding
 import cz.maderajan.ui.spotifysync.select.adapter.SelectableAlbumAdapter
 import cz.maderajan.ui.spotifysync.select.viewmodel.SelectSpotifyAlbumsActions
@@ -23,7 +20,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
 
 @ExperimentalCoroutinesApi
 class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_albums) {
@@ -85,7 +81,6 @@ class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_al
             viewModel.send(SelectSpotifyAlbumsActions.SyncSpotifyAlbums)
         }
 
-        setupFastScrollerWithAlphabet(adapter)
         setupBanner()
 
         viewModel.send(SelectSpotifyAlbumsActions.SyncSpotifyAlbums)
@@ -100,23 +95,5 @@ class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_al
             viewModel.send(SelectSpotifyAlbumsActions.SelectAllAlbums)
             binding.selectAllBannerView.isVisible = false
         }
-    }
-
-    private fun setupFastScrollerWithAlphabet(adapter: SelectableAlbumAdapter) {
-        binding.fastScroller.setupWithRecyclerView(
-            binding.recyclerView,
-            { position ->
-                val item = adapter.getItemPosition(position)
-                val title = when (item) {
-                    is SelectableAlbum -> item.name
-                    is AlphabetLetter -> item.letter
-                    else -> ""
-                }.toString()
-
-                FastScrollItemIndicator.Text(title.substring(0, 1).toUpperCase(Locale.getDefault()))
-            }
-        )
-
-        binding.fastscrollerThumb.setupWithFastScroller(binding.fastScroller)
     }
 }

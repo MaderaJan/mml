@@ -57,24 +57,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
-    <com.reddit.indicatorfastscroll.FastScrollerView
-        android:id="@+id/fast_scroller"
-        style="@style/Text.Regular.Small.White"
-        android:layout_width="24dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/select_all_banner_view" />
-
-    <com.reddit.indicatorfastscroll.FastScrollerThumbView
-        android:id="@+id/fastscroller_thumb"
-        style="@style/Text.Medium.Medium.White"
-        android:layout_width="40dp"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toStartOf="@id/fast_scroller"
-        app:thumbColor="@color/primary_color_500" />
-
     <cz.maderajan.common.ui.view.InfoScreen
         android:id="@+id/error_screen"
         android:layout_width="match_parent"

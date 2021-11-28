@@ -50,7 +50,6 @@ dependencies {
     implementation(project(":common-util"))
 
     implementation(Libs.Koin.koinCore)
-    implementation(Libs.Koin.koinExt)
     implementation(Libs.Koin.koinAndroid)
 
     implementation(Libs.Kotlin.stdlib)
