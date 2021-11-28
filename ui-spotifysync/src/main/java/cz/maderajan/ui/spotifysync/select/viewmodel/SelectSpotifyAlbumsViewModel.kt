@@ -21,7 +21,7 @@ class SelectSpotifyAlbumsViewModel(
         actions.consumeAsFlow()
             .collect { action ->
                 when (action) {
-                    SyncSpotifyAlbums -> {
+                    SelectSpotifyAlbumsActions.SyncSpotifyAlbums -> {
                         uiEffect.send(LoadingEffect)
 
                         syncSpotifyAlbumsUseCase.fetchAllUserAlbums()
@@ -36,7 +36,7 @@ class SelectSpotifyAlbumsViewModel(
                                 sendEffect(ReadyEffect)
                             }
                     }
-                    is AlbumClicked -> {
+                    is SelectSpotifyAlbumsActions.AlbumClicked -> {
                         val selectedAlbum = action.album
                         val updatedAlbums = state.value.albums.toMutableList()
                         val index = updatedAlbums.indexOf(selectedAlbum)
@@ -47,13 +47,13 @@ class SelectSpotifyAlbumsViewModel(
                             copy(albums = updatedAlbums)
                         }
                     }
-                    SelectAllAlbums -> {
+                    SelectSpotifyAlbumsActions.SelectAllAlbums -> {
                         val updatedAlbums = state.value.albums.map {
                             if (it is SelectableAlbum) it.copy(isSelected = true) else it
                         }
                         setState { copy(albums = updatedAlbums) }
                     }
-                    SaveSelectedAlbums -> {
+                    SelectSpotifyAlbumsActions.SaveSelectedAlbums -> {
                         syncSpotifyAlbumsUseCase.saveSelectedAlbums(state.value.albums)
                             .flowOn(Dispatchers.IO)
                             .catch {

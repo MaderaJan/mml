@@ -22,10 +22,10 @@ class IntroSpotifySyncViewModel(
         actions.consumeAsFlow()
             .collect { action ->
                 when (action) {
-                    is PersistSpotifyLoginToken -> {
+                    is IntroSpotifyAction.PersistSpotifyLoginToken -> {
                         storeToken(action)
                     }
-                    is Skip -> {
+                    is IntroSpotifyAction.Skip -> {
                         introSpotifyUseCase.synchronizationSkipped()
                         sendEffect(SuccessEffect.empty())
                     }
@@ -33,7 +33,7 @@ class IntroSpotifySyncViewModel(
             }
     }
 
-    private suspend fun storeToken(action: PersistSpotifyLoginToken) {
+    private suspend fun storeToken(action: IntroSpotifyAction.PersistSpotifyLoginToken) {
         if (action.token.isNullOrEmpty()) {
             sendEffect(ErrorEffect(R.string.general_error_something_went_wrong))
         } else {

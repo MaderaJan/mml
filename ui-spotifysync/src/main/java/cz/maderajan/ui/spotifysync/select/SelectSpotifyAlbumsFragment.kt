@@ -20,7 +20,8 @@ import cz.maderajan.ui.spotifysync.data.select.AlphabetLetter
 import cz.maderajan.ui.spotifysync.data.select.SelectableAlbum
 import cz.maderajan.ui.spotifysync.databinding.FragmentSelectSpotifyAlbumsBinding
 import cz.maderajan.ui.spotifysync.select.adapter.SelectableAlbumAdapter
-import cz.maderajan.ui.spotifysync.select.viewmodel.*
+import cz.maderajan.ui.spotifysync.select.viewmodel.SelectSpotifyAlbumsActions
+import cz.maderajan.ui.spotifysync.select.viewmodel.SelectSpotifyAlbumsViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
@@ -41,7 +42,7 @@ class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_al
         binding.topAppBar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.action_done -> {
-                    viewModel.send(SaveSelectedAlbums)
+                    viewModel.send(SelectSpotifyAlbumsActions.SaveSelectedAlbums)
                     true
                 }
                 else -> false
@@ -55,7 +56,7 @@ class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_al
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = SelectableAlbumAdapter { album ->
-            viewModel.send(AlbumClicked(album))
+            viewModel.send(SelectSpotifyAlbumsActions.AlbumClicked(album))
         }
         binding.recyclerView.adapter = adapter
 
@@ -84,13 +85,13 @@ class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_al
         }
 
         binding.errorScreen.setActionButtonClick {
-            viewModel.send(SyncSpotifyAlbums)
+            viewModel.send(SelectSpotifyAlbumsActions.SyncSpotifyAlbums)
         }
 
         setupFastScrollerWithAlphabet(adapter)
         setupBanner()
 
-        viewModel.send(SyncSpotifyAlbums)
+        viewModel.send(SelectSpotifyAlbumsActions.SyncSpotifyAlbums)
     }
 
     private fun setupBanner() {
@@ -99,7 +100,7 @@ class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_al
         }
 
         binding.selectAllBannerView.setPositiveButtonClick {
-            viewModel.send(SelectAllAlbums)
+            viewModel.send(SelectSpotifyAlbumsActions.SelectAllAlbums)
             binding.selectAllBannerView.isVisible = false
         }
     }

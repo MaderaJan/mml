@@ -16,9 +16,8 @@ import cz.maderajan.common.ui.toast
 import cz.maderajan.navigation.NavigationFlow
 import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.databinding.FragmentIntroSpotifySyncBinding
+import cz.maderajan.ui.spotifysync.intro.viewmodel.IntroSpotifyAction
 import cz.maderajan.ui.spotifysync.intro.viewmodel.IntroSpotifySyncViewModel
-import cz.maderajan.ui.spotifysync.intro.viewmodel.PersistSpotifyLoginToken
-import cz.maderajan.ui.spotifysync.intro.viewmodel.Skip
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
@@ -60,7 +59,7 @@ class IntroSpotifySyncFragment : Fragment(R.layout.fragment_intro_spotify_sync) 
         }
 
         binding.skipButton.setOnClickListener {
-            viewModel.send(Skip)
+            viewModel.send(IntroSpotifyAction.Skip)
         }
     }
 
@@ -70,7 +69,7 @@ class IntroSpotifySyncFragment : Fragment(R.layout.fragment_intro_spotify_sync) 
         if (requestCode == REQ_SPOTIFY_LOGIN) {
             val response = AuthenticationClient.getResponse(resultCode, data)
             when (response.type) {
-                AuthenticationResponse.Type.TOKEN -> viewModel.send(PersistSpotifyLoginToken(response.accessToken))
+                AuthenticationResponse.Type.TOKEN -> viewModel.send(IntroSpotifyAction.PersistSpotifyLoginToken(response.accessToken))
                 AuthenticationResponse.Type.ERROR -> Timber.e(response.error)
                 else -> Timber.e(response.state)
             }
