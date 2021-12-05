@@ -76,7 +76,7 @@ class SelectSpotifyAlbumsViewModel(
         while (iterator.hasNext()) {
             val current = iterator.next()
             if (current is SelectableAlbum) {
-                val startLetter = current.name.first()
+                val startLetter = current.name.first().uppercaseChar()
 
                 if (lastStartLetter != startLetter) {
                     iterator.previous()

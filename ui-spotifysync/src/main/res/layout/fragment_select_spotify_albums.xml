@@ -8,18 +8,18 @@
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
-        app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
-            android:theme="@style/Theme.MML.ToolbarStyle"
-            app:titleTextColor="@color/text_color_light"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/spotify_select_albums_toolbar_title" />
+            android:theme="@style/Theme.MML.ToolbarStyle"
+            app:title="@string/spotify_select_albums_toolbar_title"
+            app:titleTextColor="@color/text_color_light" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

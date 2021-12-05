@@ -1,26 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
 <!-- GLOBAL -->
-    <style name="Theme.MML" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primary_color_900</item>
-        <item name="colorPrimaryVariant">@color/secondary_color_800</item>
-        <item name="colorOnPrimary">@color/text_color_light</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/secondary_color_900</item>
-        <item name="colorSecondaryVariant">@color/secondary_color_600</item>
-        <item name="colorOnSecondary">@color/text_color_dark</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
-        <!-- Window background color-->
-        <item name="android:windowBackground">@color/primary_color_900</item>
-        <!-- Font family-->
-        <item name="android:textAppearance">@style/Theme.MML.TextAppearance</item>
-        <item name="colorControlHighlight">@color/green_light_color_900</item>
-        <item name="android:colorControlHighlight">@color/green_light_color_900</item>
-    </style>
-
-    <style name="Theme.MML.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.MML" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary_color_900</item>
         <item name="colorPrimaryVariant">@color/secondary_color_800</item>
