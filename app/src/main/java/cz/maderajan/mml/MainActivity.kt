@@ -1,5 +1,6 @@
 package cz.maderajan.mml
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -35,5 +36,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                     navigator.navigateToFlow(flow)
                 }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment)
+            ?.childFragmentManager
+            ?.primaryNavigationFragment
+            ?.onActivityResult(requestCode, resultCode, data)
     }
 }
