@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/intro_spotify_sync_fragment"
-        android:name="cz.maderajan.ui.spotifysync.intro.IntroSpotifySyncFragment"
+        android:name="cz.maderajan.ui.spotifysync.intro.IntroSpotifySyncScreen"
         android:label="fragment_intro_spotify_sync"
         tools:layout="@layout/fragment_intro_spotify_sync">
 

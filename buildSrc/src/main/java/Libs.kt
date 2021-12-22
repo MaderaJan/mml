@@ -35,6 +35,7 @@ object Libs : Plugin<Project> {
         const val constraint = "androidx.constraintlayout:constraintlayout:2.1.2"
         const val activityX = "androidx.activity:activity-ktx:1.4.0"
         const val coil = "io.coil-kt:coil:1.4.0"
+        const val coilCompose = "io.coil-kt:coil-compose:1.4.0"
     }
 
     object NavigationComponent {
@@ -55,6 +56,18 @@ object Libs : Plugin<Project> {
 
     object Coroutines {
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-RC"
+    }
+
+    object Compose {
+        const val runTime = "androidx.compose.runtime:runtime:${Versions.compose}"
+        const val ui = "androidx.compose.ui:ui:${Versions.compose}"
+        const val foundation = "androidx.compose.foundation:foundation:${Versions.compose}"
+        const val foundationLayout = "androidx.compose.foundation:foundation-layout:${Versions.compose}"
+        const val material = "androidx.compose.material:material:${Versions.compose}"
+        const val liveData = "androidx.compose.runtime:runtime-livedata:${Versions.compose}"
+        const val uiTooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
+        const val themeLoader = "com.google.android.material:compose-theme-adapter:1.1.2"
+        const val constraintLayout = "androidx.constraintlayout:constraintlayout-compose:1.0.0-beta02"
     }
 
     override fun apply(target: Project) {}

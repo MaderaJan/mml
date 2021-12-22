@@ -4,4 +4,5 @@ object Versions {
     const val kotlin = "1.5.31"
     const val gradle = "7.0.3"
     const val navigationComponent = "2.3.1"
+    const val compose = "1.1.0-beta03"
 }

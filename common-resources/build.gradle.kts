@@ -11,9 +11,21 @@ android {
         minSdk = Config.minSdkVersion
         targetSdk = Config.targetSdkVersion
     }
+
+    buildFeatures {
+        viewBinding = true
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.compose
+    }
 }
 
 dependencies {
     api(Libs.Ui.appCompat)
     api(Libs.Ui.material)
+
+    implementation(Libs.Compose.ui)
+    implementation(Libs.Compose.material)
 }
