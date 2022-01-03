@@ -23,7 +23,7 @@ import kotlinx.coroutines.flow.consumeAsFlow
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class IntroSpotifySyncScreen : Fragment() {
+class IntroSpotifySyncFragment : Fragment() {
 
     private val viewModel: IntroSpotifySyncViewModel by viewModel()
 

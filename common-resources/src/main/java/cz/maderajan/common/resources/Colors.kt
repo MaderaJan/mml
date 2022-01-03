@@ -2,11 +2,11 @@ package cz.maderajan.common.resources
 
 import androidx.compose.ui.graphics.Color
 
-val PrimaryColor500 = Color(0xFF160C28)
-val PrimaryColor600 = Color(0xFF2D243E)
+val PrimaryColor900 = Color(0xFF160C28)
+val PrimaryColor800 = Color(0xFF2D243E)
 val PrimaryColor700 = Color(0xFF453D53)
-val PrimaryColor800 = Color(0xFF5C5569)
-val PrimaryColor900 = Color(0xFF5C5569)
+val PrimaryColor600 = Color(0xFF5C5569)
+val PrimaryColor500 = Color(0xFF5C5569)
 
 val SecondaryColo900 = Color(0xFFEFCB68)
 val SecondaryColo800 = Color(0xFFF1D077)

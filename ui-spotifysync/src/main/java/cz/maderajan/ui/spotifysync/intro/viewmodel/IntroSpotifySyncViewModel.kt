@@ -4,7 +4,7 @@ import cz.maderajan.common.ui.UiEffect
 import cz.maderajan.common.ui.viewmodel.BaseMviViewModel
 import cz.maderajan.navigation.NavigationFlowBus
 import cz.maderajan.ui.spotifysync.R
-import cz.maderajan.ui.spotifysync.intro.IntroSpotifySyncScreenDirections
+import cz.maderajan.ui.spotifysync.intro.IntroSpotifySyncFragmentDirections
 import cz.maderajan.ui.spotifysync.usecase.IntroSpotifyUseCase
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
@@ -34,7 +34,7 @@ class IntroSpotifySyncViewModel(
             sendEffect(UiEffect.ErrorUiEffect(R.string.general_error_something_went_wrong))
         } else {
             introSpotifyUseCase.persistSpotifyAccessToken(action.token)
-            sendEffect(UiEffect.NavDirectionUiEffect(IntroSpotifySyncScreenDirections.actionIntroSpotifySyncFragmentToSelectSpotifyAlbumsFragment()))
+            sendEffect(UiEffect.NavDirectionUiEffect(IntroSpotifySyncFragmentDirections.actionIntroSpotifySyncFragmentToSelectSpotifyAlbumsFragment()))
         }
     }
 }

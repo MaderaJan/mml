@@ -20,7 +20,7 @@ class SelectSpotifyAlbumsViewModel(
         actions.consumeAsFlow()
             .collect { action ->
                 when (action) {
-                    SelectSpotifyAlbumsActions.SyncSpotifyAlbums -> {
+                    SelectSpotifyAlbumsActions.FetchSpotifyAlbums -> {
                         uiEffect.send(UiEffect.LoadingUiEffect)
 
                         syncSpotifyAlbumsUseCase.fetchAllUserAlbums()

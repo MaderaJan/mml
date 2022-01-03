@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_done"
-        android:title="@string/general_done"
+        android:title="@string/general_save"
         app:showAsAction="always" />
 
 </menu>

@@ -49,7 +49,7 @@ val MmmlTypography = Typography(
     subtitle2 = TextStyle(
         fontWeight = FontWeight.Medium,
         color = TextColorLight,
-        fontSize = 14.sp,
+        fontSize = 16.sp,
         letterSpacing = 0.1.sp
     ),
     body1 = TextStyle(
@@ -59,7 +59,7 @@ val MmmlTypography = Typography(
         letterSpacing = 0.5.sp
     ),
     body2 = TextStyle(
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.Normal,
         color = TextColorLight,
         fontSize = 14.sp,
         letterSpacing = 0.25.sp
