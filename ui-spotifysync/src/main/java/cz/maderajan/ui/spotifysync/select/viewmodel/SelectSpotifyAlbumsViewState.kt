@@ -4,5 +4,6 @@ import cz.maderajan.common.ui.viewmodel.BaseViewState
 import cz.maderajan.ui.spotifysync.data.select.ISelectableAlbum
 
 data class SelectSpotifyAlbumsViewState(
-    val albums: List<ISelectableAlbum>
+    val albums: List<ISelectableAlbum>,
+    val showBanner: Boolean = true
 ) : BaseViewState

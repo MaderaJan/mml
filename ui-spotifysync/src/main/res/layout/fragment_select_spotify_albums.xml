@@ -23,18 +23,18 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <cz.maderajan.common.ui.view.BannerView
-        android:id="@+id/select_all_banner_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:description="@string/spotify_select_banner_description"
-        app:layout_constraintTop_toBottomOf="@+id/app_bar"
-        app:negativeButton="@string/spotify_select_banner_negative"
-        app:positiveButton="@string/spotify_select_banner_positive"
-        app:startIcon="@drawable/ic_select_album"
-        tools:background="@color/primary_color_900"
-        tools:visibility="visible" />
+    <!--    <cz.maderajan.common.ui.view.BannerView-->
+    <!--        android:id="@+id/select_all_banner_view"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:visibility="gone"-->
+    <!--        app:description="@string/spotify_select_banner_description"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/app_bar"-->
+    <!--        app:negativeButton="@string/spotify_select_banner_negative"-->
+    <!--        app:positiveButton="@string/spotify_select_banner_positive"-->
+    <!--        app:startIcon="@drawable/ic_select_album"-->
+    <!--        tools:background="@color/primary_color_900"-->
+    <!--        tools:visibility="visible" />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"

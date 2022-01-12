@@ -33,6 +33,7 @@ import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
 import cz.maderajan.common.resources.*
 import cz.maderajan.common.ui.UiEffect
+import cz.maderajan.common.ui.view.Banner
 import cz.maderajan.mml.data.data.Artist
 import cz.maderajan.navigation.NavigationFlow
 import cz.maderajan.ui.spotifysync.R
@@ -48,8 +49,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 @Preview
 @Composable
 fun PreviewSelectSpotifyTopBar() {
-    SelectSpotifyTopBar {
-    }
+    SelectSpotifyTopBar {}
 }
 
 @Composable
@@ -204,12 +204,28 @@ class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_al
         ComposeView(requireContext()).apply {
             setContent {
                 MmlTheme {
+                    val currentState = viewModel.state.collectAsState().value
+
                     Column {
                         SelectSpotifyTopBar {
                             viewModel.send(SelectSpotifyAlbumsActions.SaveSelectedAlbums)
                         }
 
-                        val currentState = viewModel.state.collectAsState().value
+                        if (currentState.showBanner && currentState.albums.isNotEmpty()) {
+                            Banner(
+                                imageRes = cz.maderajan.common.ui.R.drawable.img_spotify,
+                                descriptionText = stringResource(id = R.string.spotify_select_banner_description),
+                                positiveButtonText = stringResource(id = R.string.spotify_select_banner_positive),
+                                positiveButtonCallback = {
+                                    viewModel.send(SelectSpotifyAlbumsActions.SelectAllAlbums)
+                                },
+                                negativeButtonText = stringResource(id = R.string.spotify_select_banner_negative),
+                                negativeButtonCallback = {
+                                    viewModel.send(SelectSpotifyAlbumsActions.HideBanner)
+                                },
+                            )
+                        }
+
                         if (currentState.albums.isEmpty()) {
                             Column(
                                 modifier = Modifier.fillMaxSize(),

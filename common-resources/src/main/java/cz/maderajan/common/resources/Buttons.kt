@@ -1,6 +1,5 @@
 package cz.maderajan.common.resources
 
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -39,13 +38,22 @@ fun ContainedButton(
 
 @Composable
 fun TextButton(
+    text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    content: @Composable RowScope.() -> Unit
 ) {
     androidx.compose.material.TextButton(
         onClick = onClick,
         modifier = modifier,
-        content = content
-    )
+    ) {
+        Text(
+            text = text,
+            style = MmmlTypography.body1,
+            color = TextColorLight,
+            modifier = Modifier.padding(
+                start = 16.dp,
+                end = 16.dp,
+            )
+        )
+    }
 }

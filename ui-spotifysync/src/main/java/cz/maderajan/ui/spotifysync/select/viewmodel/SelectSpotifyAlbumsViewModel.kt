@@ -50,7 +50,7 @@ class SelectSpotifyAlbumsViewModel(
                         val updatedAlbums = state.value.albums.map {
                             if (it is SelectableAlbum) it.copy(isSelected = true) else it
                         }
-                        setState { copy(albums = updatedAlbums) }
+                        setState { copy(albums = updatedAlbums, showBanner = false) }
                     }
                     SelectSpotifyAlbumsActions.SaveSelectedAlbums -> {
                         syncSpotifyAlbumsUseCase.saveSelectedAlbums(state.value.albums)
@@ -62,6 +62,9 @@ class SelectSpotifyAlbumsViewModel(
                             .collect {
                                 sendEffect(UiEffect.SuccessUiEffect.empty())
                             }
+                    }
+                    SelectSpotifyAlbumsActions.HideBanner -> {
+                        setState { copy(showBanner = false) }
                     }
                 }
             }
