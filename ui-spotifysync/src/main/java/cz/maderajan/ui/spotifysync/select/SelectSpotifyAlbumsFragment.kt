@@ -249,75 +249,18 @@ class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_al
             }
         }
 
-//    private fun onAlbumSelect(album: SelectableAlbum) {
-//        viewModel.send(SelectSpotifyAlbumsActions.AlbumClicked(album))
-//    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-//        setHasOptionsMenu(true)
-//        binding.topAppBar.inflateMenu(R.menu.menu_done)
-//        binding.topAppBar.setOnMenuItemClickListener { item ->
-//            when (item.itemId) {
-//                R.id.action_done -> {
-//                    viewModel.send(SelectSpotifyAlbumsActions.SaveSelectedAlbums)
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
-//
-//        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-//        val adapter = SelectableAlbumAdapter { album ->
-//            viewModel.send(SelectSpotifyAlbumsActions.AlbumClicked(album))
-//        }
-//        binding.recyclerView.adapter = adapter
-
-        lifecycleScope.launchWhenCreated {
-            viewModel.state.collect {
-//                adapter.submitList(it.albums)
-            }
-        }
 
         lifecycleScope.launchWhenCreated {
             viewModel.uiEffect.consumeAsFlow()
                 .collect { effect ->
-
-//                    if (effect is UiEffect.ReadyUiEffect) {
-//                        Handler(Looper.getMainLooper()).postDelayed({
-//                            binding.selectAllBannerView.isVisible = true
-//                        }, 500)
-//                    }
-
                     if (effect is UiEffect.SuccessUiEffect) {
                         viewModel.navigationFlowBus.send(NavigationFlow.Albums)
                     }
                 }
         }
-//
-//        binding.errorScreen.setActionButtonClick {
-//            viewModel.send(SelectSpotifyAlbumsActions.FetchSpotifyAlbums)
-//        }
-//
-//        setupBanner()
 
         viewModel.send(SelectSpotifyAlbumsActions.FetchSpotifyAlbums)
     }
-
-//    private fun setupBanner() {
-//        binding.selectAllBannerView.setNegativeButtonClick {
-//            binding.selectAllBannerView.isVisible = false
-//        }
-//
-//        binding.selectAllBannerView.setPositiveButtonClick {
-//            viewModel.send(SelectSpotifyAlbumsActions.SelectAllAlbums)
-//            binding.selectAllBannerView.isVisible = false
-//        }
-//    }
 }
