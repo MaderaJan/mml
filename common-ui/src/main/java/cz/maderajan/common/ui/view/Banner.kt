@@ -41,9 +41,9 @@ fun Banner(
             modifier = Modifier
                 .width(48.dp)
                 .height(48.dp)
-                .padding(start = 16.dp)
+                .padding(start = 16.dp, top = 16.dp)
                 .constrainAs(image) {
-                    top.linkTo(description.top)
+                    top.linkTo(parent.top)
                     start.linkTo(parent.start)
                 }
         )
