@@ -2,16 +2,11 @@ package cz.maderajan.navigation.direction
 
 import cz.maderajan.navigation.NavigationCommand
 
-object SpotifyDirections {
+object SpotifyDirection {
 
     val root = object : NavigationCommand {
 
         override val destination: String = "spotify.root"
-    }
-
-    val default = object : NavigationCommand {
-
-        override val destination: String = ""
     }
 
     val intro = object : NavigationCommand {

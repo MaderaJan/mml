@@ -1,6 +1,5 @@
 package cz.maderajan.mml
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,21 +8,18 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import com.spotify.sdk.android.auth.AuthorizationClient
-import com.spotify.sdk.android.auth.AuthorizationResponse
 import cz.maderajan.common.resources.MmlTheme
-import cz.maderajan.navigation.*
+import cz.maderajan.common.ui.appstart.AppStartScreen
+import cz.maderajan.navigation.NavigationFlowBus
 import cz.maderajan.navigation.direction.AlbumsDirection
-import cz.maderajan.navigation.direction.SpotifyDirections
-import cz.maderajan.ui.spotifysync.intro.REQ_SPOTIFY_LOGIN
+import cz.maderajan.navigation.direction.AppStartDirection
+import cz.maderajan.navigation.direction.SpotifyDirection
 import cz.maderajan.ui.spotifysync.intro.SpotifyIntroScreen
 import cz.maderajan.ui.spotifysync.select.SelectSpotifyAlbumsScreen
 import cz.maderajan.uialbums.ui.AlbumListScreen
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
-import timber.log.Timber
 
-// TODO upravit app start
 // TODO spotify sync opravit
 
 class MainActivity : AppCompatActivity() {
@@ -46,18 +42,28 @@ class MainActivity : AppCompatActivity() {
 
                 NavHost(
                     navController = navController,
-                    startDestination = SpotifyDirections.root.destination
+                    startDestination = AppStartDirection.root.destination
                 ) {
+
+                    // APP START GRAPH
+                    navigation(
+                        route = AppStartDirection.root.destination,
+                        startDestination = AppStartDirection.appStart.destination
+                    ) {
+                        composable(AppStartDirection.appStart.destination) {
+                            AppStartScreen(viewModel = getViewModel())
+                        }
+                    }
 
                     // SPOTIFY GRAPH
                     navigation(
-                        route = SpotifyDirections.root.destination,
-                        startDestination = SpotifyDirections.intro.destination,
+                        route = SpotifyDirection.root.destination,
+                        startDestination = SpotifyDirection.intro.destination,
                     ) {
-                        composable(SpotifyDirections.intro.destination) {
+                        composable(SpotifyDirection.intro.destination) {
                             SpotifyIntroScreen(viewModel = getViewModel())
                         }
-                        composable(SpotifyDirections.selectAlbums.destination) {
+                        composable(SpotifyDirection.selectAlbums.destination) {
                             SelectSpotifyAlbumsScreen(viewModel = getViewModel())
                         }
                     }
@@ -86,16 +92,16 @@ class MainActivity : AppCompatActivity() {
 //        }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == REQ_SPOTIFY_LOGIN) {
-            val response = AuthorizationClient.getResponse(resultCode, data)
-            when (response.type) {
-                AuthorizationResponse.Type.TOKEN -> viewModel.send(IntroSpotifyAction.PersistSpotifyLoginToken(response.accessToken))
-                AuthorizationResponse.Type.ERROR -> Timber.e(response.error)
-                else -> Timber.e(response.state)
-            }
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//
+//        if (requestCode == REQ_SPOTIFY_LOGIN) {
+//            val response = AuthorizationClient.getResponse(resultCode, data)
+//            when (response.type) {
+//                AuthorizationResponse.Type.TOKEN -> viewModel.send(IntroSpotifyAction.PersistSpotifyLoginToken(response.accessToken))
+//                AuthorizationResponse.Type.ERROR -> Timber.e(response.error)
+//                else -> Timber.e(response.state)
+//            }
+//        }
+//    }
 }
