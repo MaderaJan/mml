@@ -1,7 +1,7 @@
 package cz.maderajan.common.ui
 
 import androidx.navigation.NavDirections
-import cz.maderajan.navigation.NavigationFlow
+import cz.maderajan.navigation.NavigationCommand
 
 interface UiEffect {
 
@@ -15,5 +15,5 @@ interface UiEffect {
     }
 
     class NavDirectionUiEffect(val navDirection: NavDirections) : UiEffect
-    class NavFlowUiEffect(val navFlow: NavigationFlow) : UiEffect
+    class NavFlowUiEffect(val navCommand: NavigationCommand) : UiEffect
 }

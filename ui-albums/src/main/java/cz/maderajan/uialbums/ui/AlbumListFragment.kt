@@ -1,6 +1,12 @@
 package cz.maderajan.uialbums.ui
 
-import androidx.fragment.app.Fragment
-import cz.maderajan.uialbums.R
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import cz.maderajan.common.resources.MmlTheme
 
-class AlbumListFragment : Fragment(R.layout.fragment_album_list)
+@Composable
+fun AlbumListScreen() {
+    MmlTheme {
+        Text(text = "This would be album list")
+    }
+}

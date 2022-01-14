@@ -1,9 +1,5 @@
 package cz.maderajan.ui.spotifysync.select
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,7 +15,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -27,24 +22,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
 import cz.maderajan.common.resources.*
-import cz.maderajan.common.ui.UiEffect
 import cz.maderajan.common.ui.view.Banner
 import cz.maderajan.mml.data.data.Artist
-import cz.maderajan.navigation.NavigationFlow
 import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.data.select.AlphabetLetter
 import cz.maderajan.ui.spotifysync.data.select.ISelectableAlbum
 import cz.maderajan.ui.spotifysync.data.select.SelectableAlbum
 import cz.maderajan.ui.spotifysync.select.viewmodel.SelectSpotifyAlbumsActions
 import cz.maderajan.ui.spotifysync.select.viewmodel.SelectSpotifyAlbumsViewModel
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.consumeAsFlow
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Preview
 @Composable
@@ -196,128 +184,49 @@ fun PreviewAlphabetLetterListItem() {
     AlphabetLetterListItem(AlphabetLetter('A'))
 }
 
-class SelectSpotifyAlbumsFragment : Fragment(R.layout.fragment_select_spotify_albums) {
+@Composable
+fun SelectSpotifyAlbumsScreen(viewModel: SelectSpotifyAlbumsViewModel) {
+    MmlTheme {
+        val currentState = viewModel.state.collectAsState().value
 
-    private val viewModel: SelectSpotifyAlbumsViewModel by viewModel()
+        Column {
+            SelectSpotifyTopBar {
+                viewModel.send(SelectSpotifyAlbumsActions.SaveSelectedAlbums)
+            }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-        ComposeView(requireContext()).apply {
-            setContent {
-                MmlTheme {
-                    val currentState = viewModel.state.collectAsState().value
+            if (currentState.showBanner && currentState.albums.isNotEmpty()) {
+                Banner(
+                    imageRes = cz.maderajan.common.ui.R.drawable.img_spotify,
+                    descriptionText = stringResource(id = R.string.spotify_select_banner_description),
+                    positiveButtonText = stringResource(id = R.string.spotify_select_banner_positive),
+                    positiveButtonCallback = {
+                        viewModel.send(SelectSpotifyAlbumsActions.SelectAllAlbums)
+                    },
+                    negativeButtonText = stringResource(id = R.string.spotify_select_banner_negative),
+                    negativeButtonCallback = {
+                        viewModel.send(SelectSpotifyAlbumsActions.HideBanner)
+                    },
+                )
+            }
 
-                    Column {
-                        SelectSpotifyTopBar {
-                            viewModel.send(SelectSpotifyAlbumsActions.SaveSelectedAlbums)
-                        }
-
-                        if (currentState.showBanner && currentState.albums.isNotEmpty()) {
-                            Banner(
-                                imageRes = cz.maderajan.common.ui.R.drawable.img_spotify,
-                                descriptionText = stringResource(id = R.string.spotify_select_banner_description),
-                                positiveButtonText = stringResource(id = R.string.spotify_select_banner_positive),
-                                positiveButtonCallback = {
-                                    viewModel.send(SelectSpotifyAlbumsActions.SelectAllAlbums)
-                                },
-                                negativeButtonText = stringResource(id = R.string.spotify_select_banner_negative),
-                                negativeButtonCallback = {
-                                    viewModel.send(SelectSpotifyAlbumsActions.HideBanner)
-                                },
-                            )
-                        }
-
-                        if (currentState.albums.isEmpty()) {
-                            Column(
-                                modifier = Modifier.fillMaxSize(),
-                                verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                CircularProgressIndicator(
-                                    color = SecondaryColo900
-                                )
-                            }
-                        } else {
-                            SelectSpotifyList(
-                                items = currentState.albums,
-                                onAlbumSelect = { album ->
-                                    viewModel.send(SelectSpotifyAlbumsActions.AlbumClicked(album))
-                                },
-                            )
-                        }
-                    }
+            if (currentState.albums.isEmpty()) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    CircularProgressIndicator(
+                        color = SecondaryColo900
+                    )
                 }
+            } else {
+                SelectSpotifyList(
+                    items = currentState.albums,
+                    onAlbumSelect = { album ->
+                        viewModel.send(SelectSpotifyAlbumsActions.AlbumClicked(album))
+                    },
+                )
             }
         }
-
-//    private fun onAlbumSelect(album: SelectableAlbum) {
-//        viewModel.send(SelectSpotifyAlbumsActions.AlbumClicked(album))
-//    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-//        setHasOptionsMenu(true)
-//        binding.topAppBar.inflateMenu(R.menu.menu_done)
-//        binding.topAppBar.setOnMenuItemClickListener { item ->
-//            when (item.itemId) {
-//                R.id.action_done -> {
-//                    viewModel.send(SelectSpotifyAlbumsActions.SaveSelectedAlbums)
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
-//
-//        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-//        val adapter = SelectableAlbumAdapter { album ->
-//            viewModel.send(SelectSpotifyAlbumsActions.AlbumClicked(album))
-//        }
-//        binding.recyclerView.adapter = adapter
-
-        lifecycleScope.launchWhenCreated {
-            viewModel.state.collect {
-//                adapter.submitList(it.albums)
-            }
-        }
-
-        lifecycleScope.launchWhenCreated {
-            viewModel.uiEffect.consumeAsFlow()
-                .collect { effect ->
-
-//                    if (effect is UiEffect.ReadyUiEffect) {
-//                        Handler(Looper.getMainLooper()).postDelayed({
-//                            binding.selectAllBannerView.isVisible = true
-//                        }, 500)
-//                    }
-
-                    if (effect is UiEffect.SuccessUiEffect) {
-                        viewModel.navigationFlowBus.send(NavigationFlow.Albums)
-                    }
-                }
-        }
-//
-//        binding.errorScreen.setActionButtonClick {
-//            viewModel.send(SelectSpotifyAlbumsActions.FetchSpotifyAlbums)
-//        }
-//
-//        setupBanner()
-
-        viewModel.send(SelectSpotifyAlbumsActions.FetchSpotifyAlbums)
-    }
-
-//    private fun setupBanner() {
-//        binding.selectAllBannerView.setNegativeButtonClick {
-//            binding.selectAllBannerView.isVisible = false
-//        }
-//
-//        binding.selectAllBannerView.setPositiveButtonClick {
-//            viewModel.send(SelectSpotifyAlbumsActions.SelectAllAlbums)
-//            binding.selectAllBannerView.isVisible = false
-//        }
-//    }
 }
