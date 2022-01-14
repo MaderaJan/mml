@@ -3,6 +3,7 @@ package cz.maderajan.ui.spotifysync.select.viewmodel
 import cz.maderajan.common.ui.UiEffect
 import cz.maderajan.common.ui.viewmodel.BaseMviViewModel
 import cz.maderajan.navigation.NavigationFlowBus
+import cz.maderajan.navigation.direction.AlbumsDirection
 import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.data.select.AlphabetLetter
 import cz.maderajan.ui.spotifysync.data.select.ISelectableAlbum
@@ -12,9 +13,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
 class SelectSpotifyAlbumsViewModel(
-    val navigationFlowBus: NavigationFlowBus,
+    private val navigationFlowBus: NavigationFlowBus,
     private val syncSpotifyAlbumsUseCase: SyncSpotifyAlbumsUseCase
 ) : BaseMviViewModel<SelectSpotifyAlbumsViewState, SelectSpotifyAlbumsActions>(SelectSpotifyAlbumsViewState(emptyList())) {
+
+    init {
+        send(SelectSpotifyAlbumsActions.FetchSpotifyAlbums)
+    }
 
     override suspend fun handleActions() {
         actions.consumeAsFlow()
@@ -60,7 +65,7 @@ class SelectSpotifyAlbumsViewModel(
                                 sendEffect(UiEffect.ErrorUiEffect(R.string.general_error))
                             }
                             .collect {
-                                sendEffect(UiEffect.SuccessUiEffect.empty())
+                                navigationFlowBus.send(AlbumsDirection.root)
                             }
                     }
                     SelectSpotifyAlbumsActions.HideBanner -> {

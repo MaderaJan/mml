@@ -3,14 +3,15 @@ package cz.maderajan.ui.spotifysync.intro.viewmodel
 import cz.maderajan.common.ui.UiEffect
 import cz.maderajan.common.ui.viewmodel.BaseMviViewModel
 import cz.maderajan.navigation.NavigationFlowBus
+import cz.maderajan.navigation.direction.AlbumsDirection
+import cz.maderajan.navigation.direction.SpotifyDirections
 import cz.maderajan.ui.spotifysync.R
-import cz.maderajan.ui.spotifysync.intro.IntroSpotifySyncFragmentDirections
 import cz.maderajan.ui.spotifysync.usecase.IntroSpotifyUseCase
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
 
 class IntroSpotifySyncViewModel(
-    val navigationFlowBus: NavigationFlowBus,
+    private val navigationFlowBus: NavigationFlowBus,
     private val introSpotifyUseCase: IntroSpotifyUseCase
 ) : BaseMviViewModel<IntroSpotifyViewState, IntroSpotifyAction>(IntroSpotifyViewState()) {
 
@@ -23,7 +24,7 @@ class IntroSpotifySyncViewModel(
                     }
                     is IntroSpotifyAction.Skip -> {
                         introSpotifyUseCase.synchronizationSkipped()
-                        sendEffect(UiEffect.SuccessUiEffect.empty())
+                        navigationFlowBus.send(AlbumsDirection.root)
                     }
                 }
             }
@@ -34,7 +35,7 @@ class IntroSpotifySyncViewModel(
             sendEffect(UiEffect.ErrorUiEffect(R.string.general_error_something_went_wrong))
         } else {
             introSpotifyUseCase.persistSpotifyAccessToken(action.token)
-            sendEffect(UiEffect.NavDirectionUiEffect(IntroSpotifySyncFragmentDirections.actionIntroSpotifySyncFragmentToSelectSpotifyAlbumsFragment()))
+            navigationFlowBus.send(SpotifyDirections.selectAlbums)
         }
     }
 }

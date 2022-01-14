@@ -42,6 +42,7 @@ object Libs : Plugin<Project> {
         const val fragment = "androidx.navigation:navigation-fragment-ktx:${Versions.navigationComponent}"
         const val uiKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navigationComponent}"
         const val dynamicFeatures = "androidx.navigation:navigation-dynamic-features-fragment:${Versions.navigationComponent}"
+        const val compose = "androidx.navigation:navigation-compose:2.4.0-rc01"
     }
 
     object Spotify {
@@ -68,6 +69,7 @@ object Libs : Plugin<Project> {
         const val uiTooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
         const val themeLoader = "com.google.android.material:compose-theme-adapter:1.1.2"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout-compose:1.0.0-beta02"
+        const val activity = "androidx.activity:activity-compose:1.4.0"
     }
 
     override fun apply(target: Project) {}

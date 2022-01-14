@@ -22,7 +22,7 @@ class AppStartFragment : Fragment(R.layout.fragment_start) {
                 .collect { effect ->
                     when (effect) {
                         is UiEffect.NavFlowUiEffect -> {
-                            viewModel.navigator.send(effect.navFlow)
+                            viewModel.navigator.send(effect.navCommand)
                         }
                     }
                 }

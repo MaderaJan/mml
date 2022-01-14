@@ -50,4 +50,5 @@ dependencies {
     api(Libs.Compose.uiTooling)
     api(Libs.Compose.themeLoader)
     api(Libs.Compose.constraintLayout)
+    api(Libs.Compose.activity)
 }
