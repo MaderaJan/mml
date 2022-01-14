@@ -1,6 +1,8 @@
 package cz.maderajan.ui.spotifysync.intro
 
 import android.app.Activity
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import com.spotify.sdk.android.auth.AuthorizationClient
@@ -12,7 +14,6 @@ import cz.maderajan.ui.spotifysync.intro.viewmodel.IntroSpotifySyncViewModel
 
 const val CLIENT_ID = "f1c93f2c3bd64faf9c410970d69a1fac"
 const val REDIRECT_URI = "mml://callback"
-const val REQ_SPOTIFY_LOGIN = 1000
 
 @Composable
 fun SpotifyIntroScreen(
@@ -21,6 +22,11 @@ fun SpotifyIntroScreen(
 
     MmlTheme {
         val context = LocalContext.current
+        val spotifyActivityLauncher =
+            rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult(), onResult = { activityResult ->
+                val response = AuthorizationClient.getResponse(activityResult.resultCode, activityResult.data)
+                viewModel.send(IntroSpotifyAction.SpotifyResponse(response))
+            })
 
         IntroSyncUi(
             onSynchronize = {
@@ -30,42 +36,12 @@ fun SpotifyIntroScreen(
                 builder.setScopes(arrayOf("user-library-read"))
                 val request: AuthorizationRequest = builder.build()
 
-                AuthorizationClient.openLoginActivity(context as Activity, REQ_SPOTIFY_LOGIN, request)
+                val intent = AuthorizationClient.createLoginActivityIntent(context as Activity, request)
+                spotifyActivityLauncher.launch(intent)
             },
             onSkip = {
                 viewModel.send(IntroSpotifyAction.Skip)
             }
         )
     }
-//    override fun onActivityCreated(savedInstanceState: Bundle?) {
-//        super.onActivityCreated(savedInstanceState)
-//
-//        lifecycleScope.launchWhenCreated {
-//            viewModel.uiEffect.consumeAsFlow()
-//                .collect { effect ->
-//                    when (effect) {
-//                        is UiEffect.ErrorUiEffect -> toast(effect.message)
-//                        is UiEffect.NavDirectionUiEffect -> {
-//                            findNavController().navigate(effect.navDirection)
-//                        }
-//                        is UiEffect.SuccessUiEffect -> {
-//                            viewModel.navigationFlowBus.send(NavigationCommand.Albums)
-//                        }
-//                    }
-//                }
-//        }
-//    }
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//        if (requestCode == REQ_SPOTIFY_LOGIN) {
-//            val response = AuthorizationClient.getResponse(resultCode, data)
-//            when (response.type) {
-//                AuthorizationResponse.Type.TOKEN -> viewModel.send(IntroSpotifyAction.PersistSpotifyLoginToken(response.accessToken))
-//                AuthorizationResponse.Type.ERROR -> Timber.e(response.error)
-//                else -> Timber.e(response.state)
-//            }
-//        }
-//    }
 }

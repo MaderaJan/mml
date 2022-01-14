@@ -20,11 +20,8 @@ import cz.maderajan.uialbums.ui.AlbumListScreen
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
-// TODO spotify sync opravit
-
 class MainActivity : AppCompatActivity() {
 
-    // TODO REMOVE private val navigator: Navigator by inject()
     private val navigationFlowBus: NavigationFlowBus by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,28 +77,5 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-        // TODO REMOVE
-//        val navController = (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment).navController
-//        navigator.navController = navController
-//
-//        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
-//        navController.addOnDestinationChangedListener { _, destination, _ ->
-//            val conf = NavigationViewDataSource.data.firstOrNull { it.fragmentId == destination.id }
-//            bottomNavigation.isVisible = conf!!.showBottomNavigation
-//        }
     }
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//        if (requestCode == REQ_SPOTIFY_LOGIN) {
-//            val response = AuthorizationClient.getResponse(resultCode, data)
-//            when (response.type) {
-//                AuthorizationResponse.Type.TOKEN -> viewModel.send(IntroSpotifyAction.PersistSpotifyLoginToken(response.accessToken))
-//                AuthorizationResponse.Type.ERROR -> Timber.e(response.error)
-//                else -> Timber.e(response.state)
-//            }
-//        }
-//    }
 }
