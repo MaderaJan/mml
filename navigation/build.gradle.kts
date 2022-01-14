@@ -24,6 +24,7 @@ dependencies {
     api(Libs.NavigationComponent.fragment)
     api(Libs.NavigationComponent.uiKtx)
     api(Libs.NavigationComponent.dynamicFeatures)
+    api(Libs.NavigationComponent.compose)
 
     api(Libs.Koin.navigation)
 }

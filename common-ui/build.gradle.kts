@@ -15,6 +15,11 @@ android {
 
     buildFeatures {
         viewBinding = true
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.compose
     }
 }
 
@@ -26,6 +31,7 @@ dependencies {
 
     api(Libs.Ui.constraint)
     api(Libs.Ui.coil)
+    api(Libs.Ui.coilCompose)
     implementation(Libs.Ui.activityX)
 
     api(Libs.LifeCycle.runTime)
@@ -34,4 +40,15 @@ dependencies {
     api(Libs.NavigationComponent.fragment)
     api(Libs.NavigationComponent.uiKtx)
     api(Libs.NavigationComponent.dynamicFeatures)
+
+    api(Libs.Compose.runTime)
+    api(Libs.Compose.ui)
+    api(Libs.Compose.foundation)
+    api(Libs.Compose.foundationLayout)
+    api(Libs.Compose.material)
+    api(Libs.Compose.liveData)
+    api(Libs.Compose.uiTooling)
+    api(Libs.Compose.themeLoader)
+    api(Libs.Compose.constraintLayout)
+    api(Libs.Compose.activity)
 }

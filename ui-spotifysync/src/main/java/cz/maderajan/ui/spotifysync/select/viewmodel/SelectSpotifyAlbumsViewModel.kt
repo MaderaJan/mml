@@ -3,6 +3,7 @@ package cz.maderajan.ui.spotifysync.select.viewmodel
 import cz.maderajan.common.ui.UiEffect
 import cz.maderajan.common.ui.viewmodel.BaseMviViewModel
 import cz.maderajan.navigation.NavigationFlowBus
+import cz.maderajan.navigation.direction.AlbumsDirection
 import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.data.select.AlphabetLetter
 import cz.maderajan.ui.spotifysync.data.select.ISelectableAlbum
@@ -12,15 +13,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
 class SelectSpotifyAlbumsViewModel(
-    val navigationFlowBus: NavigationFlowBus,
+    private val navigationFlowBus: NavigationFlowBus,
     private val syncSpotifyAlbumsUseCase: SyncSpotifyAlbumsUseCase
 ) : BaseMviViewModel<SelectSpotifyAlbumsViewState, SelectSpotifyAlbumsActions>(SelectSpotifyAlbumsViewState(emptyList())) {
+
+    init {
+        send(SelectSpotifyAlbumsActions.FetchSpotifyAlbums)
+    }
 
     override suspend fun handleActions() {
         actions.consumeAsFlow()
             .collect { action ->
                 when (action) {
-                    SelectSpotifyAlbumsActions.SyncSpotifyAlbums -> {
+                    SelectSpotifyAlbumsActions.FetchSpotifyAlbums -> {
                         uiEffect.send(UiEffect.LoadingUiEffect)
 
                         syncSpotifyAlbumsUseCase.fetchAllUserAlbums()
@@ -50,7 +55,7 @@ class SelectSpotifyAlbumsViewModel(
                         val updatedAlbums = state.value.albums.map {
                             if (it is SelectableAlbum) it.copy(isSelected = true) else it
                         }
-                        setState { copy(albums = updatedAlbums) }
+                        setState { copy(albums = updatedAlbums, showBanner = false) }
                     }
                     SelectSpotifyAlbumsActions.SaveSelectedAlbums -> {
                         syncSpotifyAlbumsUseCase.saveSelectedAlbums(state.value.albums)
@@ -60,8 +65,11 @@ class SelectSpotifyAlbumsViewModel(
                                 sendEffect(UiEffect.ErrorUiEffect(R.string.general_error))
                             }
                             .collect {
-                                sendEffect(UiEffect.SuccessUiEffect.empty())
+                                navigationFlowBus.send(AlbumsDirection.root)
                             }
+                    }
+                    SelectSpotifyAlbumsActions.HideBanner -> {
+                        setState { copy(showBanner = false) }
                     }
                 }
             }
@@ -76,7 +84,7 @@ class SelectSpotifyAlbumsViewModel(
         while (iterator.hasNext()) {
             val current = iterator.next()
             if (current is SelectableAlbum) {
-                val startLetter = current.name.first()
+                val startLetter = current.name.first().uppercaseChar()
 
                 if (lastStartLetter != startLetter) {
                     iterator.previous()
