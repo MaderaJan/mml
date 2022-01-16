@@ -31,7 +31,9 @@ fun Banner(
     negativeButtonCallback: (() -> Unit)? = null,
 ) {
     ConstraintLayout(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.apply {
+            fillMaxWidth()
+        }
     ) {
         val (image, description, positiveButton, negativeButton, divider) = createRefs()
 

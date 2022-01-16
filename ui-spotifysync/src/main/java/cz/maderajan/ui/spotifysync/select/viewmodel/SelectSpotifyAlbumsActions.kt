@@ -8,6 +8,7 @@ sealed class SelectSpotifyAlbumsActions : IAction {
     object SelectAllAlbums : SelectSpotifyAlbumsActions()
     object SaveSelectedAlbums : SelectSpotifyAlbumsActions()
     object HideBanner : SelectSpotifyAlbumsActions()
+    object OpenFilterAction : SelectSpotifyAlbumsActions()
 
     class AlbumClicked(val album: SelectableAlbum) : SelectSpotifyAlbumsActions()
 }

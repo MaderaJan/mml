@@ -14,6 +14,7 @@ import cz.maderajan.navigation.NavigationFlowBus
 import cz.maderajan.navigation.direction.AlbumsDirection
 import cz.maderajan.navigation.direction.AppStartDirection
 import cz.maderajan.navigation.direction.SpotifyDirection
+import cz.maderajan.ui.spotifysync.filtr.SelectSpotifyFilterScreen
 import cz.maderajan.ui.spotifysync.intro.SpotifyIntroScreen
 import cz.maderajan.ui.spotifysync.select.SelectSpotifyAlbumsScreen
 import cz.maderajan.uialbums.ui.AlbumListScreen
@@ -62,6 +63,9 @@ class MainActivity : AppCompatActivity() {
                         }
                         composable(SpotifyDirection.selectAlbums.destination) {
                             SelectSpotifyAlbumsScreen(viewModel = getViewModel())
+                        }
+                        composable(SpotifyDirection.filter.destination) {
+                            SelectSpotifyFilterScreen(viewModel = getViewModel())
                         }
                     }
 

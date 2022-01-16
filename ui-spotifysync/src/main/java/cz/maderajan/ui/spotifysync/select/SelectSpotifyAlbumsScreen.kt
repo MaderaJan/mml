@@ -7,14 +7,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -37,29 +35,32 @@ import cz.maderajan.ui.spotifysync.select.viewmodel.SelectSpotifyAlbumsViewModel
 @Preview
 @Composable
 fun PreviewSelectSpotifyTopBar() {
-    SelectSpotifyTopBar {}
+    SelectSpotifyTopBar({})
 }
 
 @Composable
 fun SelectSpotifyTopBar(
-    onSaveClick: () -> Unit
+    onSearchClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     TopAppBar(
         title = {
             Text(text = stringResource(id = R.string.spotify_select_albums_toolbar_title))
         },
+        modifier = modifier,
+        backgroundColor = PrimaryColor700,
         actions = {
-            Text(
-                text = stringResource(id = R.string.general_save),
-                color = SecondaryColo900,
+            Image(
+                painterResource(id = R.drawable.ic_search),
+                contentDescription = "",
+                colorFilter = ColorFilter.tint(SecondaryColo900),
                 modifier = Modifier
                     .padding(end = 16.dp)
                     .clickable {
-                        onSaveClick.invoke()
+                        onSearchClick.invoke()
                     }
             )
         },
-        modifier = Modifier.fillMaxWidth()
     )
 }
 
@@ -189,42 +190,90 @@ fun SelectSpotifyAlbumsScreen(viewModel: SelectSpotifyAlbumsViewModel) {
     MmlTheme {
         val currentState = viewModel.state.collectAsState().value
 
-        Column {
-            SelectSpotifyTopBar {
-                viewModel.send(SelectSpotifyAlbumsActions.SaveSelectedAlbums)
-            }
+        ConstraintLayout(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            val (appBar, banner, loading, list, filterButton) = createRefs()
 
-            if (currentState.showBanner && currentState.albums.isNotEmpty()) {
-                Banner(
-                    imageRes = cz.maderajan.common.ui.R.drawable.img_spotify,
-                    descriptionText = stringResource(id = R.string.spotify_select_banner_description),
-                    positiveButtonText = stringResource(id = R.string.spotify_select_banner_positive),
-                    positiveButtonCallback = {
-                        viewModel.send(SelectSpotifyAlbumsActions.SelectAllAlbums)
-                    },
-                    negativeButtonText = stringResource(id = R.string.spotify_select_banner_negative),
-                    negativeButtonCallback = {
-                        viewModel.send(SelectSpotifyAlbumsActions.HideBanner)
-                    },
-                )
-            }
+            SelectSpotifyTopBar(
+                onSearchClick = {
+                    viewModel.send(SelectSpotifyAlbumsActions.OpenFilterAction)
+                },
+                modifier = Modifier
+                    .constrainAs(appBar) {
+                        width = Dimension.fillToConstraints
+                        top.linkTo(parent.top)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    }
+            )
 
             if (currentState.albums.isEmpty()) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    CircularProgressIndicator(
-                        color = SecondaryColo900
+                CircularProgressIndicator(
+                    color = SecondaryColo900,
+                    modifier = Modifier.constrainAs(loading) {
+                        top.linkTo(parent.top)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        bottom.linkTo(parent.bottom)
+                    }
+                )
+            } else {
+                if (currentState.showBanner) {
+                    Banner(
+                        imageRes = R.drawable.img_spotify,
+                        descriptionText = stringResource(id = R.string.spotify_select_banner_description),
+                        positiveButtonText = stringResource(id = R.string.spotify_select_banner_positive),
+                        positiveButtonCallback = {
+                            viewModel.send(SelectSpotifyAlbumsActions.SelectAllAlbums)
+                        },
+                        negativeButtonText = stringResource(id = R.string.spotify_select_banner_negative),
+                        negativeButtonCallback = {
+                            viewModel.send(SelectSpotifyAlbumsActions.HideBanner)
+                        },
+                        modifier = Modifier.constrainAs(banner) {
+                            top.linkTo(appBar.bottom)
+                        }
                     )
                 }
-            } else {
+
                 SelectSpotifyList(
                     items = currentState.albums,
                     onAlbumSelect = { album ->
                         viewModel.send(SelectSpotifyAlbumsActions.AlbumClicked(album))
                     },
+                    modifier = Modifier.constrainAs(list) {
+                        height = Dimension.fillToConstraints
+                        if (currentState.showBanner) top.linkTo(banner.bottom) else top.linkTo(appBar.bottom)
+                        bottom.linkTo(parent.bottom)
+                    }
+                )
+                ExtendedFloatingActionButton(
+                    text = {
+                        Text(
+                            text = stringResource(id = R.string.general_done),
+                            style = MmmlTypography.body1.copy(
+                                color = TextColorDark
+                            )
+                        )
+                    },
+                    icon = {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_check),
+                            tint = TextColorDark,
+                            contentDescription = ""
+                        )
+                    },
+                    backgroundColor = SecondaryColo900,
+                    modifier = Modifier
+                        .padding(32.dp)
+                        .constrainAs(filterButton) {
+                            bottom.linkTo(parent.bottom)
+                            end.linkTo(parent.end)
+                        },
+                    onClick = {
+                        viewModel.send(SelectSpotifyAlbumsActions.SaveSelectedAlbums)
+                    }
                 )
             }
         }

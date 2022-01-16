@@ -4,6 +4,7 @@ import cz.maderajan.common.ui.UiEffect
 import cz.maderajan.common.ui.viewmodel.BaseMviViewModel
 import cz.maderajan.navigation.NavigationFlowBus
 import cz.maderajan.navigation.direction.AlbumsDirection
+import cz.maderajan.navigation.direction.SpotifyDirection
 import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.data.select.AlphabetLetter
 import cz.maderajan.ui.spotifysync.data.select.ISelectableAlbum
@@ -70,6 +71,9 @@ class SelectSpotifyAlbumsViewModel(
                     }
                     SelectSpotifyAlbumsActions.HideBanner -> {
                         setState { copy(showBanner = false) }
+                    }
+                    SelectSpotifyAlbumsActions.OpenFilterAction -> {
+                        navigationFlowBus.send(SpotifyDirection.filter)
                     }
                 }
             }

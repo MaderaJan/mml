@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.singleOrNull
-import java.util.*
 
 class SyncSpotifyAlbumsUseCase(
     private val spotifyRepository: SpotifyRepository,
@@ -31,10 +30,17 @@ class SyncSpotifyAlbumsUseCase(
                         }.singleOrNull() ?: emptyList()
                 }
 
-                allAlbums.sortedBy { it.name.toLowerCase(Locale.getDefault()) }
+                allAlbums.sortedBy { it.name.lowercase() }
             }.map { albums ->
-                albums.map {
-                    SelectableAlbum(it.id, it.name, it.image, it.artists, it.genres, false)
+                albums.map { album ->
+                    SelectableAlbum(
+                        id = album.id,
+                        name = album.name,
+                        image = album.image,
+                        artists = album.artists,
+                        genres = album.genres,
+                        isSelected = false,
+                    )
                 }
             }
     }

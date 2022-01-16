@@ -18,7 +18,7 @@ class IntroSpotifySyncViewModel(
 ) : BaseMviViewModel<IntroSpotifyViewState, IntroSpotifyAction>(IntroSpotifyViewState()) {
 
     private val backupToken =
-        "BQA8xOHnB0S9m2U5jhZTP_at85NP3XKdVzVZ2lmACWwy0viwk8W6IirmtnB4JJ0-DNMvSGkjX4Ff12PYfafIXfMhz17LOGjhrrlOGoQ1-ELMFBHccdKvUItke9bKgmYuyRm2_6v8xV3x4KZkmkyIFw0qByEs3FlhDFM"
+        "BQD5Hap8G0QoZa_iKySOHOlDItdupf1Zc-wcOUYF9TezUC51nTJ19LiQ4_jLDdWYJMEIrGUdtg72SB6Kf7GXWLOjli6hyH-ZnYuXH_xPBIZ_UqwffJTYjeYQ-6q22nJXCM3CLamVO4HuzbE_qqGpIBAJmHjxMo5EQvA"
 
     override suspend fun handleActions() {
         actions.consumeAsFlow()
