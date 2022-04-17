@@ -17,9 +17,6 @@ class IntroSpotifySyncViewModel(
     private val introSpotifyUseCase: IntroSpotifyUseCase
 ) : BaseMviViewModel<IntroSpotifyViewState, IntroSpotifyAction>(IntroSpotifyViewState()) {
 
-    private val backupToken =
-        "BQD5Hap8G0QoZa_iKySOHOlDItdupf1Zc-wcOUYF9TezUC51nTJ19LiQ4_jLDdWYJMEIrGUdtg72SB6Kf7GXWLOjli6hyH-ZnYuXH_xPBIZ_UqwffJTYjeYQ-6q22nJXCM3CLamVO4HuzbE_qqGpIBAJmHjxMo5EQvA"
-
     override suspend fun handleActions() {
         actions.consumeAsFlow()
             .collect { action ->
@@ -32,7 +29,6 @@ class IntroSpotifySyncViewModel(
                             }
                             AuthorizationResponse.Type.ERROR -> {
                                 Timber.e(authResponse.error)
-                                storeToken(backupToken)
                             }
                             else -> Timber.e(authResponse.state)
                         }

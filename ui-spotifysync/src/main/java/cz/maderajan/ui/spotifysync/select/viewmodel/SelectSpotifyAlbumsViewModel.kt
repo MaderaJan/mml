@@ -1,5 +1,6 @@
 package cz.maderajan.ui.spotifysync.select.viewmodel
 
+import androidx.lifecycle.viewModelScope
 import cz.maderajan.common.ui.UiEffect
 import cz.maderajan.common.ui.viewmodel.BaseMviViewModel
 import cz.maderajan.navigation.NavigationFlowBus
@@ -11,12 +12,17 @@ import cz.maderajan.ui.spotifysync.data.select.ISelectableAlbum
 import cz.maderajan.ui.spotifysync.data.select.SelectableAlbum
 import cz.maderajan.ui.spotifysync.usecase.SyncSpotifyAlbumsUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 class SelectSpotifyAlbumsViewModel(
     private val navigationFlowBus: NavigationFlowBus,
     private val syncSpotifyAlbumsUseCase: SyncSpotifyAlbumsUseCase
 ) : BaseMviViewModel<SelectSpotifyAlbumsViewState, SelectSpotifyAlbumsActions>(SelectSpotifyAlbumsViewState(emptyList())) {
+
+    private var allAlbums = listOf<SelectableAlbum>()
 
     init {
         send(SelectSpotifyAlbumsActions.FetchSpotifyAlbums)
@@ -31,12 +37,13 @@ class SelectSpotifyAlbumsViewModel(
 
                         syncSpotifyAlbumsUseCase.fetchAllUserAlbums()
                             .flowOn(Dispatchers.IO)
-                            .map(::decorateAlbumsWithAlphaLetter)
                             .catch {
                                 flowOf(emptyList<SelectableAlbum>())
                                 sendEffect(UiEffect.ErrorUiEffect(R.string.general_error))
                             }
-                            .collect { decoratedAlbums ->
+                            .collect { albums ->
+                                allAlbums = albums
+                                val decoratedAlbums = albums.decorateAlbumsWithAlphaLetter()
                                 setState { copy(albums = decoratedAlbums) }
                                 sendEffect(UiEffect.ReadyUiEffect)
                             }
@@ -75,12 +82,15 @@ class SelectSpotifyAlbumsViewModel(
                     SelectSpotifyAlbumsActions.OpenFilterAction -> {
                         navigationFlowBus.send(SpotifyDirection.filter)
                     }
+                    is SelectSpotifyAlbumsActions.FilterValueChanged -> {
+                        filterValueChanged(action.value)
+                    }
                 }
             }
     }
 
-    private fun decorateAlbumsWithAlphaLetter(albums: List<ISelectableAlbum>): List<ISelectableAlbum> {
-        val mutableList = albums.toMutableList()
+    private fun List<ISelectableAlbum>.decorateAlbumsWithAlphaLetter(): List<ISelectableAlbum> {
+        val mutableList = this.toMutableList()
         val iterator = mutableList.listIterator()
 
         var lastStartLetter: Char? = null
@@ -101,5 +111,33 @@ class SelectSpotifyAlbumsViewModel(
         }
 
         return mutableList
+    }
+
+    private fun filterValueChanged(filterValue: String) {
+        var debounceJob: Job? = null
+
+        debounceJob = viewModelScope.launch {
+            debounceJob?.cancel()
+            delay(500)
+
+            val selectedAlbumIds = state.value.albums.filter { album ->
+                album is SelectableAlbum && album.isSelected
+            }.mapNotNull {
+                if (it is SelectableAlbum) it.id else null
+            }
+
+            val filterAlbums = allAlbums.filter {
+                it.name.lowercase().startsWith(filterValue.lowercase())
+            }.map { album ->
+                album.copy(isSelected = selectedAlbumIds.any { it == album.id })
+            }
+
+            setState {
+                copy(
+                    filterValue = filterValue,
+                    albums = filterAlbums.decorateAlbumsWithAlphaLetter()
+                )
+            }
+        }
     }
 }

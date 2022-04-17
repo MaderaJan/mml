@@ -1,13 +1,15 @@
 package cz.maderajan.mml
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import com.spotify.sdk.android.auth.AuthorizationResponse
 import cz.maderajan.common.resources.MmlTheme
 import cz.maderajan.common.ui.appstart.AppStartScreen
 import cz.maderajan.navigation.NavigationFlowBus
@@ -16,10 +18,15 @@ import cz.maderajan.navigation.direction.AppStartDirection
 import cz.maderajan.navigation.direction.SpotifyDirection
 import cz.maderajan.ui.spotifysync.filtr.SelectSpotifyFilterScreen
 import cz.maderajan.ui.spotifysync.intro.SpotifyIntroScreen
+import cz.maderajan.ui.spotifysync.intro.viewmodel.IntroSpotifyAction
+import cz.maderajan.ui.spotifysync.intro.viewmodel.IntroSpotifySyncViewModel
 import cz.maderajan.ui.spotifysync.select.SelectSpotifyAlbumsScreen
 import cz.maderajan.uialbums.ui.AlbumListScreen
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.consumeAsFlow
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,8 +39,9 @@ class MainActivity : AppCompatActivity() {
         setContent {
             MmlTheme {
                 val navController = rememberNavController()
-                navigationFlowBus.navigationFlow.collectAsState().value.also { navigationFlow ->
-                    if (navigationFlow.destination.isNotEmpty()) {
+
+                lifecycleScope.launchWhenStarted {
+                    navigationFlowBus.navigationFlow.consumeAsFlow().collect { navigationFlow ->
                         navController.navigate(navigationFlow.destination)
                     }
                 }
@@ -58,14 +66,19 @@ class MainActivity : AppCompatActivity() {
                         route = SpotifyDirection.root.destination,
                         startDestination = SpotifyDirection.intro.destination,
                     ) {
-                        composable(SpotifyDirection.intro.destination) {
+                        composable(
+                            route = SpotifyDirection.intro.destination,
+                        ) {
                             SpotifyIntroScreen(viewModel = getViewModel())
                         }
                         composable(SpotifyDirection.selectAlbums.destination) {
                             SelectSpotifyAlbumsScreen(viewModel = getViewModel())
                         }
                         composable(SpotifyDirection.filter.destination) {
-                            SelectSpotifyFilterScreen(viewModel = getViewModel())
+                            SelectSpotifyFilterScreen(
+                                navController = navController,
+                                viewModel = getViewModel()
+                            )
                         }
                     }
 
@@ -81,5 +94,14 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+
+        val uri = intent?.data ?: return
+        val response = AuthorizationResponse.fromUri(uri)
+        val introSpotifySyncViewModel: IntroSpotifySyncViewModel = getViewModel()
+        introSpotifySyncViewModel.send(IntroSpotifyAction.SpotifyResponse(response))
     }
 }

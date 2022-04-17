@@ -16,6 +16,9 @@ android {
         versionName = Config.versionName
 
         testInstrumentationRunner = Config.testInstrumentationRunner
+
+        // SPOTIFY AUTH CONFIG
+        addManifestPlaceholders(mapOf("redirectSchemeName" to "spotify-sdk", "redirectHostName" to "auth"))
     }
 
     buildTypes {

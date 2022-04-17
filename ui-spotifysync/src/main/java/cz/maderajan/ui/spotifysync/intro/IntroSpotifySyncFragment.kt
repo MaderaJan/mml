@@ -1,8 +1,6 @@
 package cz.maderajan.ui.spotifysync.intro
 
 import android.app.Activity
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import com.spotify.sdk.android.auth.AuthorizationClient
@@ -22,22 +20,15 @@ fun SpotifyIntroScreen(
 
     MmlTheme {
         val context = LocalContext.current
-        val spotifyActivityLauncher =
-            rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult(), onResult = { activityResult ->
-                val response = AuthorizationClient.getResponse(activityResult.resultCode, activityResult.data)
-                viewModel.send(IntroSpotifyAction.SpotifyResponse(response))
-            })
 
         IntroSyncUi(
             onSynchronize = {
                 val builder: AuthorizationRequest.Builder =
                     AuthorizationRequest.Builder(CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URI)
+                        .setScopes(arrayOf("user-library-read"))
 
-                builder.setScopes(arrayOf("user-library-read"))
                 val request: AuthorizationRequest = builder.build()
-
-                val intent = AuthorizationClient.createLoginActivityIntent(context as Activity, request)
-                spotifyActivityLauncher.launch(intent)
+                AuthorizationClient.openLoginInBrowser(context as Activity, request)
             },
             onSkip = {
                 viewModel.send(IntroSpotifyAction.Skip)

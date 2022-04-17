@@ -15,18 +15,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import cz.maderajan.common.resources.*
 import cz.maderajan.ui.spotifysync.R
 import cz.maderajan.ui.spotifysync.select.SelectSpotifyList
+import cz.maderajan.ui.spotifysync.select.viewmodel.SelectSpotifyAlbumsActions
 import cz.maderajan.ui.spotifysync.select.viewmodel.SelectSpotifyAlbumsViewModel
-
-// TODO navigate Back button
-// TODO vyřešit TODO
 
 @Composable
 fun SelectSpotifyFilterScreen(
+    navController: NavController,
     viewModel: SelectSpotifyAlbumsViewModel
 ) {
     MmlTheme {
@@ -38,26 +37,36 @@ fun SelectSpotifyFilterScreen(
             Box(
                 modifier = Modifier.padding(16.dp)
             ) {
-                FilterField()
+                FilterField(
+                    filterValue = currentState.filterValue,
+                    onBackButtonClicked = {
+                        navController.navigateUp()
+                    },
+                    onFilterValueChange = { filterValue ->
+                        viewModel.send(SelectSpotifyAlbumsActions.FilterValueChanged(filterValue))
+                    }
+                )
             }
 
             SelectSpotifyList(
                 items = currentState.albums,
-                onAlbumSelect = {
-                    // TODO on album select
+                onAlbumSelect = { album ->
+                    viewModel.send(SelectSpotifyAlbumsActions.AlbumClicked(album))
                 }
             )
         }
     }
 }
 
-@Preview
 @Composable
 fun FilterField(
+    filterValue: String,
+    onBackButtonClicked: () -> Unit,
+    onFilterValueChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     TextField(
-        value = "",
+        value = filterValue,
         leadingIcon = {
             Image(
                 painter = painterResource(
@@ -68,7 +77,7 @@ fun FilterField(
                 modifier = Modifier
                     .padding(8.dp)
                     .clickable {
-                        // TODO ON CLICK
+                        onBackButtonClicked.invoke()
                     }
             )
         },
@@ -82,9 +91,7 @@ fun FilterField(
                 )
             )
         },
-        onValueChange = {
-            // TODO filter value changed
-        },
+        onValueChange = onFilterValueChange,
         colors = TextFieldDefaults.textFieldColors(
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,

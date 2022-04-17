@@ -1,12 +1,11 @@
 package cz.maderajan.navigation
 
-import cz.maderajan.navigation.direction.AppStartDirection
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.channels.Channel
 
 class NavigationFlowBus {
-    val navigationFlow = MutableStateFlow(AppStartDirection.default)
+    val navigationFlow = Channel<NavigationCommand>(Channel.UNLIMITED)
 
     suspend fun send(direction: NavigationCommand) {
-        navigationFlow.emit(direction)
+        navigationFlow.send(direction)
     }
 }
