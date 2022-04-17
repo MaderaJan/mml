@@ -104,7 +104,7 @@ fun FilterField(
             disabledIndicatorColor = Color.Transparent
         ),
         modifier = modifier
-            .height(56.dp)
+            .height(60.dp)
             .fillMaxWidth()
             .background(
                 color = PrimaryColor600,
