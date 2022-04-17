@@ -16,7 +16,7 @@ import cz.maderajan.navigation.NavigationFlowBus
 import cz.maderajan.navigation.direction.AlbumsDirection
 import cz.maderajan.navigation.direction.AppStartDirection
 import cz.maderajan.navigation.direction.SpotifyDirection
-import cz.maderajan.ui.spotifysync.filtr.SelectSpotifyFilterScreen
+import cz.maderajan.ui.spotifysync.filter.SelectSpotifyFilterScreen
 import cz.maderajan.ui.spotifysync.intro.SpotifyIntroScreen
 import cz.maderajan.ui.spotifysync.intro.viewmodel.IntroSpotifyAction
 import cz.maderajan.ui.spotifysync.intro.viewmodel.IntroSpotifySyncViewModel

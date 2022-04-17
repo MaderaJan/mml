@@ -20,9 +20,11 @@ import kotlinx.coroutines.launch
 class SelectSpotifyAlbumsViewModel(
     private val navigationFlowBus: NavigationFlowBus,
     private val syncSpotifyAlbumsUseCase: SyncSpotifyAlbumsUseCase
-) : BaseMviViewModel<SelectSpotifyAlbumsViewState, SelectSpotifyAlbumsActions>(SelectSpotifyAlbumsViewState(emptyList())) {
+) : BaseMviViewModel<SelectSpotifyAlbumsViewState, SelectSpotifyAlbumsActions>(
+    SelectSpotifyAlbumsViewState(emptyList(), emptyList(), emptyList())
+) {
 
-    private var allAlbums = listOf<SelectableAlbum>()
+    private var debounceJob: Job? = null
 
     init {
         send(SelectSpotifyAlbumsActions.FetchSpotifyAlbums)
@@ -42,31 +44,39 @@ class SelectSpotifyAlbumsViewModel(
                                 sendEffect(UiEffect.ErrorUiEffect(R.string.general_error))
                             }
                             .collect { albums ->
-                                allAlbums = albums
                                 val decoratedAlbums = albums.decorateAlbumsWithAlphaLetter()
-                                setState { copy(albums = decoratedAlbums) }
+                                setState { copy(displayedAlbums = decoratedAlbums, allAlbums = albums) }
                                 sendEffect(UiEffect.ReadyUiEffect)
                             }
                     }
                     is SelectSpotifyAlbumsActions.AlbumClicked -> {
                         val selectedAlbum = action.album
-                        val updatedAlbums = state.value.albums.toMutableList()
+                        val updatedAlbums = state.value.displayedAlbums.toMutableList()
+                        val selectedAlbums = state.value.selectedAlbums.toMutableList()
+
                         val index = updatedAlbums.indexOf(selectedAlbum)
                         if (index != -1) {
                             updatedAlbums[index] = selectedAlbum.copy(isSelected = !selectedAlbum.isSelected)
+
+                            if (selectedAlbum.isSelected) {
+                                selectedAlbums.remove(selectedAlbum)
+                            } else {
+                                selectedAlbums.add(selectedAlbum)
+                            }
                         }
+
                         setState {
-                            copy(albums = updatedAlbums)
+                            copy(displayedAlbums = updatedAlbums, selectedAlbums = selectedAlbums)
                         }
                     }
                     SelectSpotifyAlbumsActions.SelectAllAlbums -> {
-                        val updatedAlbums = state.value.albums.map {
+                        val updatedAlbums = state.value.displayedAlbums.map {
                             if (it is SelectableAlbum) it.copy(isSelected = true) else it
                         }
-                        setState { copy(albums = updatedAlbums, showBanner = false) }
+                        setState { copy(displayedAlbums = updatedAlbums, showBanner = false) }
                     }
                     SelectSpotifyAlbumsActions.SaveSelectedAlbums -> {
-                        syncSpotifyAlbumsUseCase.saveSelectedAlbums(state.value.albums)
+                        syncSpotifyAlbumsUseCase.saveSelectedAlbums(state.value.displayedAlbums)
                             .flowOn(Dispatchers.IO)
                             .catch {
                                 flowOf(Unit)
@@ -78,6 +88,9 @@ class SelectSpotifyAlbumsViewModel(
                     }
                     SelectSpotifyAlbumsActions.HideBanner -> {
                         setState { copy(showBanner = false) }
+                    }
+                    SelectSpotifyAlbumsActions.ClearFilter -> {
+                        filterValueChanged("")
                     }
                     SelectSpotifyAlbumsActions.OpenFilterAction -> {
                         navigationFlowBus.send(SpotifyDirection.filter)
@@ -114,30 +127,42 @@ class SelectSpotifyAlbumsViewModel(
     }
 
     private fun filterValueChanged(filterValue: String) {
-        var debounceJob: Job? = null
+        setState {
+            copy(filterValue = filterValue)
+        }
 
-        debounceJob = viewModelScope.launch {
-            debounceJob?.cancel()
-            delay(500)
+        filerAlbumsWithDebounce(filterValue)
+    }
 
-            val selectedAlbumIds = state.value.albums.filter { album ->
-                album is SelectableAlbum && album.isSelected
-            }.mapNotNull {
-                if (it is SelectableAlbum) it.id else null
-            }
+    private fun filerAlbumsWithDebounce(filterValue: String) {
+        val allAlbums = state.value.allAlbums
+        val selectedAlbums = state.value.selectedAlbums
 
-            val filterAlbums = allAlbums.filter {
-                it.name.lowercase().startsWith(filterValue.lowercase())
-            }.map { album ->
-                album.copy(isSelected = selectedAlbumIds.any { it == album.id })
+        if (filterValue.isEmpty()) {
+            val filteredAlbums = allAlbums.map { album ->
+                album.copy(isSelected = selectedAlbums.contains(album))
             }
 
             setState {
-                copy(
-                    filterValue = filterValue,
-                    albums = filterAlbums.decorateAlbumsWithAlphaLetter()
-                )
+                copy(displayedAlbums = filteredAlbums.decorateAlbumsWithAlphaLetter())
             }
+        } else {
+            debounceJob?.cancel()
+            debounceJob = viewModelScope.launch {
+                delay(500)
+
+                val filteredAlbums = allAlbums.filter {
+                    it.name.lowercase().startsWith(filterValue.lowercase()) || it.presentableArtist.lowercase().startsWith(filterValue.lowercase())
+                }.map { album ->
+                    album.copy(isSelected = selectedAlbums.contains(album))
+                }
+
+                setState {
+                    copy(displayedAlbums = filteredAlbums.decorateAlbumsWithAlphaLetter())
+                }
+            }
+
+            debounceJob?.start()
         }
     }
 }

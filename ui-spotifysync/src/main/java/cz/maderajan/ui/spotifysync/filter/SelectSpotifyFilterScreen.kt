@@ -1,4 +1,4 @@
-package cz.maderajan.ui.spotifysync.filtr
+package cz.maderajan.ui.spotifysync.filter
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -40,6 +40,7 @@ fun SelectSpotifyFilterScreen(
                 FilterField(
                     filterValue = currentState.filterValue,
                     onBackButtonClicked = {
+                        viewModel.send(SelectSpotifyAlbumsActions.ClearFilter)
                         navController.navigateUp()
                     },
                     onFilterValueChange = { filterValue ->
@@ -49,7 +50,7 @@ fun SelectSpotifyFilterScreen(
             }
 
             SelectSpotifyList(
-                items = currentState.albums,
+                items = currentState.displayedAlbums,
                 onAlbumSelect = { album ->
                     viewModel.send(SelectSpotifyAlbumsActions.AlbumClicked(album))
                 }
@@ -84,6 +85,9 @@ fun FilterField(
         placeholder = {
             Text(
                 text = stringResource(id = R.string.spotify_filter_placeholder),
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .wrapContentHeight(),
                 style = MmmlTypography.body2.copy(
                     color = TextColorLight.copy(
                         alpha = 0.7f
@@ -91,14 +95,16 @@ fun FilterField(
                 )
             )
         },
-        onValueChange = onFilterValueChange,
+        onValueChange = {
+            onFilterValueChange(it)
+        },
         colors = TextFieldDefaults.textFieldColors(
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent
         ),
         modifier = modifier
-            .height(54.dp)
+            .height(56.dp)
             .fillMaxWidth()
             .background(
                 color = PrimaryColor600,

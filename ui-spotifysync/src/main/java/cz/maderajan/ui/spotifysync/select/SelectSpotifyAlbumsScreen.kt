@@ -208,7 +208,7 @@ fun SelectSpotifyAlbumsScreen(viewModel: SelectSpotifyAlbumsViewModel) {
                     }
             )
 
-            if (currentState.albums.isEmpty()) {
+            if (currentState.displayedAlbums.isEmpty()) {
                 CircularProgressIndicator(
                     color = SecondaryColo900,
                     modifier = Modifier.constrainAs(loading) {
@@ -238,7 +238,7 @@ fun SelectSpotifyAlbumsScreen(viewModel: SelectSpotifyAlbumsViewModel) {
                 }
 
                 SelectSpotifyList(
-                    items = currentState.albums,
+                    items = currentState.displayedAlbums,
                     onAlbumSelect = { album ->
                         viewModel.send(SelectSpotifyAlbumsActions.AlbumClicked(album))
                     },
