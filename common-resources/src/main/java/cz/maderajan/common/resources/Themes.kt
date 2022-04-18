@@ -14,17 +14,19 @@ private val LightThemeColors = lightColors(
     secondary = PrimaryColor700,
     secondaryVariant = PrimaryColor900,
     onSecondary = Color.White,
-    onBackground = Color.Black,
+    surface = Color.Black,
+    background = Color.Black,
 )
 
 private val DarkThemeColors = darkColors(
+    surface = Color.Black,
     primary = PrimaryColor700,
     primaryVariant = PrimaryColor900,
     onPrimary = Color.White,
     secondary = PrimaryColor700,
     secondaryVariant = PrimaryColor900,
     onSecondary = Color.White,
-    onBackground = Color.Black,
+    background = Color.Black,
 )
 
 @Composable

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material.Surface
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -11,6 +12,7 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.spotify.sdk.android.auth.AuthorizationResponse
 import cz.maderajan.common.resources.MmlTheme
+import cz.maderajan.common.resources.PrimaryColor900
 import cz.maderajan.common.ui.appstart.AppStartScreen
 import cz.maderajan.navigation.NavigationFlowBus
 import cz.maderajan.navigation.direction.AlbumsDirection
@@ -23,10 +25,8 @@ import cz.maderajan.ui.spotifysync.intro.viewmodel.IntroSpotifySyncViewModel
 import cz.maderajan.ui.spotifysync.select.SelectSpotifyAlbumsScreen
 import cz.maderajan.uialbums.ui.AlbumListScreen
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.consumeAsFlow
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,58 +37,66 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setContent {
+            val navController = rememberNavController()
+
             MmlTheme {
-                val navController = rememberNavController()
-
-                lifecycleScope.launchWhenStarted {
-                    navigationFlowBus.navigationFlow.consumeAsFlow().collect { navigationFlow ->
-                        navController.navigate(navigationFlow.destination)
-                    }
-                }
-
-                NavHost(
-                    navController = navController,
-                    startDestination = AppStartDirection.root.destination
-                ) {
-
-                    // APP START GRAPH
-                    navigation(
-                        route = AppStartDirection.root.destination,
-                        startDestination = AppStartDirection.appStart.destination
-                    ) {
-                        composable(AppStartDirection.appStart.destination) {
-                            AppStartScreen(viewModel = getViewModel())
+                Surface(color = PrimaryColor900) {
+                    lifecycleScope.launchWhenCreated {
+                        navigationFlowBus.consume().collect { navigationFlow ->
+                            navController.navigate(navigationFlow.destination) {
+                                when (navigationFlow.destination) {
+                                    AlbumsDirection.root.destination -> {
+                                        popUpTo(AppStartDirection.root.destination) { inclusive = true }
+                                    }
+                                }
+                            }
                         }
                     }
 
-                    // SPOTIFY GRAPH
-                    navigation(
-                        route = SpotifyDirection.root.destination,
-                        startDestination = SpotifyDirection.intro.destination,
+                    NavHost(
+                        navController = navController,
+                        startDestination = AppStartDirection.root.destination
                     ) {
-                        composable(
-                            route = SpotifyDirection.intro.destination,
+
+                        // APP START GRAPH
+                        navigation(
+                            route = AppStartDirection.root.destination,
+                            startDestination = AppStartDirection.appStart.destination
                         ) {
-                            SpotifyIntroScreen(viewModel = getViewModel())
+                            composable(AppStartDirection.appStart.destination) {
+                                AppStartScreen(viewModel = getViewModel())
+                            }
                         }
-                        composable(SpotifyDirection.selectAlbums.destination) {
-                            SelectSpotifyAlbumsScreen(viewModel = getViewModel())
-                        }
-                        composable(SpotifyDirection.filter.destination) {
-                            SelectSpotifyFilterScreen(
-                                navController = navController,
-                                viewModel = getViewModel()
-                            )
-                        }
-                    }
 
-                    // ALBUM GRAPH
-                    navigation(
-                        route = AlbumsDirection.root.destination,
-                        startDestination = AlbumsDirection.albums.destination,
-                    ) {
-                        composable(AlbumsDirection.albums.destination) {
-                            AlbumListScreen()
+                        // SPOTIFY GRAPH
+                        navigation(
+                            route = SpotifyDirection.root.destination,
+                            startDestination = SpotifyDirection.intro.destination,
+                        ) {
+                            composable(
+                                route = SpotifyDirection.intro.destination,
+                            ) {
+                                SpotifyIntroScreen(viewModel = getViewModel())
+                            }
+                            composable(SpotifyDirection.selectAlbums.destination) {
+                                SelectSpotifyAlbumsScreen(viewModel = getViewModel())
+                            }
+                            composable(SpotifyDirection.filter.destination) {
+                                SelectSpotifyFilterScreen(
+                                    navController = navController,
+                                    viewModel = getViewModel()
+                                )
+                            }
+                        }
+
+                        // ALBUM GRAPH
+                        navigation(
+                            route = AlbumsDirection.root.destination,
+                            startDestination = AlbumsDirection.albums.destination,
+                        ) {
+                            composable(AlbumsDirection.albums.destination) {
+                                AlbumListScreen()
+                            }
                         }
                     }
                 }
