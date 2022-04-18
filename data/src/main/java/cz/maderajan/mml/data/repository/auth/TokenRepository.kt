@@ -1,4 +1,4 @@
-package cz.maderajan.mml.data
+package cz.maderajan.mml.data.repository.auth
 
 import cz.maderajan.mml.data.datastore.PreferencesDataStore
 

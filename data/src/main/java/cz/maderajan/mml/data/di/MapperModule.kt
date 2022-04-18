@@ -1,9 +1,9 @@
 package cz.maderajan.mml.data.di
 
 import cz.maderajan.mml.data.data.mapper.DataMapperFacade
-import cz.maderajan.mml.data.data.mapper.album.AlbumEntityToAlbumMapper
 import cz.maderajan.mml.data.data.mapper.album.AlbumResponseToAlbumMapper
 import cz.maderajan.mml.data.data.mapper.album.AlbumToAlbumEntityMapper
+import cz.maderajan.mml.data.data.mapper.album.AlbumWithArtistEntityDtoToAlbumMapper
 import cz.maderajan.mml.data.data.mapper.artist.ArtistEntityToArtistMapper
 import cz.maderajan.mml.data.data.mapper.artist.ArtistResponseToArtistMapper
 import cz.maderajan.mml.data.data.mapper.artist.ArtistToArtistEntityMapper
@@ -20,7 +20,7 @@ object MapperModule {
         // ALBUM
         factory { AlbumResponseToAlbumMapper(get()) }
         factory { AlbumToAlbumEntityMapper() }
-        factory { AlbumEntityToAlbumMapper(get()) }
+        factory { AlbumWithArtistEntityDtoToAlbumMapper(get()) }
 
         factory { DataMapperFacade(get(), get(), get(), get(), get(), get()) }
     }

@@ -1,8 +1,9 @@
 package cz.maderajan.ui.spotifysync.usecase
 
-import cz.maderajan.mml.data.TokenRepository
 import cz.maderajan.mml.data.data.Album
-import cz.maderajan.mml.data.spotify.SpotifyRepository
+import cz.maderajan.mml.data.repository.album.AlbumRepository
+import cz.maderajan.mml.data.repository.auth.TokenRepository
+import cz.maderajan.mml.data.repository.spotify.SpotifyRepository
 import cz.maderajan.ui.spotifysync.data.select.ISelectableAlbum
 import cz.maderajan.ui.spotifysync.data.select.SelectableAlbum
 import kotlinx.coroutines.flow.Flow
@@ -12,6 +13,7 @@ import kotlinx.coroutines.flow.singleOrNull
 
 class SyncSpotifyAlbumsUseCase(
     private val spotifyRepository: SpotifyRepository,
+    private val albumRepository: AlbumRepository,
     private val tokenRepository: TokenRepository
 ) {
 
@@ -50,7 +52,7 @@ class SyncSpotifyAlbumsUseCase(
             .filter { it is SelectableAlbum && it.isSelected }
             .map { it as Album }
 
-        return spotifyRepository.saveAlbums(albums)
+        return albumRepository.saveAlbums(albums)
             .onCompletion {
                 spotifyRepository.firstSyncComplete()
             }

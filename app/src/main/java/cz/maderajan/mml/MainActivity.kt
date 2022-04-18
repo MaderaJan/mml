@@ -23,7 +23,7 @@ import cz.maderajan.ui.spotifysync.intro.SpotifyIntroScreen
 import cz.maderajan.ui.spotifysync.intro.viewmodel.IntroSpotifyAction
 import cz.maderajan.ui.spotifysync.intro.viewmodel.IntroSpotifySyncViewModel
 import cz.maderajan.ui.spotifysync.select.SelectSpotifyAlbumsScreen
-import cz.maderajan.uialbums.ui.AlbumListScreen
+import cz.maderajan.uialbums.ui.list.AlbumListScreen
 import kotlinx.coroutines.flow.collect
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
@@ -95,7 +95,9 @@ class MainActivity : AppCompatActivity() {
                             startDestination = AlbumsDirection.albums.destination,
                         ) {
                             composable(AlbumsDirection.albums.destination) {
-                                AlbumListScreen()
+                                AlbumListScreen(
+                                    viewModel = getViewModel()
+                                )
                             }
                         }
                     }

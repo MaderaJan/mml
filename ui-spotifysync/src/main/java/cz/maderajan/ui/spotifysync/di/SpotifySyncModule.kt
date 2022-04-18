@@ -16,7 +16,7 @@ object SpotifySyncModule : KoinModule {
         viewModel { SelectSpotifyAlbumsViewModel(get(), get()) }
 
         factory { IntroSpotifyUseCase(get(), get()) }
-        factory { SyncSpotifyAlbumsUseCase(get(), get()) }
+        factory { SyncSpotifyAlbumsUseCase(get(), get(), get()) }
     }
 
     override fun startModule() {
