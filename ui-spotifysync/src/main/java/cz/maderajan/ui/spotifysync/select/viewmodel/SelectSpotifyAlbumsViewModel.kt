@@ -21,7 +21,7 @@ class SelectSpotifyAlbumsViewModel(
     private val navigationFlowBus: NavigationFlowBus,
     private val syncSpotifyAlbumsUseCase: SyncSpotifyAlbumsUseCase
 ) : BaseMviViewModel<SelectSpotifyAlbumsViewState, SelectSpotifyAlbumsActions>(
-    SelectSpotifyAlbumsViewState(emptyList(), emptyList(), emptyList())
+    SelectSpotifyAlbumsViewState(emptyList(), emptyList())
 ) {
 
     private var debounceJob: Job? = null
@@ -51,40 +51,27 @@ class SelectSpotifyAlbumsViewModel(
                     }
                     is SelectSpotifyAlbumsActions.AlbumClicked -> {
                         val selectedAlbum = action.album
-                        val updatedAlbums = state.value.displayedAlbums.toMutableList()
-                        val selectedAlbums = state.value.selectedAlbums.toMutableList()
+                        val updatedAlbums = state.value.allAlbums.toMutableList()
 
                         val index = updatedAlbums.indexOf(selectedAlbum)
                         if (index != -1) {
                             updatedAlbums[index] = selectedAlbum.copy(isSelected = !selectedAlbum.isSelected)
-
-                            if (selectedAlbum.isSelected) {
-                                selectedAlbums.remove(selectedAlbum)
-                            } else {
-                                selectedAlbums.add(selectedAlbum)
-                            }
                         }
 
+                        val displayedAlbums = updatedAlbums.filterAlbums(state.value.filterValue).decorateAlbumsWithAlphaLetter()
+
                         setState {
-                            copy(displayedAlbums = updatedAlbums, selectedAlbums = selectedAlbums)
+                            copy(displayedAlbums = displayedAlbums, allAlbums = updatedAlbums)
                         }
                     }
                     SelectSpotifyAlbumsActions.SelectAllAlbums -> {
-                        val updatedAlbums = state.value.displayedAlbums.map {
-                            if (it is SelectableAlbum) it.copy(isSelected = true) else it
+                        val updatedAlbums = state.value.allAlbums.map {
+                            it.copy(isSelected = true)
                         }
-                        setState { copy(displayedAlbums = updatedAlbums, showBanner = false) }
-                    }
-                    SelectSpotifyAlbumsActions.SaveSelectedAlbums -> {
-                        syncSpotifyAlbumsUseCase.saveSelectedAlbums(state.value.displayedAlbums)
-                            .flowOn(Dispatchers.IO)
-                            .catch {
-                                flowOf(Unit)
-                                sendEffect(UiEffect.ErrorUiEffect(R.string.general_error))
-                            }
-                            .collect {
-                                navigationFlowBus.send(AlbumsDirection.root)
-                            }
+
+                        setState {
+                            copy(displayedAlbums = updatedAlbums.decorateAlbumsWithAlphaLetter(), allAlbums = updatedAlbums, showBanner = false)
+                        }
                     }
                     SelectSpotifyAlbumsActions.HideBanner -> {
                         setState { copy(showBanner = false) }
@@ -97,6 +84,17 @@ class SelectSpotifyAlbumsViewModel(
                     }
                     is SelectSpotifyAlbumsActions.FilterValueChanged -> {
                         filterValueChanged(action.value)
+                    }
+                    SelectSpotifyAlbumsActions.SaveSelectedAlbums -> {
+                        syncSpotifyAlbumsUseCase.saveSelectedAlbums(state.value.allAlbums)
+                            .flowOn(Dispatchers.IO)
+                            .catch {
+                                flowOf(Unit)
+                                sendEffect(UiEffect.ErrorUiEffect(R.string.general_error))
+                            }
+                            .collect {
+                                navigationFlowBus.send(AlbumsDirection.root)
+                            }
                     }
                 }
             }
@@ -136,26 +134,17 @@ class SelectSpotifyAlbumsViewModel(
 
     private fun filerAlbumsWithDebounce(filterValue: String) {
         val allAlbums = state.value.allAlbums
-        val selectedAlbums = state.value.selectedAlbums
 
         if (filterValue.isEmpty()) {
-            val filteredAlbums = allAlbums.map { album ->
-                album.copy(isSelected = selectedAlbums.contains(album))
-            }
-
             setState {
-                copy(displayedAlbums = filteredAlbums.decorateAlbumsWithAlphaLetter())
+                copy(displayedAlbums = allAlbums.decorateAlbumsWithAlphaLetter())
             }
         } else {
             debounceJob?.cancel()
             debounceJob = viewModelScope.launch {
                 delay(500)
 
-                val filteredAlbums = allAlbums.filter {
-                    it.name.lowercase().startsWith(filterValue.lowercase()) || it.presentableArtist.lowercase().startsWith(filterValue.lowercase())
-                }.map { album ->
-                    album.copy(isSelected = selectedAlbums.contains(album))
-                }
+                val filteredAlbums = allAlbums.filterAlbums(filterValue)
 
                 setState {
                     copy(displayedAlbums = filteredAlbums.decorateAlbumsWithAlphaLetter())
@@ -165,4 +154,9 @@ class SelectSpotifyAlbumsViewModel(
             debounceJob?.start()
         }
     }
+
+    private fun List<SelectableAlbum>.filterAlbums(filterValue: String): List<SelectableAlbum> =
+        this.filter {
+            it.name.lowercase().startsWith(filterValue.lowercase()) || it.presentableArtist.lowercase().startsWith(filterValue.lowercase())
+        }
 }

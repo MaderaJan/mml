@@ -4,7 +4,6 @@ import cz.maderajan.mml.data.data.Album
 import cz.maderajan.mml.data.repository.album.AlbumRepository
 import cz.maderajan.mml.data.repository.auth.TokenRepository
 import cz.maderajan.mml.data.repository.spotify.SpotifyRepository
-import cz.maderajan.ui.spotifysync.data.select.ISelectableAlbum
 import cz.maderajan.ui.spotifysync.data.select.SelectableAlbum
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -47,10 +46,8 @@ class SyncSpotifyAlbumsUseCase(
             }
     }
 
-    suspend fun saveSelectedAlbums(selectableAlbums: List<ISelectableAlbum>): Flow<Unit> {
-        val albums = selectableAlbums
-            .filter { it is SelectableAlbum && it.isSelected }
-            .map { it as Album }
+    suspend fun saveSelectedAlbums(selectableAlbums: List<SelectableAlbum>): Flow<Unit> {
+        val albums = selectableAlbums.filter(SelectableAlbum::isSelected)
 
         return albumRepository.saveAlbums(albums)
             .onCompletion {
