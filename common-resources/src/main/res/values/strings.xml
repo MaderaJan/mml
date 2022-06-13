@@ -5,6 +5,7 @@
     <string name="general_error">Unexpected error</string>
 
     <string name="general_save">Save</string>
+    <string name="general_done">Done</string>
     <string name="general_try_again">Try again</string>
     <string name="general_error_something_went_wrong">Something went wrong</string>
 
@@ -20,6 +21,8 @@
     <string name="spotify_select_banner_positive">Select all</string>
     <string name="spotify_select_banner_negative">Dismiss</string>
     <string name="spotify_select_banner_description">Do you want to select all albums at once?</string>
+
+    <string name="spotify_filter_placeholder">Search in albums</string>
 
     <string name="home_item_albums">Albums</string>
 

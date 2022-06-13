@@ -15,7 +15,6 @@ object CommonUiModule : KoinModule {
 
         factory { AppStartUseCase(get()) }
 
-//        single { Navigator() } // TODO REMOVE
         single { NavigationFlowBus() }
     }
 

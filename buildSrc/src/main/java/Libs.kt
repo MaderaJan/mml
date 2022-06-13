@@ -46,7 +46,7 @@ object Libs : Plugin<Project> {
     }
 
     object Spotify {
-        const val auth = "com.spotify.android:auth:1.2.6"
+        const val auth = "com.spotify.android:auth:2.0.2"
         const val browser = "androidx.browser:browser:1.4.0"
     }
 

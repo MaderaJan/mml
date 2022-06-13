@@ -1,7 +1,7 @@
 package cz.maderajan.ui.spotifysync.usecase
 
-import cz.maderajan.mml.data.TokenRepository
-import cz.maderajan.mml.data.spotify.SpotifyRepository
+import cz.maderajan.mml.data.repository.auth.TokenRepository
+import cz.maderajan.mml.data.repository.spotify.SpotifyRepository
 
 class IntroSpotifyUseCase(private val tokenRepository: TokenRepository, private val spotifyRepository: SpotifyRepository) {
 

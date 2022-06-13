@@ -5,6 +5,7 @@ import cz.maderajan.common.ui.di.CommonUiModule
 import cz.maderajan.mml.commonutil.KoinModule
 import cz.maderajan.mml.data.di.DataModule
 import cz.maderajan.ui.spotifysync.di.SpotifySyncModule
+import cz.maderajan.uialbums.di.AlbumModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin
@@ -16,7 +17,8 @@ object KoinModuleCompositor {
         get() = listOf(
             SpotifySyncModule,
             DataModule,
-            CommonUiModule
+            CommonUiModule,
+            AlbumModule
         )
 
     fun loadKoinModules(context: Context) {

@@ -9,7 +9,7 @@ data class SelectableAlbum(
     override val image: String?,
     override val artists: List<Artist>,
     override val genres: List<String>,
-    val isSelected: Boolean
+    val isSelected: Boolean,
 ) : Album(id, name, image, artists, genres), ISelectableAlbum {
 
     val presentableArtist: String = artists.joinToString(", ") { it.name }

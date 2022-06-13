@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.flowOf
+import timber.log.Timber
 
 class AppStartViewModel(
     private val navigator: NavigationFlowBus,
@@ -22,12 +23,15 @@ class AppStartViewModel(
     override suspend fun handleActions() {
         actions.consumeAsFlow()
             .collect { action ->
+                Timber.d(action.toString())
+
                 when (action) {
                     AppStartAction.Start -> {
                         appStartUseCase.isFirstSyncComplete()
                             .catch {
                                 flowOf(Unit)
                             }.collect { isFirstSyncComplete ->
+                                Timber.d("SSDSDCSC")
                                 val navCommand = if (isFirstSyncComplete) {
                                     AlbumsDirection.root
                                 } else {

@@ -11,16 +11,16 @@ object SpotifyDirection {
 
     val intro = object : NavigationCommand {
 
-        override val destination: String = "intro"
+        override val destination: String = "spotify.intro"
     }
 
     val selectAlbums = object : NavigationCommand {
 
-        override val destination: String = "select.albums"
+        override val destination: String = "spotify.select.albums"
     }
 
-    val albums = object : NavigationCommand {
+    val filter = object : NavigationCommand {
 
-        override val destination: String = "albums"
+        override val destination: String = "spotify.filter"
     }
 }
